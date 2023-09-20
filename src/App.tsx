@@ -1,12 +1,15 @@
 import React from 'react';
 import './App.css';
+import { Navbar } from './layout/NavbarAndFooter/Navbar';
+import { Footer } from './layout/NavbarAndFooter/Footer';
+import { Sidebar } from './layout/Sidebar/Sidebar';
 
-function App() {
+export const App = () => {
   return (
-    <div className="App">
-      <h1>Project is ready</h1>
+    <div>
+      <Navbar />
+      <Sidebar/>
+      <Footer />
     </div>
   );
 }
-
-export default App;

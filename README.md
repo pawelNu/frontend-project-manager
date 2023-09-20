@@ -15,7 +15,7 @@
 
 Backend: https://github.com/pawelNu/backend-project-manager
 
-Frontend: TODO add link to github
+Frontend: https://github.com/pawelNu/frontend-project-manager
 
 ## Features
 
