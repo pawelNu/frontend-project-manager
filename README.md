@@ -1,46 +1,86 @@
-# Getting Started with Create React App
+# Project manager spring boot react
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- [Project manager spring boot react](#project-manager-spring-boot-react)
+  - [Github repositories](#github-repositories)
+  - [Features](#features)
+  - [Application diagram sequence](#application-diagram-sequence)
+  - [Application entity diagram](#application-entity-diagram)
+  - [Create Spring Boot project](#create-spring-boot-project)
+    - [Configure Swagger](#configure-swagger)
+    - [Random data generator Mockaroo](#random-data-generator-mockaroo)
+  - [Install TypeScript](#install-typescript)
+  - [Create React application](#create-react-application)
 
-## Available Scripts
+## Github repositories
 
-In the project directory, you can run:
+Backend: https://github.com/pawelNu/backend-project-manager
 
-### `npm start`
+Frontend: TODO add link to github
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+TODO add information about application features
 
-### `npm test`
+## Application diagram sequence
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+[Application diagram sequence](diagram_sequences.md#application-diagram-sequence)
 
-### `npm run build`
+## Application entity diagram
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[Application entity diagram](entities_diagram.md#application-entity-diagram)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Create Spring Boot project
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. https://start.spring.io/
+2. Project: Maven
+3. Language: Java
+4. Spring Boot: 3.1.3
+5. Project Metadata
+6. Group: com.pawelnu
+7. Artifact: backend-project-manager
+8. Name: backend-project-manager
+9.  Description: Project Manager - backend
+10. Package name: com.pawelnu.backend-project-manager
+11. Packaging: Jar
+12. Java: 17
+13. Dependencies: 
+    - Spring Web WEB
+    - Spring Data JPA SQL
+    - H2 Database SQL
+    - Spring Boot DevTools DEVELOPER TOOLS
+    - Lombok DEVELOPER TOOLS
 
-### `npm run eject`
+### Configure Swagger
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
+2. Add to `pom.xml`
+3. In controller class add `@Tag`
+4. After running application, go to: http://localhost:8080/swagger-ui/index.html
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Random data generator Mockaroo
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+https://www.mockaroo.com/
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Install TypeScript
 
-## Learn More
+1. Install globally `npm install -g typescript`
+2. Check version `tsc --version`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Create React application
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. In terminal 
+    ```shell
+    npx create-react-app frontend-project-manager --template typescript
+    ```
+2. Add Bootstrap: https://getbootstrap.com/docs/5.2/getting-started/introduction/#quick-start
+3. file `public/index.html`
+   Add CSS
+    ```html
+        <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    ```
+    Add JavaScript
+    ```html
+     <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    ```
