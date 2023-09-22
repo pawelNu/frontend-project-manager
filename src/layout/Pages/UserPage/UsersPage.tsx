@@ -1,4 +1,4 @@
-import { userData } from '../../data/userData'
+import { userData } from '../../../data/userData'
 
 // TODO display all users in table
 // TODO display user searched by name

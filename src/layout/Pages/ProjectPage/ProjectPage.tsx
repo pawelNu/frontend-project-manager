@@ -1,4 +1,4 @@
-import { projectData } from '../../data/projectData'
+import { projectData } from '../../../data/projectData'
 
 // TODO display all projects in table
 // TODO display project searched by name
