@@ -1,4 +1,7 @@
-import { userData } from '../../../data/userData'
+// import { userData } from '../../../data/userData'
+import { User } from '../../../interface/User'
+import baseUrl from '../../../config/config'
+import { useEffect, useState } from 'react';
 
 // TODO display user searched by name
 // TODO add new user
@@ -6,6 +9,29 @@ import { userData } from '../../../data/userData'
 // TODO delete user
 
 export const UsersPage = () => {
+
+    const [users, setUsers] = useState<User[]>([])
+
+    useEffect (() => {
+        const fetchUsersData = async () => {
+
+            const usersUrl: string = `${baseUrl}/users`
+
+            const responseUsers = await fetch(usersUrl)
+
+            if (!responseUsers.ok) {
+                throw new Error('Something went wrong!');
+            }
+
+            const responseJsonUsers = await responseUsers.json();
+
+            const usersData: User[] = responseJsonUsers
+
+            setUsers(usersData)
+
+        }
+        fetchUsersData()
+    }, [])
 
     return (
         <div>
@@ -25,8 +51,8 @@ export const UsersPage = () => {
                         </tr>
                     </thead>
                     <tbody className="table-group-divider">
-                        {userData.map((user, index) => (
-                            <tr>
+                        {users.map((user, index) => (
+                            <tr key={user.id}>
                                 <th scope="row">{index + 1}</th>
                                 <td>{user.firstName} {user.lastName}</td>
                                 <td>{user.email}</td>

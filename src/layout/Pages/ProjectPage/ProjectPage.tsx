@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { projectData } from '../../../data/projectData'
+// import { projectData } from '../../../data/projectData'
 import { Project } from '../../../interface/Project';
+import baseUrl from '../../../config/config'
 
 // TODO display project searched by name
 // TODO add new project
@@ -9,9 +10,28 @@ import { Project } from '../../../interface/Project';
 
 export const ProjectPage = () => {
 
-    // const [projects, setProjects] = useState<Project[]>([])
+    const [projects, setProjects] = useState<Project[]>([])
 
-    // useEffect
+    useEffect (() => {
+        const fetchProjectsData = async () => {
+
+            const projectsUrl: string = `${baseUrl}/projects`
+
+            const responseProjects = await fetch(projectsUrl)
+
+            if (!responseProjects.ok) {
+                throw new Error('Something went wrong!');
+            }
+
+            const responseJsonProjects = await responseProjects.json();
+
+            const projectsData: Project[] = responseJsonProjects
+
+            setProjects(projectsData)
+
+        }
+        fetchProjectsData()
+    }, [])
 
     return (
         <div>
@@ -31,8 +51,8 @@ export const ProjectPage = () => {
                         </tr>
                     </thead>
                     <tbody className="table-group-divider">
-                        {projectData.map((project, index) => (
-                            <tr>
+                        {projects.map((project, index) => (
+                            <tr key={project.id}>
                                 <th scope="row">{index + 1}</th>
                                 <td>{project.name}</td>
                                 <td>
