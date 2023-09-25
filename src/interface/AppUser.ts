@@ -1,6 +1,6 @@
 import { UUID } from "crypto"
 
-export interface User {
+export interface AppUser {
     id: UUID
     firstName: string
     lastName: string

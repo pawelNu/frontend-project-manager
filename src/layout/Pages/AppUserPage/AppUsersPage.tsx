@@ -1,37 +1,60 @@
 // import { userData } from '../../../data/userData'
-import { User } from '../../../interface/User'
+import { AppUser } from '../../../interface/AppUser'
 import baseUrl from '../../../config/config'
 import { useEffect, useState } from 'react';
+import { UUID } from 'crypto';
 
 // TODO display user searched by name
 // TODO add new user
 // TODO update user
-// TODO delete user
 
-export const UsersPage = () => {
+export const AppUsersPage = () => {
 
-    const [users, setUsers] = useState<User[]>([])
+    const [appUsers, setAppUsers] = useState<AppUser[]>([])
 
-    useEffect (() => {
-        const fetchUsersData = async () => {
+    useEffect(() => {
+        const fetchAppUsersData = async () => {
 
-            const usersUrl: string = `${baseUrl}/users`
+            const appUsersUrl: string = `${baseUrl}/app-users`
 
-            const responseUsers = await fetch(usersUrl)
+            const responseAppUsers = await fetch(appUsersUrl)
 
-            if (!responseUsers.ok) {
+            if (!responseAppUsers.ok) {
                 throw new Error('Something went wrong!');
             }
 
-            const responseJsonUsers = await responseUsers.json();
+            const responseJsonAppUsers = await responseAppUsers.json();
 
-            const usersData: User[] = responseJsonUsers
+            const appUsersData: AppUser[] = responseJsonAppUsers
 
-            setUsers(usersData)
+            setAppUsers(appUsersData)
 
         }
-        fetchUsersData()
+        fetchAppUsersData()
     }, [])
+
+    async function deleteAppUser(id: UUID) {
+        try {
+            const url = `${baseUrl}/app-users/${id}`
+
+            const response = await fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Something went wrong while deleting the user.');
+            }
+
+            // delete project from local state table
+            setAppUsers((prevAppUsers) => prevAppUsers.filter((user) => user.id !== id));
+        } catch (error) {
+            console.error('Error deleting user:', error);
+        }
+
+    }
 
     return (
         <div>
@@ -51,7 +74,7 @@ export const UsersPage = () => {
                         </tr>
                     </thead>
                     <tbody className="table-group-divider">
-                        {users.map((user, index) => (
+                        {appUsers.map((user, index) => (
                             <tr key={user.id}>
                                 <th scope="row">{index + 1}</th>
                                 <td>{user.firstName} {user.lastName}</td>
@@ -63,10 +86,10 @@ export const UsersPage = () => {
                                             Action
                                         </button>
                                         <ul className="dropdown-menu">
-                                            <li><a className="dropdown-item bg-info" href="#">View</a></li>
-                                            <li><a className="dropdown-item bg-warning" href="#">Update</a></li>
+                                            <li><a className="dropdown-item bg-info" href="/#">View</a></li>
+                                            <li><a className="dropdown-item bg-warning" href="/#">Update</a></li>
                                             <li><hr className="dropdown-divider"></hr></li>
-                                            <li><a className="dropdown-item bg-danger text-white" href="#">Delete</a></li>
+                                            <li><button className="dropdown-item bg-danger text-white" onClick={() => deleteAppUser(user.id)}>Delete</button></li>
                                         </ul>
                                     </div>
                                 </td>

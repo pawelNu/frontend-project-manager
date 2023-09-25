@@ -1,6 +1,6 @@
-import { User } from "../interface/User";
+import { AppUser } from "../interface/AppUser";
 
-export const userData: User[] = [
+export const userData: AppUser[] = [
     {
         "id": "290b46de-a1d3-454e-8e34-f3ab515ef078",
         "firstName": "Bryna",

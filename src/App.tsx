@@ -4,7 +4,7 @@ import { Navbar } from './layout/NavbarAndFooter/Navbar';
 import { Footer } from './layout/NavbarAndFooter/Footer';
 import { Sidebar } from './layout/Sidebar/Sidebar';
 import { ProjectPage } from './layout/Pages/ProjectPage/ProjectPage';
-import { UsersPage } from './layout/Pages/UserPage/UsersPage';
+import { AppUsersPage } from './layout/Pages/AppUserPage/AppUsersPage';
 
 export const App = () => {
   return (
@@ -12,7 +12,7 @@ export const App = () => {
       <Navbar />
       <Sidebar/>
       <ProjectPage/>
-      <UsersPage/>
+      <AppUsersPage/>
       <Footer />
     </div>
   );

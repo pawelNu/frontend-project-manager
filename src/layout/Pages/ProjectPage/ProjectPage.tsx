@@ -2,17 +2,17 @@ import { useEffect, useState } from 'react';
 // import { projectData } from '../../../data/projectData'
 import { Project } from '../../../interface/Project';
 import baseUrl from '../../../config/config'
+import { UUID } from 'crypto';
 
 // TODO display project searched by name
 // TODO add new project
 // TODO update project
-// TODO delete project
 
 export const ProjectPage = () => {
 
     const [projects, setProjects] = useState<Project[]>([])
 
-    useEffect (() => {
+    useEffect(() => {
         const fetchProjectsData = async () => {
 
             const projectsUrl: string = `${baseUrl}/projects`
@@ -32,6 +32,29 @@ export const ProjectPage = () => {
         }
         fetchProjectsData()
     }, [])
+
+    async function deleteProject(id: UUID) {
+        try {
+            const url = `${baseUrl}/projects/${id}`
+
+            const response = await fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Something went wrong while deleting the project.');
+            }
+
+            // delete project from local state table
+            setProjects((prevProjects) => prevProjects.filter((project) => project.id !== id));
+        } catch (error) {
+            console.error('Error deleting project:', error);
+        }
+
+    }
 
     return (
         <div>
@@ -62,10 +85,10 @@ export const ProjectPage = () => {
                                             Action
                                         </button>
                                         <ul className="dropdown-menu">
-                                            <li><a className="dropdown-item bg-info" href="#">View</a></li>
-                                            <li><a className="dropdown-item bg-warning" href="#">Update</a></li>
+                                            <li><a className="dropdown-item bg-info" href="/#">View</a></li>
+                                            <li><a className="dropdown-item bg-warning" href="/#">Update</a></li>
                                             <li><hr className="dropdown-divider"></hr></li>
-                                            <li><a className="dropdown-item bg-danger text-white" href="#">Delete</a></li>
+                                            <li><button className="dropdown-item bg-danger text-white" onClick={() => deleteProject(project.id)}>Delete</button></li>
                                         </ul>
                                     </div>
                                 </td>
