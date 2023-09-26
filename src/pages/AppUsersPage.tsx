@@ -1,40 +1,40 @@
+import { AppUser } from '../interface/AppUser'
+import baseUrl from '../config/config'
 import { useEffect, useState } from 'react';
-import { Project } from '../../interface/Project';
-import baseUrl from '../../config/config'
 import { UUID } from 'crypto';
 
-// TODO display project searched by name
-// TODO add new project
-// TODO update project
+// TODO display user searched by name
+// TODO add new user
+// TODO update user
 
-export const ProjectPage = () => {
+export const AppUsersPage = () => {
 
-    const [projects, setProjects] = useState<Project[]>([])
+    const [appUsers, setAppUsers] = useState<AppUser[]>([])
 
     useEffect(() => {
-        const fetchProjectsData = async () => {
+        const fetchAppUsersData = async () => {
 
-            const projectsUrl: string = `${baseUrl}/projects`
+            const appUsersUrl: string = `${baseUrl}/app-users`
 
-            const responseProjects = await fetch(projectsUrl)
+            const responseAppUsers = await fetch(appUsersUrl)
 
-            if (!responseProjects.ok) {
+            if (!responseAppUsers.ok) {
                 throw new Error('Something went wrong!');
             }
 
-            const responseJsonProjects = await responseProjects.json();
+            const responseJsonAppUsers = await responseAppUsers.json();
 
-            const projectsData: Project[] = responseJsonProjects
+            const appUsersData: AppUser[] = responseJsonAppUsers
 
-            setProjects(projectsData)
+            setAppUsers(appUsersData)
 
         }
-        fetchProjectsData()
+        fetchAppUsersData()
     }, [])
 
-    async function deleteProject(id: UUID) {
+    async function deleteAppUser(id: UUID) {
         try {
-            const url = `${baseUrl}/projects/${id}`
+            const url = `${baseUrl}/app-users/${id}`
 
             const response = await fetch(url, {
                 method: 'DELETE',
@@ -44,13 +44,13 @@ export const ProjectPage = () => {
             });
 
             if (!response.ok) {
-                throw new Error('Something went wrong while deleting the project.');
+                throw new Error('Something went wrong while deleting the user.');
             }
 
             // delete project from local state table
-            setProjects((prevProjects) => prevProjects.filter((project) => project.id !== id));
+            setAppUsers((prevAppUsers) => prevAppUsers.filter((user) => user.id !== id));
         } catch (error) {
-            console.error('Error deleting project:', error);
+            console.error('Error deleting user:', error);
         }
 
     }
@@ -58,25 +58,26 @@ export const ProjectPage = () => {
     return (
         <div>
             <div>
-                <h1>TODO Project Page</h1>
+                <h1>TODO User Page</h1>
             </div>
             <div className='container'>
                 {/* https://getbootstrap.com/docs/5.3/content/tables/#table-borders */}
                 {/* https://getbootstrap.com/docs/5.3/content/tables/#hoverable-rows */}
-                {/* https://getbootstrap.com/docs/5.3/content/tables/#small-tables */}
                 <table className="table table-bordered table-hover table-sm border shadow">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Project name</th>
+                            <th scope="col">User name</th>
+                            <th scope="col">Email</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody className="table-group-divider">
-                        {projects.map((project, index) => (
-                            <tr key={project.id}>
+                        {appUsers.map((user, index) => (
+                            <tr key={user.id}>
                                 <th scope="row">{index + 1}</th>
-                                <td>{project.name}</td>
+                                <td>{user.firstName} {user.lastName}</td>
+                                <td>{user.email}</td>
                                 <td>
                                     {/* https://getbootstrap.com/docs/5.3/components/dropdowns/#single-button */}
                                     <div className="dropdown">
@@ -87,7 +88,7 @@ export const ProjectPage = () => {
                                             <li><a className="dropdown-item bg-info" href="/#">View</a></li>
                                             <li><a className="dropdown-item bg-warning" href="/#">Update</a></li>
                                             <li><hr className="dropdown-divider"></hr></li>
-                                            <li><button className="dropdown-item bg-danger text-white" onClick={() => deleteProject(project.id)}>Delete</button></li>
+                                            <li><button className="dropdown-item bg-danger text-white" onClick={() => deleteAppUser(user.id)}>Delete</button></li>
                                         </ul>
                                     </div>
                                 </td>
