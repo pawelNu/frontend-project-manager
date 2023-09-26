@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { Project } from '../interface/Project';
 import baseUrl from '../config/config'
 import { UUID } from 'crypto';
+import { Link } from 'react-router-dom';
 
 // TODO display project searched by name
 // TODO add new project
-// TODO update project
 
 export const ProjectPage = () => {
 
@@ -85,7 +85,7 @@ export const ProjectPage = () => {
                                         </button>
                                         <ul className="dropdown-menu">
                                             <li><a className="dropdown-item bg-info" href="/#">View</a></li>
-                                            <li><a className="dropdown-item bg-warning" href="/#">Update</a></li>
+                                            <li><Link className="dropdown-item bg-warning" to={`/update-project/${project.id}`}>Update</Link></li>
                                             <li><hr className="dropdown-divider"></hr></li>
                                             <li><button className="dropdown-item bg-danger text-white" onClick={() => deleteProject(project.id)}>Delete</button></li>
                                         </ul>

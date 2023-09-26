@@ -28,6 +28,7 @@ export const Sidebar = () => {
                             >
                                 Projects
                             </button>
+                            {/* TODO add link to /projects page http://localhost:3000/projects */}
                             <div className="collapse show" id="projects-collapse">
                                 <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                     <li><a href="/#" className="rounded">Overview</a></li>
@@ -45,6 +46,7 @@ export const Sidebar = () => {
                             >
                                 Users
                             </button>
+                            {/* TODO add link to /users page http://localhost:3000/app-users */}
                             <div className="collapse" id="users-collapse">
                                 <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                     <li><a href="/#" className="rounded">Overview</a></li>
