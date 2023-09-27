@@ -21,9 +21,17 @@ export const UpdateProject = () => {
     }
 
     useEffect(() => {
+        const getProject = async () => {
+            try {
+                const result = await axios.get(`${baseUrl}/projects/${id}`)
+                setProject(result.data)
+            } catch (error) {
+                console.error('Error getting project: ', error);
+            }
+        }
         getProject()
     }, []) // FIXME React Hook useEffect has a missing dependency: 'getProject'. Either include it or remove the dependency array.
-
+    
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         try {
             e.preventDefault()
@@ -31,15 +39,6 @@ export const UpdateProject = () => {
             navigate("/projects")
         } catch (error) {
             console.error('Error updating project: ', error)
-        }
-    }
-
-    const getProject = async () => {
-        try {
-            const result = await axios.get(`${baseUrl}/projects/${id}`)
-            setProject(result.data)
-        } catch (error) {
-            console.error('Error getting project:', error);
         }
     }
 

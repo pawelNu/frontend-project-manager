@@ -3,6 +3,7 @@ import { Project } from '../interface/Project';
 import baseUrl from '../config/config'
 import { UUID } from 'crypto';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 // TODO display project searched by name
 // TODO add new project
@@ -12,40 +13,21 @@ export const ProjectPage = () => {
     const [projects, setProjects] = useState<Project[]>([])
 
     useEffect(() => {
-        const fetchProjectsData = async () => {
-
-            const projectsUrl: string = `${baseUrl}/projects`
-
-            const responseProjects = await fetch(projectsUrl)
-
-            if (!responseProjects.ok) {
-                throw new Error('Something went wrong!');
-            }
-
-            const responseJsonProjects = await responseProjects.json();
-
-            const projectsData: Project[] = responseJsonProjects
-
-            setProjects(projectsData)
-
-        }
-        fetchProjectsData()
+        getAllProjects()
     }, [])
 
-    async function deleteProject(id: UUID) {
+    const getAllProjects = async () => {
         try {
-            const url = `${baseUrl}/projects/${id}`
+        const result = await axios.get(`${baseUrl}/projects`)
+        setProjects(result.data)
+        } catch (error) {
+            console.error("Error getting all projects: ", error)
+        }
+    }
 
-            const response = await fetch(url, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (!response.ok) {
-                throw new Error('Something went wrong while deleting the project.');
-            }
+    const deleteProject = async (id: UUID) => {
+        try {
+            await axios.get(`${baseUrl}/projects/${id}`)
 
             // delete project from local state table
             setProjects((prevProjects) => prevProjects.filter((project) => project.id !== id));
@@ -84,7 +66,7 @@ export const ProjectPage = () => {
                                             Action
                                         </button>
                                         <ul className="dropdown-menu">
-                                            <li><a className="dropdown-item bg-info" href="/#">View</a></li>
+                                            <li><Link className="dropdown-item bg-info" to={`/view-project/${project.id}`}>View</Link></li>
                                             <li><Link className="dropdown-item bg-warning" to={`/update-project/${project.id}`}>Update</Link></li>
                                             <li><hr className="dropdown-divider"></hr></li>
                                             <li><button className="dropdown-item bg-danger text-white" onClick={() => deleteProject(project.id)}>Delete</button></li>

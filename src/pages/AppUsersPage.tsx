@@ -6,6 +6,7 @@ import { UUID } from 'crypto';
 // TODO display user searched by name
 // TODO add new user
 // TODO update user
+// TODO view user data
 
 export const AppUsersPage = () => {
 

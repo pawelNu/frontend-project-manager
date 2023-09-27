@@ -1,6 +1,8 @@
 // https://getbootstrap.com/docs/5.3/components/offcanvas/
 // https://www.cssscript.com/responsive-sidebar-bootstrap-offcanvas/ -> 2. The HTML structure for the offcanvas sidebar.
 
+import { Link } from "react-router-dom"
+
 export const Sidebar = () => {
     return (
         <div>
@@ -19,24 +21,27 @@ export const Sidebar = () => {
                 </div>
                 <div className="offcanvas-body px-0">
                     <ul className="list-unstyled ps-0">
+                    {/* https://getbootstrap.com/docs/5.2/content/reboot/#horizontal-rules */}
+                    <hr className="border border-dark my-1 opacity-100"></hr>
                         <li className="mb-1">
                             <button
                                 className="btn btn-toggle align-items-center rounded"
+                                type="button"
                                 data-bs-toggle="collapse"
                                 data-bs-target="#projects-collapse"
                                 aria-expanded="true"
                             >
                                 Projects
                             </button>
-                            {/* TODO add link to /projects page http://localhost:3000/projects */}
                             <div className="collapse show" id="projects-collapse">
+                            <hr className="border border-dark my-1 opacity-100 opacity-100"></hr>
                                 <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                    <li><a href="/#" className="rounded">Overview</a></li>
-                                    <li><a href="/#" className="rounded">Updates</a></li>
-                                    <li><a href="/#" className="rounded">Reports</a></li>
+                                    <li><Link to={`/projects`} className="btn btn-toggle align-items-center rounded ps-5">All projects</Link></li>
+                                    <li><a href="/#" className="btn btn-toggle align-items-center rounded ps-5">Empty</a></li>
                                 </ul>
                             </div>
                         </li>
+                        <hr className="border border-dark my-1 opacity-100"></hr>
                         <li className="mb-1">
                             <button
                                 className="btn btn-toggle align-items-center rounded collapsed"
@@ -46,16 +51,15 @@ export const Sidebar = () => {
                             >
                                 Users
                             </button>
-                            {/* TODO add link to /users page http://localhost:3000/app-users */}
                             <div className="collapse" id="users-collapse">
+                            <hr className="border border-dark my-1 opacity-100"></hr>
                                 <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                    <li><a href="/#" className="rounded">Overview</a></li>
-                                    <li><a href="/#" className="rounded">Weekly</a></li>
-                                    <li><a href="/#" className="rounded">Monthly</a></li>
-                                    <li><a href="/#" className="rounded">Annually</a></li>
+                                    <li><Link to={`/app-users`} className="btn btn-toggle align-items-center rounded ps-5">All users</Link></li>
+                                    <li><a href="/#" className="btn btn-toggle align-items-center rounded ps-5">Empty</a></li>
                                 </ul>
                             </div>
                         </li>
+                        <hr className="border border-dark my-1 opacity-100"></hr>
                         <li className="mb-1">
                             <button
                                 className="btn btn-toggle align-items-center rounded collapsed"
@@ -66,15 +70,16 @@ export const Sidebar = () => {
                                 Orders
                             </button>
                             <div className="collapse" id="orders-collapse">
+                            <hr className="border border-dark my-1 opacity-100"></hr>
                                 <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                    <li><a href="/#" className="rounded">New</a></li>
-                                    <li><a href="/#" className="rounded">Processed</a></li>
-                                    <li><a href="/#" className="rounded">Shipped</a></li>
-                                    <li><a href="/#" className="rounded">Returned</a></li>
+                                    <li><a href="/#" className="btn btn-toggle align-items-center rounded ps-5">New</a></li>
+                                    <li><a href="/#" className="btn btn-toggle align-items-center rounded ps-5">Processed</a></li>
+                                    <li><a href="/#" className="btn btn-toggle align-items-center rounded ps-5">Shipped</a></li>
+                                    <li><a href="/#" className="btn btn-toggle align-items-center rounded ps-5">Returned</a></li>
                                 </ul>
                             </div>
                         </li>
-                        <li className="border-top my-3"></li>
+                        <hr className="border border-dark my-1 opacity-100"></hr>
                         <li className="mb-1">
                             <button
                                 className="btn btn-toggle align-items-center rounded collapsed"
@@ -85,14 +90,16 @@ export const Sidebar = () => {
                                 Account
                             </button>
                             <div className="collapse" id="account-collapse">
+                            <hr className="border border-dark my-1 opacity-100"></hr>
                                 <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                    <li><a href="/#" className="rounded">New...</a></li>
-                                    <li><a href="/#" className="rounded">Profile</a></li>
-                                    <li><a href="/#" className="rounded">Settings</a></li>
-                                    <li><a href="/#" className="rounded">Sign out</a></li>
+                                    <li><a href="/#" className="btn btn-toggle align-items-center rounded ps-5">New...</a></li>
+                                    <li><a href="/#" className="btn btn-toggle align-items-center rounded ps-5">Profile</a></li>
+                                    <li><a href="/#" className="btn btn-toggle align-items-center rounded ps-5">Settings</a></li>
+                                    <li><a href="/#" className="btn btn-toggle align-items-center rounded ps-5">Sign out</a></li>
                                 </ul>
                             </div>
                         </li>
+                        <hr className="border border-dark my-1 opacity-100"></hr>
                     </ul>
                 </div>
             </div>
