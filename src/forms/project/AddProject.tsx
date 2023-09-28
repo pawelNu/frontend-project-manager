@@ -1,13 +1,11 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { ProjectDto } from "../../interface/Project";
 import baseUrl from "../../config/config";
 import axios from "axios";
 
-export const UpdateProject = () => {
+export const AddProject = () => {
     let navigate = useNavigate();
-
-    const { id } = useParams();
 
     const [project, setProject] = useState<ProjectDto>({
         name: "",
@@ -19,37 +17,21 @@ export const UpdateProject = () => {
         setProject({ ...project, [e.target.name]: e.target.value });
     };
 
-    useEffect(() => {
-        const getProject = async (id: string | undefined) => {
-            try {
-                const result = await axios.get(`${baseUrl}/projects/${id}`);
-                setProject(result.data);
-            } catch (error) {
-                console.error("Error getting project: ", error);
-            }
-        };
-        getProject(id);
-    }, [id]);
-
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        try {
-            e.preventDefault();
-            await axios.put(`${baseUrl}/projects/${id}`, project);
-            navigate("/projects");
-        } catch (error) {
-            console.error("Error updating project: ", error);
-        }
+        e.preventDefault();
+        await axios.post(`${baseUrl}/projects`, project);
+        navigate("/projects");
     };
 
     return (
         <div className="container">
             <div className="row">
                 <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-                    <h2 className="text-center m-4">Update Project</h2>
+                    <h2 className="text-center m-4">Add Project</h2>
                     <form onSubmit={(e) => onSubmit(e)}>
                         <div className="mb-3">
                             <label htmlFor="name" className="form-label">
-                                Name
+                                Project Name
                             </label>
                             <input
                                 type={"text"}
@@ -68,7 +50,7 @@ export const UpdateProject = () => {
                         </button>
                         <Link
                             className="btn btn-outline-danger mx-2"
-                            to="/projects"
+                            to={"/projects"}
                         >
                             Cancel
                         </Link>
