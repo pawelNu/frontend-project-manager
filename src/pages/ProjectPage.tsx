@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Project } from "../interface/Project";
 import baseUrl from "../config/config";
 import { UUID } from "crypto";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-// TODO display project searched by name search starts after a while
 // TODO add confirmation when deleting
 // TODO add message after adding project
 // TODO add message after update project
@@ -13,10 +12,6 @@ import axios from "axios";
 export const ProjectPage = () => {
     const [projects, setProjects] = useState<Project[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
-
-    useEffect(() => {
-        getAllProjects();
-    }, []);
 
     const getAllProjects = async () => {
         try {
@@ -26,6 +21,10 @@ export const ProjectPage = () => {
             console.error("Error getting all projects: ", error);
         }
     };
+
+    useEffect(() => {
+        getAllProjects();
+    }, []);
 
     const deleteProject = async (id: UUID) => {
         try {
@@ -40,7 +39,7 @@ export const ProjectPage = () => {
         }
     };
 
-    const handleSearch = async () => {
+    const handleSearch = useCallback(async () => {
         try {
             const result = await axios.get(
                 `${baseUrl}/projects/find-name-containing?searchTerm=${searchTerm}`
@@ -49,7 +48,17 @@ export const ProjectPage = () => {
         } catch (error) {
             console.error("Error searching for project name: ", error);
         }
-    };
+    }, [searchTerm]);
+
+    useEffect(() => {
+        // Start a timeout to trigger the search after a brief delay (e.g., 500 milliseconds)
+        const searchTimeout = setTimeout(() => {
+            handleSearch();
+        }, 500);
+
+        // Clear the timeout if the searchTerm changes again before the timeout completes
+        return () => clearTimeout(searchTimeout);
+    }, [searchTerm, handleSearch]); // Include searchTerm and handleSearch in the dependency array
 
     return (
         <div className="container">
