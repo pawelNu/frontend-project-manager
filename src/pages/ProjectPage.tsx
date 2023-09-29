@@ -5,10 +5,14 @@ import { UUID } from "crypto";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-// TODO display project searched by name
+// TODO display project searched by name search starts after a while
+// TODO add confirmation when deleting
+// TODO add message after adding project
+// TODO add message after update project
 
 export const ProjectPage = () => {
     const [projects, setProjects] = useState<Project[]>([]);
+    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
         getAllProjects();
@@ -36,22 +40,52 @@ export const ProjectPage = () => {
         }
     };
 
+    const handleSearch = async () => {
+        try {
+            const result = await axios.get(
+                `${baseUrl}/projects/find-name-containing?searchTerm=${searchTerm}`
+            );
+            setProjects(result.data);
+        } catch (error) {
+            console.error("Error searching for project name: ", error);
+        }
+    };
+
     return (
         <div className="container">
             <div className="border rounded p-1 mt-2 shadow">
-                <div className="d-flex justify-content-center align-items-center mt-1">
-                    <div className="border bg-info bg-opacity-10 border-info col-2">
+                <div className="d-flex justify-content-center align-items-center my-2">
+                    <div className="border shadow-sm col-2">
                         <h2 className="text-center m-1">Projects</h2>
                     </div>
                 </div>
-                <div className="container my-1">
-                    <Link
-                        type="button"
-                        className="btn btn-primary my-1"
-                        to={"/add-project"}
-                    >
-                        Add project
-                    </Link>
+                <div className="container my-2">
+                    <div className="d-flex justify-content-between align-items-center col-7">
+                        <Link
+                            type="button"
+                            className="btn btn-primary me-2"
+                            to={"/add-project"}
+                        >
+                            Add project
+                        </Link>
+                        <div className="input-group col">
+                            <input
+                                type="text"
+                                className="form-control me-2 rounded"
+                                placeholder="Search by project name"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                            <div className="input-group-append">
+                                <button
+                                    className="btn btn-primary"
+                                    onClick={handleSearch}
+                                >
+                                    Search
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div className="container">
                     {/* https://getbootstrap.com/docs/5.3/content/tables/#table-borders */}
