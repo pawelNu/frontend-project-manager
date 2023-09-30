@@ -22,13 +22,9 @@ export const ProjectPage = () => {
         }
     };
 
-    useEffect(() => {
-        getAllProjects();
-    }, []);
-
     const deleteProject = async (id: UUID) => {
         try {
-            await axios.get(`${baseUrl}/projects/${id}`);
+            await axios.delete(`${baseUrl}/projects/${id}`);
 
             // delete project from local state table
             setProjects((prevProjects) =>
@@ -51,6 +47,10 @@ export const ProjectPage = () => {
     }, [searchTerm]);
 
     useEffect(() => {
+        getAllProjects();
+    }, []);
+
+    useEffect(() => {
         // Start a timeout to trigger the search after a brief delay (e.g., 500 milliseconds)
         const searchTimeout = setTimeout(() => {
             handleSearch();
@@ -58,7 +58,7 @@ export const ProjectPage = () => {
 
         // Clear the timeout if the searchTerm changes again before the timeout completes
         return () => clearTimeout(searchTimeout);
-    }, [searchTerm, handleSearch]); // Include searchTerm and handleSearch in the dependency array
+    }, [handleSearch]); // Include searchTerm and handleSearch in the dependency array
 
     return (
         <div className="container">
