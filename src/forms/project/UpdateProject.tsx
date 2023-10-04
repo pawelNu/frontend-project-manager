@@ -13,6 +13,8 @@ export const UpdateProject = () => {
         name: "",
     });
 
+    const [error, setError] = useState<String>("");
+
     const { name } = project;
 
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,8 +38,12 @@ export const UpdateProject = () => {
             e.preventDefault();
             await axios.put(`${baseUrl}/projects/${id}`, project);
             navigate("/projects");
-        } catch (error) {
-            console.error("Error updating project: ", error);
+        } catch (error: any) {
+            if (error.response && error.response.data) {
+                setError(error.response.data.toString());
+            } else {
+                setError("An error occurred while updating the project!");
+            }
         }
     };
 
@@ -45,7 +51,7 @@ export const UpdateProject = () => {
         <div className="container">
             <div className="row">
                 <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-                    <h2 className="text-center m-4">Update Project</h2>
+                    <h2 className="text-center m-3">Update Project</h2>
                     <form onSubmit={(e) => onSubmit(e)}>
                         <div className="mb-3">
                             <label htmlFor="name" className="form-label">
@@ -59,6 +65,7 @@ export const UpdateProject = () => {
                                 value={name}
                                 onChange={(e) => onInputChange(e)}
                             />
+                            {error && <p className="text-danger">{error}</p>}
                         </div>
                         <button
                             type="submit"

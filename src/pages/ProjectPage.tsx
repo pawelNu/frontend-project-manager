@@ -12,6 +12,7 @@ import axios from "axios";
 export const ProjectPage = () => {
     const [projects, setProjects] = useState<Project[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const [previousSearchTerm, setPreviousSearchTerm] = useState("");
 
     const getAllProjects = async () => {
         try {
@@ -38,7 +39,7 @@ export const ProjectPage = () => {
     const handleSearch = useCallback(async () => {
         try {
             const result = await axios.get(
-                `${baseUrl}/projects/find-name-containing?searchTerm=${searchTerm}`
+                `${baseUrl}/projects/search-by-name?searchTerm=${searchTerm}`
             );
             setProjects(result.data);
         } catch (error) {
@@ -53,21 +54,20 @@ export const ProjectPage = () => {
     useEffect(() => {
         // Start a timeout to trigger the search after a brief delay (e.g., 500 milliseconds)
         const searchTimeout = setTimeout(() => {
-            handleSearch();
+            if (searchTerm !== previousSearchTerm) {
+                handleSearch();
+                setPreviousSearchTerm(searchTerm);
+            }
         }, 500);
 
         // Clear the timeout if the searchTerm changes again before the timeout completes
         return () => clearTimeout(searchTimeout);
-    }, [handleSearch]); // Include searchTerm and handleSearch in the dependency array
+    }, [searchTerm, previousSearchTerm, handleSearch]); // Include searchTerm and handleSearch in the dependency array
 
     return (
         <div className="container">
             <div className="border rounded p-1 mt-2 shadow">
-                <div className="d-flex justify-content-center align-items-center my-2">
-                    <div className="border shadow-sm col-2">
-                        <h2 className="text-center m-1">Projects</h2>
-                    </div>
-                </div>
+                        <h2 className="text-center m-3">Projects</h2>
                 <div className="container my-2">
                     <div className="d-flex justify-content-between align-items-center col-7">
                         <Link

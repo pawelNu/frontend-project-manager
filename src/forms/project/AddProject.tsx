@@ -11,6 +11,8 @@ export const AddProject = () => {
         name: "",
     });
 
+    const [error, setError] = useState<String>("");
+
     const { name } = project;
 
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,15 +21,24 @@ export const AddProject = () => {
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        await axios.post(`${baseUrl}/projects`, project);
-        navigate("/projects");
+
+        try {
+            await axios.post(`${baseUrl}/projects`, project);
+            navigate("/projects");
+        } catch (error: any) {
+            if (error.response && error.response.data) {
+                setError(error.response.data.toString());
+            } else {
+                setError("An error occurred while creating the project!");
+            }
+        }
     };
 
     return (
         <div className="container">
             <div className="row">
                 <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-                    <h2 className="text-center m-4">Add Project</h2>
+                    <h2 className="text-center m-3">Add Project</h2>
                     <form onSubmit={(e) => onSubmit(e)}>
                         <div className="mb-3">
                             <label htmlFor="name" className="form-label">
@@ -41,6 +52,7 @@ export const AddProject = () => {
                                 value={name}
                                 onChange={(e) => onInputChange(e)}
                             />
+                            {error && <p className="text-danger">{error}</p>}
                         </div>
                         <button
                             type="submit"
