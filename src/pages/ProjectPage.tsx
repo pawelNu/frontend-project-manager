@@ -16,8 +16,9 @@ export const ProjectPage = () => {
 
     const getAllProjects = async () => {
         try {
-            const result = await axios.get(`${baseUrl}/projects`);
-            setProjects(result.data);
+            // TODO change url to dynamically created
+            const result = await axios.get(`${baseUrl}/projects?pageNumber=0&pageSize=25`);
+            setProjects(result.data.response.content);
         } catch (error) {
             console.error("Error getting all projects: ", error);
         }
@@ -36,6 +37,7 @@ export const ProjectPage = () => {
         }
     };
 
+    // TODO update to handleSearch after adding filter row
     const handleSearch = useCallback(async () => {
         try {
             const result = await axios.get(
@@ -103,8 +105,11 @@ export const ProjectPage = () => {
                     <table className="table table-bordered table-hover table-sm border">
                         <thead>
                             <tr>
+                                {/* TODO add filter row displayed after clicking button filter */}
                                 <th scope="col">#</th>
+                                {/* TODO add sorting by clicking at column name */}
                                 <th scope="col">Project name</th>
+                                <th scope="col">Finished?</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -113,6 +118,7 @@ export const ProjectPage = () => {
                                 <tr key={project.id}>
                                     <th scope="row">{index + 1}</th>
                                     <td>{project.name}</td>
+                                    <td>{project.finished}</td>
                                     <td>
                                         {/* https://getbootstrap.com/docs/5.3/components/dropdowns/#single-button */}
                                         <div className="dropdown">

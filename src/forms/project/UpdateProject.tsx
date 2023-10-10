@@ -11,13 +11,18 @@ export const UpdateProject = () => {
 
     const [project, setProject] = useState<ProjectDto>({
         name: "",
+        finished: "",
     });
 
     const [error, setError] = useState<String>("");
 
-    const { name } = project;
+    const { name, finished } = project;
 
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setProject({ ...project, [e.target.name]: e.target.value });
+    };
+
+    const onFinishedChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setProject({ ...project, [e.target.name]: e.target.value });
     };
 
@@ -65,6 +70,25 @@ export const UpdateProject = () => {
                                 value={name}
                                 onChange={(e) => onInputChange(e)}
                             />
+                            {error && <p className="text-danger">{error}</p>}
+                            <div className="mb-3">
+                                <label
+                                    htmlFor="finished"
+                                    className="form-label"
+                                >
+                                    Finished?
+                                </label>
+                                {/* TODO add bootstrap css to options list */}
+                                <select
+                                    className="form-select"
+                                    name="finished"
+                                    value={finished}
+                                    onChange={(e) => onFinishedChange(e)}
+                                >
+                                    <option value="YES">YES</option>
+                                    <option value="NO">NO</option>
+                                </select>
+                            </div>
                             {error && <p className="text-danger">{error}</p>}
                         </div>
                         <button

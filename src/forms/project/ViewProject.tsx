@@ -8,6 +8,7 @@ export const ViewProject = () => {
     const [project, setProject] = useState<Project>({
         id: "string-string-string-string-string", // this solves the problem with: Type '""' is not assignable to type '`${string}-${string}-${string}-${string}-${string}`'.
         name: "",
+        finished: ""
     });
 
     const { id } = useParams();
@@ -38,6 +39,10 @@ export const ViewProject = () => {
                                 <li className="list-group-item">
                                     <b>Name: </b>
                                     {project.name}
+                                </li>
+                                <li className="list-group-item">
+                                    <b>Finished?: </b>
+                                    {project.finished}
                                 </li>
                             </ul>
                         </div>

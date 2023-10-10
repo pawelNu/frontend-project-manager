@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ProjectDto } from "../../interface/Project";
+import { AddProjectDto } from "../../interface/Project";
 import baseUrl from "../../config/config";
 import axios from "axios";
 
 export const AddProject = () => {
     let navigate = useNavigate();
 
-    const [project, setProject] = useState<ProjectDto>({
-        name: "",
+    const [project, setProject] = useState<AddProjectDto>({
+        name: ""
     });
 
     const [error, setError] = useState<String>("");
