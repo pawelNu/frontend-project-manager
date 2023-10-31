@@ -1,46 +1,36 @@
-# Getting Started with Create React App
+# Project manager spring boot react
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- [Project manager spring boot react](#project-manager-spring-boot-react)
+  - [Github repositories](#github-repositories)
+  - [Install TypeScript](#install-typescript)
+  - [Create React application](#create-react-application)
 
-## Available Scripts
+## Github repositories
 
-In the project directory, you can run:
+Backend: https://github.com/pawelNu/backend-project-manager
 
-### `npm start`
+Frontend: https://github.com/pawelNu/frontend-project-manager
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Install TypeScript
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. Install globally `npm install -g typescript`
+2. Check version `tsc --version`
 
-### `npm test`
+## Create React application
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. In terminal 
+    ```shell
+    npx create-react-app frontend-project-manager --template typescript
+    ```
+2. Add Bootstrap: https://getbootstrap.com/docs/5.2/getting-started/introduction/#quick-start
+3. file `public/index.html`
+   Add CSS
+    ```html
+        <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    ```
+    Add JavaScript
+    ```html
+     <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    ```
