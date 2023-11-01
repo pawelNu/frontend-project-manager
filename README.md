@@ -2,6 +2,7 @@
 
 - [Project manager spring boot react](#project-manager-spring-boot-react)
   - [Github repositories](#github-repositories)
+  - [Application features](#application-features)
   - [Install TypeScript](#install-typescript)
   - [Create React application](#create-react-application)
 
@@ -10,6 +11,43 @@
 Backend: https://github.com/pawelNu/backend-project-manager
 
 Frontend: https://github.com/pawelNu/frontend-project-manager
+
+## Application features
+
+1. **Project Management:**
+
+    - [ ] A list of all projects.
+    - [ ] Creating new projects.
+    - [ ] Editing and deleting existing projects.
+    - [ ] Deleting existing projects.
+    - [ ] Project details, including descriptions, deadlines, priorities, etc.
+
+2. **Issue Management:**
+
+    - [ ] A list of all issues within a project.
+    - [ ] Creating new issues.
+    - [ ] Assigning issues to projects.
+    - [ ] Adding history to issues (e.g., change descriptions and updates).
+    - [ ] Assigning tasks to issues.
+    - [ ] Assigning parent issues (issues to which a given issue is linked).
+
+3. **Task Management:**
+
+    - [ ] A list of all tasks within a project.
+    - [ ] Creating new tasks.
+    - [ ] Assigning tasks to issues or projects.
+    - [ ] Monitoring task progress.
+    - [ ] Tracking work hours for tasks.
+
+4. **User Management:**
+
+    - [ ] A list of all application users.
+    - [ ] Creating new users.
+    - [ ] Assigning users to issues and tasks.
+
+5. **Search and Filtering:**
+
+    - [ ] The ability to search and filter projects, issues, tasks, and users.
 
 ## Install TypeScript
 
