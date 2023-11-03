@@ -35,9 +35,9 @@ Frontend: https://github.com/pawelNu/frontend-project-manager
 
     - [ ] A list of all tasks within a project.
     - [ ] Creating new tasks.
-    - [ ] Assigning tasks to issues or projects.
+    - [ ] Assigning tasks to issues.
+    - [ ] Assigning tasks to projects.
     - [ ] Monitoring task progress.
-    - [ ] Tracking work hours for tasks.
 
 4. **User Management:**
 
