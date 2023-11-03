@@ -1,10 +1,11 @@
 # Project manager spring boot react
 
-- [Project manager spring boot react](#project-manager-spring-boot-react)
-  - [Github repositories](#github-repositories)
-  - [Application features](#application-features)
-  - [Install TypeScript](#install-typescript)
-  - [Create React application](#create-react-application)
+-   [Project manager spring boot react](#project-manager-spring-boot-react)
+    -   [Github repositories](#github-repositories)
+    -   [Application features](#application-features)
+    -   [Install TypeScript](#install-typescript)
+    -   [Create React application](#create-react-application)
+    -   [Commit prefixes:](#commit-prefixes)
 
 ## Github repositories
 
@@ -35,9 +36,9 @@ Frontend: https://github.com/pawelNu/frontend-project-manager
 
     - [ ] A list of all tasks within a project.
     - [ ] Creating new tasks.
-    - [ ] Assigning tasks to issues or projects.
+    - [ ] Assigning tasks to issues.
+    - [ ] Assigning tasks to projects.
     - [ ] Monitoring task progress.
-    - [ ] Tracking work hours for tasks.
 
 4. **User Management:**
 
@@ -56,7 +57,7 @@ Frontend: https://github.com/pawelNu/frontend-project-manager
 
 ## Create React application
 
-1. In terminal 
+1. In terminal
     ```shell
     npx create-react-app frontend-project-manager --template typescript
     ```
@@ -64,11 +65,30 @@ Frontend: https://github.com/pawelNu/frontend-project-manager
 3. file `public/index.html`
    Add CSS
     ```html
-        <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+        crossorigin="anonymous"
+    />
     ```
     Add JavaScript
     ```html
-     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"
+    ></script>
     ```
+
+## Commit prefixes:
+
+-   feat (task_no): The new feature you're adding to a particular application
+-   fix (task_no): A bug fix
+-   style (task_no): Feature and updates related to styling
+-   refactor (task_no): Refactoring a specific section of the codebase
+-   test (task_no): Everything related to testing
+-   docs (task_no): Everything related to documentation
+-   chore (task_no): Regular code maintenance. [ You can also use emojis to represent commit types]
