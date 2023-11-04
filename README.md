@@ -44,7 +44,8 @@ Frontend: https://github.com/pawelNu/frontend-project-manager
 
     - [ ] A list of all application users.
     - [ ] Creating new users.
-    - [ ] Assigning users to issues and tasks.
+    - [ ] Assigning users to issues.
+    - [ ] Assigning users to tasks.
 
 5. **Search and Filtering:**
 
