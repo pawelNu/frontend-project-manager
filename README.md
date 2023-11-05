@@ -3,6 +3,7 @@
 -   [Project manager spring boot react](#project-manager-spring-boot-react)
     -   [Github repositories](#github-repositories)
     -   [Application features](#application-features)
+    -   [Technology stack](#technology-stack)
     -   [Install TypeScript](#install-typescript)
     -   [Create React application](#create-react-application)
     -   [Commit prefixes:](#commit-prefixes)
@@ -50,6 +51,13 @@ Frontend: https://github.com/pawelNu/frontend-project-manager
 5. **Search and Filtering:**
 
     - [ ] The ability to search and filter projects, issues, tasks, and users.
+
+## Technology stack
+
+-   Node.js v18.18.0
+-   Typescript v5.2.2
+-   React v18.2.0
+-   Bootstrap v5.2.3
 
 ## Install TypeScript
 
