@@ -7,6 +7,7 @@
     -   [Install TypeScript](#install-typescript)
     -   [Create React application](#create-react-application)
     -   [Commit prefixes:](#commit-prefixes)
+    -   [CSS class name convention](#css-class-name-convention)
 
 ## Github repositories
 
@@ -81,3 +82,12 @@ Frontend: https://github.com/pawelNu/frontend-project-manager
 -   test (task_no): Everything related to testing
 -   docs (task_no): Everything related to documentation
 -   chore (task_no): Regular code maintenance. [ You can also use emojis to represent commit types]
+
+## CSS class name convention
+
+-   lowercase letters separated by dashes
+-   css file name + class name
+
+Example:
+
+`Products.css` and CSS class `price-tag` will result in `products-price-tag`.
