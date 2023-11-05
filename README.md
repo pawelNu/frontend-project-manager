@@ -51,7 +51,10 @@ Frontend: https://github.com/pawelNu/frontend-project-manager
 
 5. **Search and Filtering:**
 
-    - [ ] The ability to search and filter projects, issues, tasks, and users.
+    - [ ] Search and filter projects.
+    - [ ] Search and filter issues.
+    - [ ] Search and filter tasks.
+    - [ ] Search and filter users.
 
 ## Technology stack
 
