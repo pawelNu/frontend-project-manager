@@ -1,10 +1,11 @@
 import React from "react";
 import "./App.css";
+import { Navbar } from "./layout/Navbar";
 
 export const App = () => {
     return (
-        <div>
-            <h1>Project Manager</h1>
-        </div>
+        <>
+            <Navbar />
+        </>
     );
 };
