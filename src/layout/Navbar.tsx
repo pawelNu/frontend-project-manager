@@ -4,7 +4,12 @@ export const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-lg bg-light">
             <div className="container-fluid">
-                <a className="navbar-brand" href="/">
+                <a
+                    className="navbar-brand"
+                    data-bs-toggle="offcanvas"
+                    href="#sidebar"
+                    aria-controls="sidebar"
+                >
                     Menu
                 </a>
                 <div
