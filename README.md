@@ -21,7 +21,7 @@ Frontend: https://github.com/pawelNu/frontend-project-manager
 1. **Project Management:**
 
     - [x] A list of all projects.
-    - [ ] Creating new projects.
+    - [x] Creating new projects.
     - [ ] Editing existing projects.
     - [ ] Deleting existing projects.
     - [ ] Project details, including descriptions, deadlines, priorities, etc.

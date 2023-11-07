@@ -8,13 +8,13 @@ export const AllProjectsPage = () => {
                 <h2 className="text-center m-3">Projects</h2>
                 <div className="container-fluid p-3">
                     <div className="d-flex justify-content-between align-items-center col-7">
-                        {/* <Link
+                        <Link
                             type="button"
                             className="btn btn-primary me-2"
-                            to={"/add-project"}
+                            to={"/add-new-project"}
                         >
-                            Add project
-                        </Link> */}
+                            Add new project
+                        </Link>
                         {/* TODO add filtering by project name */}
                         {/* <div className="input-group col">
                             <input
