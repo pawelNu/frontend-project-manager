@@ -75,9 +75,9 @@ export const AllProjectsPage = () => {
                                                 <li>
                                                     <Link
                                                         className="dropdown-item bg-warning"
-                                                        to={`/update-project/${project.id}`}
+                                                        to={`/edit-project/${project.id}`}
                                                     >
-                                                        Update
+                                                        Edit
                                                     </Link>
                                                 </li>
                                                 <li>
