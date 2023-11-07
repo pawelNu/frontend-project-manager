@@ -8,6 +8,7 @@
   - [Create React application](#create-react-application)
   - [Commit prefixes:](#commit-prefixes)
   - [CSS class name convention](#css-class-name-convention)
+  - [Other](#other)
 
 ## Github repositories
 
@@ -19,7 +20,7 @@ Frontend: https://github.com/pawelNu/frontend-project-manager
 
 1. **Project Management:**
 
-    - [ ] A list of all projects.
+    - [x] A list of all projects.
     - [ ] Creating new projects.
     - [ ] Editing existing projects.
     - [ ] Deleting existing projects.
@@ -94,3 +95,8 @@ Frontend: https://github.com/pawelNu/frontend-project-manager
 Example:
 
 `Products.css` and CSS class `price-tag` will result in `products-price-tag`.
+
+## Other
+
+1. UUID generator: https://www.uuidgenerator.net/version4
+2. Random data generator Mockaroo: https://www.mockaroo.com/
