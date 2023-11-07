@@ -24,7 +24,7 @@ Frontend: https://github.com/pawelNu/frontend-project-manager
     - [x] Creating new projects.
     - [x] Editing existing projects.
     - [x] Deleting existing projects.
-    - [ ] Project details, including descriptions, deadlines, priorities, etc.
+    - [x] Project details.
 
 2. **Issue Management:**
 
