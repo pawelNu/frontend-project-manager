@@ -22,7 +22,7 @@ Frontend: https://github.com/pawelNu/frontend-project-manager
 
     - [x] A list of all projects.
     - [x] Creating new projects.
-    - [ ] Editing existing projects.
+    - [x] Editing existing projects.
     - [ ] Deleting existing projects.
     - [ ] Project details, including descriptions, deadlines, priorities, etc.
 
