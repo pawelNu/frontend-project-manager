@@ -4,7 +4,7 @@ export const sidebarElements: Sidebar[] = [
     {
         levelName: "Projects",
         subLevel: [
-            { levelName: "All projects", linkTo: "/" },
+            { levelName: "All projects", linkTo: "/all-projects" },
             { levelName: "Empty", linkTo: "/" },
         ],
     },
