@@ -61,7 +61,7 @@ export const AllProjectsPage = () => {
                                                 data-bs-toggle="dropdown"
                                                 aria-expanded="false"
                                             >
-                                                Action
+                                                Actions
                                             </button>
                                             <ul className="dropdown-menu">
                                                 <li>

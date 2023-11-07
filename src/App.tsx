@@ -8,6 +8,7 @@ import { MainPage } from "./pages/MainPage/MainPage";
 import { AllProjectsPage } from "./pages/ProjectsPages/AllProjectsPage";
 import { AddNewProject } from "./pages/ProjectsPages/AddNewProject";
 import { EditProject } from "./pages/ProjectsPages/EditProject";
+import { ViewProject } from "./pages/ProjectsPages/ViewProject";
 
 export const App = () => {
     return (
@@ -23,6 +24,7 @@ export const App = () => {
                         element={<AddNewProject />}
                     />
                     <Route path="/edit-project/:id" element={<EditProject />} />
+                    <Route path="/view-project/:id" element={<ViewProject />} />
                 </Routes>
             </BrowserRouter>
             <Footer />
