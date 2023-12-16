@@ -7,7 +7,7 @@ import "./../../static/styles/Pagination.css";
 
 // TODO add sorting (asc and desc) by field
 
-export const ProjectAll = () => {
+export const ProjectsAll = () => {
     const [projects, setProjects] = useState<TProject[]>([]);
     const [pageNum, setPageNum] = useState<number>(0);
     const [pageSize, setPageSize] = useState<number>(25);
