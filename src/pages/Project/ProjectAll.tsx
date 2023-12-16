@@ -3,17 +3,22 @@ import { TProject } from "../../types/TProject";
 import { useEffect, useState } from "react";
 import hostName from "../../config/config";
 import axios from "axios";
+import "./../../static/styles/Pagination.css";
 
-// TODO add pagination (page number and size)
 // TODO add sorting (asc and desc) by field
 
 export const ProjectAll = () => {
     const [projects, setProjects] = useState<TProject[]>([]);
+    const [pageNum, setPageNum] = useState<number>(0);
+    const [pageSize, setPageSize] = useState<number>(25);
+    const [totalPages, setTotalPages] = useState<number>(1);
 
-    const getProjectAll = async () => {
+    const getProjectAll = async (pageNum: number, pageSize: number) => {
+        const url = `${hostName}/projects?pageNumber=${pageNum}&pageSize=${pageSize}`;
         try {
-            const result = await axios.get(`${hostName}/projects`);
+            const result = await axios.get(url);
             setProjects(result.data.content);
+            setTotalPages(result.data.totalPages);
         } catch (e) {
             console.log(
                 "Error getting all projects -> file: ProjectAll.tsx  getProjectAll  e:",
@@ -22,9 +27,20 @@ export const ProjectAll = () => {
         }
     };
 
+    const handlePageChange = (pageNum: number, pageSize: number) => {
+        setPageNum(pageNum);
+        setPageSize(pageSize);
+        getProjectAll(pageNum, pageSize);
+    };
+
+    const changePageSize = (pageSize: number) => {
+        setPageNum(0);
+        setPageSize(pageSize);
+    };
+
     useEffect(() => {
-        getProjectAll();
-    }, []);
+        getProjectAll(pageNum, pageSize);
+    }, [pageNum, pageSize]);
 
     return (
         <div className="container-fluid p-3">
@@ -35,8 +51,7 @@ export const ProjectAll = () => {
                         <Link
                             type="button"
                             className="btn btn-primary me-2"
-                            to={"/add-new-project"}
-                        >
+                            to={"/add-new-project"}>
                             Add new project
                         </Link>
                         {/* <div className="input-group col">
@@ -80,24 +95,21 @@ export const ProjectAll = () => {
                                                 className="btn btn-secondary dropdown-toggle"
                                                 type="button"
                                                 data-bs-toggle="dropdown"
-                                                aria-expanded="false"
-                                            >
+                                                aria-expanded="false">
                                                 Actions
                                             </button>
                                             <ul className="dropdown-menu">
                                                 <li>
                                                     <Link
                                                         className="dropdown-item bg-info"
-                                                        to={`/view-project/${project.id}`}
-                                                    >
+                                                        to={`/view-project/${project.id}`}>
                                                         View
                                                     </Link>
                                                 </li>
                                                 <li>
                                                     <Link
                                                         className="dropdown-item bg-warning"
-                                                        to={`/edit-project/${project.id}`}
-                                                    >
+                                                        to={`/edit-project/${project.id}`}>
                                                         Edit
                                                     </Link>
                                                 </li>
@@ -123,6 +135,73 @@ export const ProjectAll = () => {
                             ))}
                         </tbody>
                     </table>
+                    <nav aria-label="Page navigation example">
+                        <ul className="pagination justify-content-center">
+                            <li
+                                className={`page-item ${
+                                    pageNum === 0 ? "disabled" : ""
+                                }`}>
+                                <button
+                                    className="page-link previous-button"
+                                    onClick={() =>
+                                        handlePageChange(pageNum - 1, pageSize)
+                                    }>
+                                    Previous
+                                </button>
+                            </li>
+                            {Array.from({ length: totalPages }, (_, index) => (
+                                <li
+                                    key={index}
+                                    className={`page-item ${
+                                        pageNum === index ? "active" : ""
+                                    }`}>
+                                    <button
+                                        className="page-link"
+                                        onClick={() =>
+                                            handlePageChange(index, pageSize)
+                                        }>
+                                        {index + 1}
+                                    </button>
+                                </li>
+                            ))}
+                            <li
+                                className={`page-item ${
+                                    pageNum === totalPages - 1 ? "disabled" : ""
+                                }`}>
+                                <button
+                                    className="page-link"
+                                    onClick={() =>
+                                        handlePageChange(pageNum + 1, pageSize)
+                                    }>
+                                    Next
+                                </button>
+                            </li>
+                            <div className="btn-group ms-2">
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-primary dropdown-toggle"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    {pageSize}
+                                </button>
+                                <ul className="dropdown-menu">
+                                    {[2, 5, 10, 25, 50].map(
+                                        (pageSize, index) => (
+                                            <li key={index}>
+                                                <button
+                                                    className="dropdown-item"
+                                                    onClick={() =>
+                                                        changePageSize(pageSize)
+                                                    }>
+                                                    {pageSize}
+                                                </button>
+                                            </li>
+                                        ),
+                                    )}
+                                </ul>
+                            </div>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
