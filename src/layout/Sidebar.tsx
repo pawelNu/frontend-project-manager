@@ -78,7 +78,7 @@ export const Sidebar = () => {
                                                             {sublevel.levelName}
                                                         </a>
                                                     </li>
-                                                )
+                                                ),
                                             )}
                                         </ul>
                                     </div>
