@@ -1,14 +1,17 @@
 # Project manager spring boot react
 
-- [Project manager spring boot react](#project-manager-spring-boot-react)
-  - [Github repositories](#github-repositories)
-  - [Application features](#application-features)
-  - [Technology stack](#technology-stack)
-  - [Install TypeScript](#install-typescript)
-  - [Create React application](#create-react-application)
-  - [Commit prefixes:](#commit-prefixes)
-  - [CSS class name convention](#css-class-name-convention)
-  - [Other](#other)
+-   [Project manager spring boot react](#project-manager-spring-boot-react)
+    -   [Github repositories](#github-repositories)
+    -   [Application features](#application-features)
+    -   [Technology stack](#technology-stack)
+    -   [Install TypeScript](#install-typescript)
+    -   [Create React application](#create-react-application)
+    -   [Commit prefixes:](#commit-prefixes)
+    -   [Name conventions](#name-conventions)
+        -   [CSS class](#css-class)
+        -   [Types](#types)
+    -   [Other](#other)
+    -   [Code formatting configuration](#code-formatting-configuration)
 
 ## Github repositories
 
@@ -87,7 +90,9 @@ Frontend: https://github.com/pawelNu/frontend-project-manager
 -   docs (issue_no): Everything related to documentation
 -   chore (issue_no): Regular code maintenance. [ You can also use emojis to represent commit types]
 
-## CSS class name convention
+## Name conventions
+
+### CSS class
 
 -   lowercase letters separated by dashes
 -   css file name + class name
@@ -96,7 +101,20 @@ Example:
 
 `Products.css` and CSS class `price-tag` will result in `products-price-tag`.
 
+### Types
+
+-   prefix `T`
+-   PascalCase, the first letter of each word is a capital letter
+
+Example: type `PCDetails` name will result in `TPCDetails`.
+
 ## Other
 
 1. UUID generator: https://www.uuidgenerator.net/version4
 2. Random data generator Mockaroo: https://www.mockaroo.com/
+
+## Code formatting configuration
+
+In `.husky` directory Git hook `pre-commit` will format project code during commit.
+
+To manually format project: `npm run format`.
