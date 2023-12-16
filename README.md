@@ -1,17 +1,17 @@
 # Project manager spring boot react
 
-- [Project manager spring boot react](#project-manager-spring-boot-react)
-  - [Github repositories](#github-repositories)
-  - [Application features](#application-features)
-  - [Technology stack](#technology-stack)
-  - [Install TypeScript](#install-typescript)
-  - [Create React application](#create-react-application)
-  - [Commit prefixes:](#commit-prefixes)
-  - [Name conventions](#name-conventions)
-    - [CSS class](#css-class)
-    - [Types](#types)
-  - [Other](#other)
-  - [Code formatting configuration](#code-formatting-configuration)
+-   [Project manager spring boot react](#project-manager-spring-boot-react)
+    -   [Github repositories](#github-repositories)
+    -   [Application features](#application-features)
+    -   [Technology stack](#technology-stack)
+    -   [Install TypeScript](#install-typescript)
+    -   [Create React application](#create-react-application)
+    -   [Commit prefixes:](#commit-prefixes)
+    -   [Name conventions](#name-conventions)
+        -   [CSS class](#css-class)
+        -   [Types](#types)
+    -   [Other](#other)
+    -   [Code formatting configuration](#code-formatting-configuration)
 
 ## Github repositories
 
@@ -94,8 +94,8 @@ Frontend: https://github.com/pawelNu/frontend-project-manager
 
 ### CSS class
 
-- lowercase letters separated by dashes
-- css file name + class name
+-   lowercase letters separated by dashes
+-   css file name + class name
 
 Example:
 
@@ -103,8 +103,8 @@ Example:
 
 ### Types
 
-- prefix `T`
-- PascalCase, the first letter of each word is a capital letter
+-   prefix `T`
+-   PascalCase, the first letter of each word is a capital letter
 
 Example: type `PCDetails` name will result in `TPCDetails`.
 
