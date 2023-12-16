@@ -27,7 +27,6 @@ export const ProjectEdit = () => {
                                 >
                                     Finished?
                                 </label>
-                                {/* TODO add bootstrap css to options list */}
                                 <select
                                     className="form-select"
                                     name="finished"
