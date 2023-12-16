@@ -1,7 +1,31 @@
 import { Link } from "react-router-dom";
-import { allProjects } from "../../data/AllProjectsData";
+import { TProject } from "../../types/TProject";
+import { useEffect, useState } from "react";
+import hostName from "../../config/config";
+import axios from "axios";
+
+// TODO add pagination (page number and size)
+// TODO add sorting (asc and desc) by field
 
 export const ProjectAll = () => {
+    const [projects, setProjects] = useState<TProject[]>([]);
+
+    const getProjectAll = async () => {
+        try {
+            const result = await axios.get(`${hostName}/projects`);
+            setProjects(result.data.content);
+        } catch (e) {
+            console.log(
+                "Error getting all projects -> file: ProjectAll.tsx  getProjectAll  e:",
+                e,
+            );
+        }
+    };
+
+    useEffect(() => {
+        getProjectAll();
+    }, []);
+
     return (
         <div className="container-fluid p-3">
             <div className="border rounded p-1 mt-2 shadow">
@@ -15,7 +39,6 @@ export const ProjectAll = () => {
                         >
                             Add new project
                         </Link>
-                        {/* TODO add filtering by project name */}
                         {/* <div className="input-group col">
                             <input
                                 type="text"
@@ -39,16 +62,14 @@ export const ProjectAll = () => {
                     <table className="table table-bordered table-hover table-sm border">
                         <thead>
                             <tr>
-                                {/* TODO add filter row displayed after clicking button filter */}
                                 <th scope="col">#</th>
-                                {/* TODO add sorting by clicking at column name */}
                                 <th scope="col">Project name</th>
                                 <th scope="col">Finished?</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="table-group-divider">
-                            {allProjects.map((project, index) => (
+                            {projects.map((project, index) => (
                                 <tr key={project.id}>
                                     <th scope="row">{index + 1}</th>
                                     <td>{project.name}</td>
