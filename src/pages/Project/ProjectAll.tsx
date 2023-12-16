@@ -51,7 +51,8 @@ export const ProjectAll = () => {
                         <Link
                             type="button"
                             className="btn btn-primary me-2"
-                            to={"/add-new-project"}>
+                            to={"/add-new-project"}
+                        >
                             Add new project
                         </Link>
                         {/* <div className="input-group col">
@@ -95,21 +96,24 @@ export const ProjectAll = () => {
                                                 className="btn btn-secondary dropdown-toggle"
                                                 type="button"
                                                 data-bs-toggle="dropdown"
-                                                aria-expanded="false">
+                                                aria-expanded="false"
+                                            >
                                                 Actions
                                             </button>
                                             <ul className="dropdown-menu">
                                                 <li>
                                                     <Link
                                                         className="dropdown-item bg-info"
-                                                        to={`/view-project/${project.id}`}>
+                                                        to={`/view-project/${project.id}`}
+                                                    >
                                                         View
                                                     </Link>
                                                 </li>
                                                 <li>
                                                     <Link
                                                         className="dropdown-item bg-warning"
-                                                        to={`/edit-project/${project.id}`}>
+                                                        to={`/edit-project/${project.id}`}
+                                                    >
                                                         Edit
                                                     </Link>
                                                 </li>
@@ -140,12 +144,14 @@ export const ProjectAll = () => {
                             <li
                                 className={`page-item ${
                                     pageNum === 0 ? "disabled" : ""
-                                }`}>
+                                }`}
+                            >
                                 <button
                                     className="page-link previous-button"
                                     onClick={() =>
                                         handlePageChange(pageNum - 1, pageSize)
-                                    }>
+                                    }
+                                >
                                     Previous
                                 </button>
                             </li>
@@ -154,12 +160,14 @@ export const ProjectAll = () => {
                                     key={index}
                                     className={`page-item ${
                                         pageNum === index ? "active" : ""
-                                    }`}>
+                                    }`}
+                                >
                                     <button
                                         className="page-link"
                                         onClick={() =>
                                             handlePageChange(index, pageSize)
-                                        }>
+                                        }
+                                    >
                                         {index + 1}
                                     </button>
                                 </li>
@@ -167,12 +175,14 @@ export const ProjectAll = () => {
                             <li
                                 className={`page-item ${
                                     pageNum === totalPages - 1 ? "disabled" : ""
-                                }`}>
+                                }`}
+                            >
                                 <button
                                     className="page-link"
                                     onClick={() =>
                                         handlePageChange(pageNum + 1, pageSize)
-                                    }>
+                                    }
+                                >
                                     Next
                                 </button>
                             </li>
@@ -181,7 +191,8 @@ export const ProjectAll = () => {
                                     type="button"
                                     className="btn btn-outline-primary dropdown-toggle"
                                     data-bs-toggle="dropdown"
-                                    aria-expanded="false">
+                                    aria-expanded="false"
+                                >
                                     {pageSize}
                                 </button>
                                 <ul className="dropdown-menu">
@@ -192,7 +203,8 @@ export const ProjectAll = () => {
                                                     className="dropdown-item"
                                                     onClick={() =>
                                                         changePageSize(pageSize)
-                                                    }>
+                                                    }
+                                                >
                                                     {pageSize}
                                                 </button>
                                             </li>
