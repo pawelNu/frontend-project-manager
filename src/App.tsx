@@ -5,10 +5,10 @@ import { Footer } from "./layout/Footer";
 import { Sidebar } from "./layout/Sidebar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { MainPage } from "./pages/MainPage/MainPage";
-import { AllProjectsPage } from "./pages/ProjectsPages/AllProjectsPage";
-import { AddNewProject } from "./pages/ProjectsPages/AddNewProject";
-import { EditProject } from "./pages/ProjectsPages/EditProject";
-import { ViewProject } from "./pages/ProjectsPages/ViewProject";
+import { ProjectAll } from "./pages/Project/ProjectAll";
+import { ProjectNew } from "./pages/Project/ProjectNew";
+import { ProjectEdit } from "./pages/Project/ProjectEdit";
+import { ProjectDetails } from "./pages/Project/ProjectDetails";
 
 export const App = () => {
     return (
@@ -18,13 +18,13 @@ export const App = () => {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<MainPage />} />
-                    <Route path="/all-projects" element={<AllProjectsPage />} />
+                    <Route path="/all-projects" element={<ProjectAll />} />
+                    <Route path="/add-new-project" element={<ProjectNew />} />
+                    <Route path="/edit-project/:id" element={<ProjectEdit />} />
                     <Route
-                        path="/add-new-project"
-                        element={<AddNewProject />}
+                        path="/view-project/:id"
+                        element={<ProjectDetails />}
                     />
-                    <Route path="/edit-project/:id" element={<EditProject />} />
-                    <Route path="/view-project/:id" element={<ViewProject />} />
                 </Routes>
             </BrowserRouter>
             <Footer />

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { allProjects } from "../../data/AllProjectsData";
 
-export const AllProjectsPage = () => {
+export const ProjectAll = () => {
     return (
         <div className="container-fluid p-3">
             <div className="border rounded p-1 mt-2 shadow">

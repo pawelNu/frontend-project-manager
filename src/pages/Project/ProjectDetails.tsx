@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export const ViewProject = () => {
+export const ProjectDetails = () => {
     return (
         <div className="container-fluid p-3">
             <div className="row">

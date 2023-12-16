@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export const EditProject = () => {
+export const ProjectEdit = () => {
     return (
         <div className="container-fluid p-3">
             <div className="row">
