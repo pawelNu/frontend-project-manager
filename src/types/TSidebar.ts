@@ -1,9 +1,9 @@
-export type Sidebar = {
+export type TSidebar = {
     levelName: string;
-    subLevel: SubLevel[];
+    subLevel: TSubLevel[];
 };
 
-type SubLevel = {
+type TSubLevel = {
     levelName: string;
     linkTo: string;
 };
