@@ -1,6 +1,6 @@
 import { UUID } from "crypto";
 
-export type Project = {
+export type TProject = {
     id: UUID;
     name: string;
     isFinished: string;

@@ -1,6 +1,6 @@
-import { Sidebar } from "../types/Sidebar";
+import { TSidebar } from "../types/TSidebar";
 
-export const sidebarElements: Sidebar[] = [
+export const sidebarElements: TSidebar[] = [
     {
         levelName: "Projects",
         subLevel: [

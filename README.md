@@ -23,42 +23,42 @@ Frontend: https://github.com/pawelNu/frontend-project-manager
 
 1. **Project Management:**
 
-    - [x] A list of all projects.
-    - [x] Creating new projects.
-    - [x] Editing existing projects.
-    - [x] Deleting existing projects.
-    - [x] Project details.
+    - A list of all projects.
+    - Creating new projects.
+    - Editing existing projects.
+    - Deleting existing projects.
+    - Project details.
 
 2. **Issue Management:**
 
-    - [ ] A list of all issues within a project.
-    - [ ] Creating new issues.
-    - [ ] Assigning issues to projects.
-    - [ ] Adding history to issues (e.g., change descriptions and updates).
-    - [ ] Assigning tasks to issues.
-    - [ ] Assigning parent issues (issues to which a given issue is linked).
+    - A list of all issues within a project.
+    - Creating new issues.
+    - Assigning issues to projects.
+    - Adding history to issues (e.g., change descriptions and updates).
+    - Assigning tasks to issues.
+    - Assigning parent issues (issues to which a given issue is linked).
 
 3. **Task Management:**
 
-    - [ ] A list of all tasks within a project.
-    - [ ] Creating new tasks.
-    - [ ] Assigning tasks to issues.
-    - [ ] Assigning tasks to projects.
-    - [ ] Monitoring task progress.
+    - A list of all tasks within a project.
+    - Creating new tasks.
+    - Assigning tasks to issues.
+    - Assigning tasks to projects.
+    - Monitoring task progress.
 
 4. **User Management:**
 
-    - [ ] A list of all application users.
-    - [ ] Creating new users.
-    - [ ] Assigning users to issues.
-    - [ ] Assigning users to tasks.
+    - A list of all application users.
+    - Creating new users.
+    - Assigning users to issues.
+    - Assigning users to tasks.
 
 5. **Search and Filtering:**
 
-    - [ ] Search and filter projects.
-    - [ ] Search and filter issues.
-    - [ ] Search and filter tasks.
-    - [ ] Search and filter users.
+    - Search and filter projects.
+    - Search and filter issues.
+    - Search and filter tasks.
+    - Search and filter users.
 
 ## Technology stack
 

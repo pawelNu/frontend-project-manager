@@ -1,6 +1,6 @@
-import { Project } from "../types/Project";
+import { TProject } from "../types/TProject";
 
-export const allProjects: Project[] = [
+export const allProjects: TProject[] = [
     {
         id: "875d0455-94d2-4e81-8198-65248ce32a5f",
         name: "SpringMart: E-commerce Backend with Spring Boot",
