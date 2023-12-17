@@ -4,17 +4,30 @@ import { useEffect, useState } from "react";
 import hostName from "../../config/config";
 import axios from "axios";
 import "./../../static/styles/Pagination.css";
-
-// TODO add sorting (asc and desc) by field
+import { arrowDown, arrowUp } from "../../config/symbols";
 
 export const ProjectsAll = () => {
     const [projects, setProjects] = useState<TProject[]>([]);
     const [pageNum, setPageNum] = useState<number>(0);
     const [pageSize, setPageSize] = useState<number>(25);
     const [totalPages, setTotalPages] = useState<number>(1);
+    const [sort, setSort] = useState<{ field: string; direction: string }>({
+        field: "",
+        direction: "",
+    });
 
-    const getProjectAll = async (pageNum: number, pageSize: number) => {
-        const url = `${hostName}/projects?pageNumber=${pageNum}&pageSize=${pageSize}`;
+    const getProjectAll = async (
+        pageNum: number,
+        pageSize: number,
+        field?: string,
+        direction?: string,
+    ) => {
+        let url = `${hostName}/projects?pageNumber=${pageNum}&pageSize=${pageSize}`;
+
+        if (field && direction) {
+            url += `&field=${field}&direction=${direction}`;
+        }
+
         try {
             const result = await axios.get(url);
             setProjects(result.data.content);
@@ -38,9 +51,16 @@ export const ProjectsAll = () => {
         setPageSize(pageSize);
     };
 
+    const handleSort = (field: string) => {
+        const direction =
+            sort.field === field && sort.direction === "asc" ? "desc" : "asc";
+        setSort({ field, direction });
+        getProjectAll(pageNum, pageSize, sort.field, sort.direction);
+    };
+
     useEffect(() => {
-        getProjectAll(pageNum, pageSize);
-    }, [pageNum, pageSize]);
+        getProjectAll(pageNum, pageSize, sort.field, sort.direction);
+    }, [pageNum, pageSize, sort]);
 
     return (
         <div className="container-fluid p-3">
@@ -79,8 +99,26 @@ export const ProjectsAll = () => {
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Project name</th>
-                                <th scope="col">Finished?</th>
+                                <th
+                                    scope="col"
+                                    onClick={() => handleSort("name")}
+                                >
+                                    Project name{" "}
+                                    {sort.field === "name" &&
+                                        (sort.direction === "asc"
+                                            ? `A-Z${arrowDown}`
+                                            : `Z-A${arrowUp}`)}
+                                </th>
+                                <th
+                                    scope="col"
+                                    onClick={() => handleSort("isFinished")}
+                                >
+                                    Finished?{" "}
+                                    {sort.field === "isFinished" &&
+                                        (sort.direction === "asc"
+                                            ? `A-Z${arrowDown}`
+                                            : `Z-A${arrowUp}`)}
+                                </th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>

@@ -1,6 +1,5 @@
 1. **Project Management:**
 
-    - TODO A list of all projects.
     - TODO Creating new projects.
     - TODO Editing existing projects.
     - TODO Deleting existing projects.
