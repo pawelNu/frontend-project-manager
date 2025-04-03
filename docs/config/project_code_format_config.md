@@ -22,11 +22,11 @@ Add file `.prettierrc.json` in main directory.
 
 ```json
 {
-    "semi": true,
-    "tabWidth": 4,
-    "singleQuote": false,
-    "jsxSingleQuote": false,
-    "jsxBracketSameLine": true,
-    "arrowParens": "always"
+  "semi": true,
+  "tabWidth": 4,
+  "singleQuote": false,
+  "jsxSingleQuote": false,
+  "jsxBracketSameLine": true,
+  "arrowParens": "always"
 }
 ```
