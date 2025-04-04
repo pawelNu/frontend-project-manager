@@ -14,9 +14,6 @@
     </a>
   {/each}
 </nav> -->
-<!-- TODO create main menu with links -->
-<!-- TODO create all ticket page -->
-<!-- TODO create single ticket page -->
 
 <ul class="uk-tab navbar-font" data-uk-tab>
   <!-- <li class="uk-active"><a href="/">Active</a></li> -->

@@ -4,5 +4,67 @@
     { "id": 2, "name": "Item 2", "description": "This is the second item" },
     { "id": 3, "name": "Item 3", "description": "This is the third item" },
     { "id": 3, "name": "Item 4", "description": "This is the fourth item" }
+  ],
+  "companies": [
+    {
+      "id": 0,
+      "name": "Firma A",
+      "nip": "1738905083",
+      "regon": "160471599",
+      "website": "https://www.firma-A.com",
+      "addresses": [
+        {
+          "street": "ul. Leśna 7",
+          "city": "Wrocław",
+          "postalCode": "00-001"
+        },
+        {
+          "street": "ul. Złota 10",
+          "city": "Wrocław",
+          "postalCode": "30-001"
+        }
+      ],
+      "contacts": {
+        "phones": ["744-298-5888", "750-883-9933"],
+        "emails": ["info@firma-a.com", "support@test.com"]
+      },
+      "contactPerson": {
+        "firstName": "Paweł",
+        "lastName": "Wójcik",
+        "position": "Menedżer projektu",
+        "phone": "949-415-7469",
+        "email": "info@mail.com"
+      }
+    },
+    {
+      "id": 1,
+      "name": "Firma B",
+      "nip": "1794548916",
+      "regon": "167352879",
+      "website": "https://www.firma-B.com",
+      "addresses": [
+        {
+          "street": "ul. Wąska 5",
+          "city": "Gdańsk",
+          "postalCode": "50-500"
+        },
+        {
+          "street": "ul. Złota 10",
+          "city": "Warszawa",
+          "postalCode": "00-001"
+        }
+      ],
+      "contacts": {
+        "phones": ["129-921-1948", "835-741-9358"],
+        "emails": ["info@firma-a.com", "service@test.com"]
+      },
+      "contactPerson": {
+        "firstName": "Paweł",
+        "lastName": "Kowalski",
+        "position": "Koordynator",
+        "phone": "747-426-9031",
+        "email": "info@mail.com"
+      }
+    }
   ]
 }

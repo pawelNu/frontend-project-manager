@@ -12,7 +12,7 @@
 
   const links: LinkType[] = [
     { label: 'Home', links: [{ label: 'Home', href: '/' }] },
-    { label: 'Projects', links: [{ label: 'Home', href: '/' }] },
+    { label: 'Companies', links: [{ label: 'All companies', href: '/companies' }] },
     {
       label: 'About',
       links: [
