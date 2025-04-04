@@ -1,8 +1,10 @@
 <script lang="ts">
+  import Footer from '../components/Footer.svelte';
   import Navbar from '../components/Navbar.svelte';
 </script>
 
 <Navbar />
 
-<!-- Wstaw dynamiczną zawartość każdej strony -->
 <slot />
+
+<Footer />

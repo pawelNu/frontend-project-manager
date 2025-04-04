@@ -20,7 +20,10 @@
 <!-- TODO create single ticket page -->
 
 <ul class="uk-tab navbar-font" data-uk-tab>
-  <li class="uk-active"><a href="/">Active</a></li>
+  <!-- <li class="uk-active"><a href="/">Active</a></li> -->
+  <li class="uk-active">
+    <a href="#main-menu" class="uk-btn uk-btn-default" data-uk-toggle>Menu</a>
+  </li>
   <li><a href="/">Item</a></li>
   <li>
     <a href="/">
@@ -42,3 +45,17 @@
 </ul>
 
 <li><ThemeButton></ThemeButton></li>
+
+<div class="uk-offcanvas" id="main-menu" data-uk-offcanvas>
+  <div class="uk-offcanvas-bar">
+    <ul class="uk-nav uk-nav-primary">
+      <li class="uk-active"><a href="/">Active</a></li>
+      <li><a href="/">Item</a></li>
+      <li class="uk-nav-header">Header</li>
+      <li><a href="/">Item</a></li>
+      <li><a href="/">Item</a></li>
+      <li class="uk-nav-divider"></li>
+      <li><a href="/">Item</a></li>
+    </ul>
+  </div>
+</div>
