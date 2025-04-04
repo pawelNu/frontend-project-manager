@@ -1,10 +1,12 @@
 <script lang="ts">
-  import Footer from '../components/Footer.svelte';
-  import Navbar from '../components/Navbar.svelte';
+  import Footer from '$lib/components/Footer.svelte';
+  import Navbar from '$lib/components/Navbar.svelte';
 </script>
 
 <Navbar />
 
-<slot />
+<div class="uk-container uk-container-expand m-10">
+  <slot />
+</div>
 
 <Footer />

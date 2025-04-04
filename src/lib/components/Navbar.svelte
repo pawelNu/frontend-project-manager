@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { page } from '$app/state';
-  import ThemeButton from './ThemeButton.svelte';
+  import MainMenu2 from './MainMenu.svelte';
 
   const links = [
     { href: '/', label: 'Home' },
@@ -22,7 +21,8 @@
 <ul class="uk-tab navbar-font" data-uk-tab>
   <!-- <li class="uk-active"><a href="/">Active</a></li> -->
   <li class="uk-active">
-    <a href="#main-menu" class="uk-btn uk-btn-default" data-uk-toggle>Menu</a>
+    <!-- <MainMenu /> -->
+    <MainMenu2 />
   </li>
   <li><a href="/">Item</a></li>
   <li>
@@ -36,26 +36,10 @@
         <li><a href="/">Item</a></li>
         <li class="uk-nav-header">Header</li>
         <li><a href="/">Item</a></li>
-        <li><a href="/">Item</a></li>
+
         <li class="uk-nav-divider"></li>
         <li><a href="/">Item</a></li>
       </ul>
     </div>
   </li>
 </ul>
-
-<li><ThemeButton></ThemeButton></li>
-
-<div class="uk-offcanvas" id="main-menu" data-uk-offcanvas>
-  <div class="uk-offcanvas-bar">
-    <ul class="uk-nav uk-nav-primary">
-      <li class="uk-active"><a href="/">Active</a></li>
-      <li><a href="/">Item</a></li>
-      <li class="uk-nav-header">Header</li>
-      <li><a href="/">Item</a></li>
-      <li><a href="/">Item</a></li>
-      <li class="uk-nav-divider"></li>
-      <li><a href="/">Item</a></li>
-    </ul>
-  </div>
-</div>

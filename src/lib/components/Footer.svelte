@@ -1,6 +1,4 @@
-<!-- src/lib/components/Footer.svelte -->
 <script lang="ts">
-  // Możesz dodać propsy jeśli chcesz dynamicznie datę czy coś
 </script>
 
 <div class="uk-card uk-card-secondary p-5">
