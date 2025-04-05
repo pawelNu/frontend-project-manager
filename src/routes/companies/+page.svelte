@@ -1,18 +1,52 @@
 <script lang="ts">
+  import { getCompanies, type Company } from '$lib/api/company';
+  import Pagination, { type PaginationType } from '$lib/components/Pagination.svelte';
   import { onMount } from 'svelte';
-  import { generateCompanies, type Company } from '$lib/data-generator/generator';
 
-  let companies: Company[] = [];
+  export const paginationState: PaginationType = {
+    first: 1,
+    prev: null,
+    next: null,
+    last: 1,
+    pages: 1,
+    items: 1
+  };
 
-  onMount(async () => {
-    const response = await fetch('http://localhost:5000/companies');
-    if (response.ok) {
-      companies = (await response.json()) as Company[];
-    } else {
-      console.error('Błąd podczas ładowania danych:', response.status);
+  let companies: Company[] = $state([]);
+  let pagination: PaginationType = $state(paginationState);
+  let pageNumber: number = $state(1);
+  let pageSize: number = $state(3);
+
+  function nextPage() {
+    if (pagination.next !== null) {
+      pageNumber = pagination.next;
+      loadData(); // np. oddzielna funkcja
     }
-    // console.log(JSON.stringify(companies, null, 2));
-  });
+  }
+
+  function previousPage() {
+    if (pagination.prev !== null) {
+      pageNumber = pagination.prev;
+      loadData();
+    }
+  }
+
+  const loadData = async () => {
+    // const test = generateData(2);
+    const result = await getCompanies(pageNumber, pageSize);
+    if (result.success) {
+      companies = result.data.data;
+      pagination = {
+        first: result.data.first,
+        prev: result.data.prev,
+        next: result.data.next,
+        last: result.data.last,
+        pages: result.data.pages,
+        items: result.data.items
+      };
+    }
+  };
+  onMount(loadData);
 </script>
 
 <!-- TODO finish here -->
@@ -30,4 +64,5 @@
       </li>
     {/each}
   </ul>
+  <Pagination {pagination} actions={{ previousPage, nextPage }} />
 {/if}
