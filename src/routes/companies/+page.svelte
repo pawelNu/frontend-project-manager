@@ -1,6 +1,7 @@
 <script lang="ts">
   import { getCompanies, type Company } from '$lib/api/company';
   import Pagination, { type PaginationType } from '$lib/components/Pagination.svelte';
+  import { generateData } from '$lib/generator';
   import { onMount } from 'svelte';
 
   export const paginationState: PaginationType = {
@@ -17,22 +18,15 @@
   let pageNumber: number = $state(1);
   let pageSize: number = $state(3);
 
-  function nextPage() {
-    if (pagination.next !== null) {
-      pageNumber = pagination.next;
-      loadData(); // np. oddzielna funkcja
-    }
-  }
-
-  function previousPage() {
-    if (pagination.prev !== null) {
-      pageNumber = pagination.prev;
+  function setPageNumber(pageNum: number | null) {
+    if (pageNum !== null) {
+      pageNumber = pageNum;
       loadData();
     }
   }
 
   const loadData = async () => {
-    // const test = generateData(2);
+    // const test = generateData(30);
     const result = await getCompanies(pageNumber, pageSize);
     if (result.success) {
       companies = result.data.data;
@@ -64,5 +58,5 @@
       </li>
     {/each}
   </ul>
-  <Pagination {pagination} actions={{ previousPage, nextPage }} />
+  <Pagination {pagination} actions={{ setPageNumber }} />
 {/if}
