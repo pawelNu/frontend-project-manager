@@ -96,6 +96,41 @@ export const getCompanyById = async (id: UUIDTypes): Promise<Result<Company>> =>
   }
 };
 
+export const getCompanyAddressesByCompanyId = async (
+  id: UUIDTypes | undefined
+): Promise<Result<Address[]>> => {
+  if (id === undefined) {
+    throw Error('Id undefined');
+  }
+  try {
+    const url = jsonServerApi + `company-addresses?companyId=${id}`;
+    const listOfAddresses = await axios.get(url);
+    const addressIds: string[] = listOfAddresses.data.map((item: CompanyAddress) => item.addressId);
+    const addresses: Address[] = [];
+    // addressIds.forEach((id) => {
+    //   const url = jsonServerApi + `addresses/${id}`;
+    //   const response = await axios.get(url);
+    //   addresses.push(response.data);
+    // });
+    for (const id of addressIds) {
+      const url = jsonServerApi + `addresses/${id}`;
+      const response = await axios.get(url);
+      addresses.push(response.data);
+    }
+    return { success: true, data: addresses };
+  } catch (error) {
+    const msg = 'Błąd przy pobieraniu danych:';
+    console.error(msg, error);
+    return {
+      success: false,
+      error: {
+        message: msg,
+        details: error instanceof Error ? error.message : msg
+      }
+    };
+  }
+};
+
 export const createCompany = async (companyData: unknown) => {
   try {
     const url = jsonServerApi + 'companies';
