@@ -7,36 +7,44 @@
   export const paginationState: PaginationType = {
     first: 1,
     prev: null,
+    current: 1,
     next: null,
     last: 1,
     pages: 1,
-    items: 1
+    items: 1,
+    pageSize: 10
   };
 
   let companies: Company[] = $state([]);
   let pagination: PaginationType = $state(paginationState);
-  let pageNumber: number = $state(1);
-  let pageSize: number = $state(3);
 
   function setPageNumber(pageNum: number | null) {
     if (pageNum !== null) {
-      pageNumber = pageNum;
+      pagination.current = pageNum;
+      loadData();
+    }
+  }
+  function setPageSize(size: number | null) {
+    if (size !== null) {
+      pagination.pageSize = size;
       loadData();
     }
   }
 
   const loadData = async () => {
     // const test = generateData(30);
-    const result = await getCompanies(pageNumber, pageSize);
+    const result = await getCompanies(pagination.current, pagination.pageSize);
     if (result.success) {
       companies = result.data.data;
       pagination = {
         first: result.data.first,
         prev: result.data.prev,
+        current: result.data.prev === null ? result.data.first : result.data.prev + 1,
         next: result.data.next,
         last: result.data.last,
         pages: result.data.pages,
-        items: result.data.items
+        items: result.data.items,
+        pageSize: pagination.pageSize
       };
     }
   };
@@ -58,5 +66,5 @@
       </li>
     {/each}
   </ul>
-  <Pagination {pagination} actions={{ setPageNumber }} />
+  <Pagination {pagination} actions={{ setPageNumber, setPageSize }} />
 {/if}
