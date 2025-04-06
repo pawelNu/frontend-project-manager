@@ -11,8 +11,7 @@
   };
 
   export type PageActions = {
-    setPageNumber: (num: number | null) => void;
-    setPageSize: (size: number) => void;
+    setPageNumberAndSize: (num: number | null, size: number) => void;
   };
 
   let { pagination, actions }: { pagination: PaginationType; actions: PageActions } = $props();
@@ -28,10 +27,10 @@
 
   let pageSize: number = $state(pagination.pageSize);
 
-  function changePageSize(e: Event, size: number | null) {
+  function changePageNumberAndSize(e: Event, num: number | null, size: number) {
     e.preventDefault();
-    if (size !== null) {
-      actions.setPageSize(size);
+    if (num !== null) {
+      actions.setPageNumberAndSize(num, size);
       pageSize = size;
     }
   }
@@ -41,10 +40,17 @@
   <div>
     <ul class="uk-pgn uk-pgn-default justify-center">
       <li class={getDisabledStyle(pagination.prev)}>
-        <button onclick={() => actions.setPageNumber(pagination.first)}>{pagination.first}</button>
+        <!-- <button onclick={() => actions.setPageNumber(pagination.first)}>{pagination.first}</button> -->
+        <button onclick={(e) => changePageNumberAndSize(e, pagination.first, pageSize)}
+          >{pagination.first}</button
+        >
       </li>
       <li class={getDisabledStyle(pagination.prev)}>
-        <button aria-label="placeholder" onclick={() => actions.setPageNumber(pagination.prev)}>
+        <!-- <button aria-label="placeholder" onclick={() => actions.setPageNumber(pagination.prev)}> -->
+        <button
+          aria-label="placeholder"
+          onclick={(e) => changePageNumberAndSize(e, pagination.prev, pageSize)}
+        >
           <span data-uk-pgn-previous></span>
         </button>
       </li>
@@ -52,12 +58,19 @@
         <span aria-current="page">{pagination.current}</span>
       </li>
       <li class={getDisabledStyle(pagination.next)}>
-        <button aria-label="placeholder" onclick={() => actions.setPageNumber(pagination.next)}>
+        <!-- <button aria-label="placeholder" onclick={() => actions.setPageNumber(pagination.next)}> -->
+        <button
+          aria-label="placeholder"
+          onclick={(e) => changePageNumberAndSize(e, pagination.next, pageSize)}
+        >
           <span data-uk-pgn-next></span>
         </button>
       </li>
       <li class={getDisabledStyle(pagination.next)}>
-        <button onclick={() => actions.setPageNumber(pagination.last)}>{pagination.last}</button>
+        <!-- <button onclick={() => actions.setPageNumber(pagination.last)}>{pagination.last}</button> -->
+        <button onclick={(e) => changePageNumberAndSize(e, pagination.last, pageSize)}
+          >{pagination.last}</button
+        >
       </li>
     </ul>
   </div>
@@ -67,7 +80,10 @@
       <ul class="uk-dropdown-nav uk-nav">
         {#each [5, 10, 25, 50] as pageSize}
           <li>
-            <a href="/" onclick={(e) => changePageSize(e, pageSize)}>{pageSize}</a>
+            <!-- <a href="/" onclick={(e) => changePageSize(e, pageSize)}>{pageSize}</a> -->
+            <a href="/" onclick={(e) => changePageNumberAndSize(e, pagination.first, pageSize)}
+              >{pageSize}</a
+            >
           </li>
         {/each}
       </ul>

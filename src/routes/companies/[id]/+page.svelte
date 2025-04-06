@@ -2,7 +2,6 @@
   import { page } from '$app/state';
   import { getCompanyById, type Company } from '$lib/api/company';
   import { onMount } from 'svelte';
-  import { compileModule } from 'svelte/compiler';
 
   let company: Company | null = $state(null);
   let companyId = page.params.id;
@@ -15,6 +14,8 @@
   };
   onMount(loadData);
 </script>
+
+<!-- TODO add more info about company: address, contacts... -->
 
 <h1>Company ID: {company?.id}</h1>
 <p>name: {company?.name}</p>
