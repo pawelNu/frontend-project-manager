@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { page } from '$app/state';
   import { getCompanies, type Company } from '$lib/api/company';
   import Pagination, { type PaginationType } from '$lib/components/Pagination.svelte';
   import { generateData } from '$lib/generator';
@@ -32,7 +33,7 @@
   }
 
   const loadData = async () => {
-    // const test = generateData(30);
+    // const test = generateData(10);
     const result = await getCompanies(pagination.current, pagination.pageSize);
     if (result.success) {
       companies = result.data.data;
@@ -63,6 +64,7 @@
     {#each companies as company}
       <li>
         <strong>{company.name}</strong> - {company.nip}
+        <a href={`${page.url.pathname}/${company.id}`}>Link</a>
       </li>
     {/each}
   </ul>

@@ -33,7 +33,7 @@ export type Company = {
   contactEmployees: ContactEmployee[];
 };
 
-export type CompanyNotFull = Pick<Company, 'id' | 'name' | 'nip' | 'website'>;
+export type CompanyNotFull = Pick<Company, 'id' | 'name' | 'nip' | 'regon' | 'website'>;
 
 export type CompanyAddress = {
   id: UUIDTypes;
@@ -63,6 +63,24 @@ export const getCompanies = async (
 ): Promise<Result<PaginatedResponse<Company>>> => {
   try {
     const url = jsonServerApi + `companies?_page=${pageNumber}&_per_page=${pageSize}`;
+    const response = await axios.get(url);
+    return { success: true, data: response.data };
+  } catch (error) {
+    const msg = 'Błąd przy pobieraniu danych:';
+    console.error(msg, error);
+    return {
+      success: false,
+      error: {
+        message: msg,
+        details: error instanceof Error ? error.message : msg
+      }
+    };
+  }
+};
+
+export const getCompanyById = async (id: UUIDTypes): Promise<Result<Company>> => {
+  try {
+    const url = jsonServerApi + `companies/${id}`;
     const response = await axios.get(url);
     return { success: true, data: response.data };
   } catch (error) {

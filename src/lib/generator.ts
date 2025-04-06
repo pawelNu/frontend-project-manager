@@ -132,6 +132,7 @@ export const generateData = (numOfCompanies: number): Company[] => {
       id: company.id,
       name: company.name,
       nip: company.nip,
+      regon: company.regon,
       website: company.website
     };
     createCompany(companyNotFull);
