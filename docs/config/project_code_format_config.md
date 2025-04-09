@@ -1,10 +1,10 @@
 # Project code format config
 
-Run `npm install --save-dev prettier husky`
+In project directory find: `.git/hooks/pre-commit` and add:
 
-Run `npx husky install` it will create `.husky` directory -> husky - Git hooks installed
-
-Run `npx husky add .husky/pre-commit "npm run format"` -> husky - created .husky/pre-commit
+```sh
+pnpm format
+```
 
 Add to `package.json`
 
@@ -16,17 +16,17 @@ Add to `package.json`
 
 Now with each commit project code will be automatically formatted.
 
-To manually format project: `npm run format`.
+To manually format project: `pnpm format`.
 
 Add file `.prettierrc.json` in main directory.
 
 ```json
 {
-  "semi": true,
-  "tabWidth": 4,
-  "singleQuote": false,
-  "jsxSingleQuote": false,
-  "jsxBracketSameLine": true,
-  "arrowParens": "always"
+    "semi": true,
+    "tabWidth": 4,
+    "singleQuote": true,
+    "bracketSameLine": true,
+    "arrowParens": "always",
+    "printWidth": 120
 }
 ```
