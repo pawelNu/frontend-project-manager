@@ -2,13 +2,10 @@
   import { page } from '$app/state';
   import { getCompanies, type Company } from '$lib/api/company';
   import Pagination, { type PaginationType } from '$lib/components/Pagination.svelte';
-  import { generateData } from '$lib/generator';
   import { onMount } from 'svelte';
   import { pushState } from '$app/navigation';
 
   const { pageNum, pageSize } = page.params;
-  console.log(' loadData   pageNum:', pageNum);
-  console.log(' loadData   pageSize:', pageSize);
 
   export const paginationState: PaginationType = {
     first: 1,
