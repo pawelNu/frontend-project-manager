@@ -2,14 +2,10 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ThemeToggleButton } from './ThemeToggleButton';
 import { routes } from '../routes';
 
-export type TSidebar = {
-    levelName: string;
-    subLevel: TSubLevel[];
-};
-
-type TSubLevel = {
-    levelName: string;
-    linkTo: string;
+export type TSidebarItem = {
+    label: string;
+    linkTo?: string;
+    subMenu?: TSidebarItem[];
 };
 
 export const Sidebar = () => {
@@ -17,21 +13,69 @@ export const Sidebar = () => {
     const navigate = useNavigate();
     const currentPath = location.pathname;
 
-    const sidebarElements: TSidebar[] = [
+    const sidebarElements: TSidebarItem[] = [
         {
-            levelName: 'Companies',
-            subLevel: [
-                { levelName: 'All companies', linkTo: routes.companies.list() },
-                { levelName: 'Add company', linkTo: routes.companies.create() },
+            label: 'Companies',
+            subMenu: [
+                {
+                    label: 'All companies',
+                    linkTo: routes.companies.list(),
+                },
+                {
+                    label: 'Add company',
+                    linkTo: routes.companies.create(),
+                },
+                {
+                    label: 'Manage Companies',
+                    subMenu: [
+                        {
+                            label: 'Company Details',
+
+                            subMenu: [
+                                { label: 'Details', linkTo: routes.companies.details('1') },
+                                { label: 'Delete', linkTo: routes.companies.delete('1') },
+                            ],
+                        },
+                        {
+                            label: 'Delete Company',
+                            linkTo: routes.companies.delete('1'),
+                        },
+                    ],
+                },
             ],
         },
         {
-            levelName: 'Account',
-            subLevel: [
-                { levelName: 'New...', linkTo: routes.pages.main() },
-                { levelName: 'Profile', linkTo: routes.pages.main() },
-                { levelName: 'Settings', linkTo: routes.pages.main() },
-                { levelName: 'Sign out', linkTo: routes.pages.main() },
+            label: 'Account',
+            subMenu: [
+                {
+                    label: 'New...',
+                    linkTo: routes.pages.main(),
+                },
+                {
+                    label: 'Profile',
+                    linkTo: routes.pages.main(),
+                },
+                {
+                    label: 'Settings',
+                    linkTo: routes.pages.main(),
+                },
+                {
+                    label: 'Security',
+                    subMenu: [
+                        {
+                            label: 'Change Password',
+                            linkTo: routes.pages.main(),
+                        },
+                        {
+                            label: 'Two-Factor Authentication',
+                            linkTo: routes.pages.main(),
+                        },
+                    ],
+                },
+                {
+                    label: 'Sign out',
+                    linkTo: routes.pages.main(),
+                },
             ],
         },
     ];
@@ -47,9 +91,24 @@ export const Sidebar = () => {
         }
     };
 
-    const handleLinkClick = (link: string) => {
+    const handleLinkClick = (link: string | undefined) => {
+        if (link === undefined) {
+            link = routes.pages.main();
+        }
         closeSidebar();
         navigate(link);
+    };
+
+    const isActive = (item: TSidebarItem): boolean => {
+        if (item.linkTo === currentPath) {
+            return true;
+        }
+
+        if (item.subMenu) {
+            return item.subMenu.some(isActive);
+        }
+
+        return false;
     };
 
     return (
@@ -69,70 +128,59 @@ export const Sidebar = () => {
                 </div>
                 <div className="offcanvas-body px-0">
                     <div className="accordion" id="sidebarMenu">
-                        {sidebarElements.map((element, index) => {
-                            const isOnPath = element.subLevel.some((subLink) => currentPath === subLink.linkTo);
-                            return (
-                                <div key={element.levelName} className="accordion-item">
-                                    <h2 className="accordion-header" id={element.levelName + 'Heading' + index}>
-                                        <button
-                                            className={`accordion-button ${isOnPath ? '' : ' collapsed'}`}
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target={'#' + element.levelName + 'Collapse' + index}
-                                            aria-expanded={isOnPath ? 'true' : 'false'}
-                                            aria-controls={element.levelName + 'Collapse' + index}>
-                                            {element.levelName}
-                                        </button>
-                                    </h2>
-                                    <div
-                                        id={element.levelName + 'Collapse' + index}
-                                        className={`accordion-collapse collapse ${isOnPath ? 'show' : ''}`}
-                                        aria-labelledby={element.levelName + 'Heading' + index}
-                                        data-bs-parent="#sidebarMenu">
-                                        <div className="accordion-body">
-                                            {listElement(element, handleLinkClick, currentPath)}
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                        <ThemeToggleButton />
+                        {renderMenu(sidebarElements, isActive, undefined, handleLinkClick)} <ThemeToggleButton />
                     </div>
                 </div>
             </div>
         </div>
     );
 };
-const listElement = (element: TSidebar, handleLinkClick: (link: string) => void, currentPath: string) => {
-    return (
-        <div className="list-group">
-            {element.subLevel.map((sublevel, subIndex) => {
-                const isCurrentPath = currentPath === sublevel.linkTo;
-                return (
-                    // <Link key={subIndex} to={sublevel.linkTo} onClick={() => handleLinkClick(sublevel.linkTo)}>
-                    <button
-                        key={subIndex}
-                        type="button"
-                        className={`list-group-item list-group-item-action rounded-0 ${isCurrentPath ? ' active' : ''}`}
-                        aria-current={isCurrentPath ? 'true' : 'false'}
-                        onClick={() => handleLinkClick(sublevel.linkTo)}>
-                        {sublevel.levelName}
-                    </button>
-                    // </Link>
-                );
-            })}
-        </div>
-    );
-};
 
-{
-    /* <div class="list-group">
-  <button type="button" class="list-group-item list-group-item-action active" aria-current="true">
-    The current button
-  </button>
-  <button type="button" class="list-group-item list-group-item-action">A second button item</button>
-  <button type="button" class="list-group-item list-group-item-action">A third button item</button>
-  <button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
-  <button type="button" class="list-group-item list-group-item-action" disabled>A disabled button item</button>
-</div> */
-}
+const renderMenu = (
+    elements: TSidebarItem[],
+    isActive: (item: TSidebarItem) => boolean,
+    level: number = 0,
+    handleLinkClick: (link: string | undefined) => void,
+) => {
+    return elements.map((item, index) => {
+        const accordionId = `accordion-${level}-${index}`;
+        const isCurrentPathActive = isActive(item);
+
+        return (
+            <div key={index}>
+                {item.subMenu ? (
+                    <div className="accordion-item">
+                        <h2 className="accordion-header" id={`${accordionId}-heading`}>
+                            <button
+                                className={`accordion-button ${isCurrentPathActive ? '' : 'collapsed'}`}
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target={`#${accordionId}-collapse`}
+                                aria-expanded={isCurrentPathActive ? 'true' : 'false'}
+                                aria-controls={`${accordionId}-collapse`}>
+                                {item.label}
+                            </button>
+                        </h2>
+                        <div
+                            id={`${accordionId}-collapse`}
+                            className={`accordion-collapse collapse ${isCurrentPathActive ? 'show' : ''}`}
+                            aria-labelledby={`${accordionId}-heading`}>
+                            <div className="accordion-body">
+                                <div className="list-group">
+                                    {renderMenu(item.subMenu, isActive, level + 1, handleLinkClick)}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ) : (
+                    <button
+                        type="button"
+                        className={`list-group-item list-group-item-action rounded-0 ${isCurrentPathActive ? ' active' : ''}`}
+                        onClick={() => handleLinkClick(item.linkTo)}>
+                        {item.label}
+                    </button>
+                )}
+            </div>
+        );
+    });
+};

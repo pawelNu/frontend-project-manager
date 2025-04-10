@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { routes } from '../routes';
 
 export const MainPage = () => {
+    // TODO add all links from sidebar to main page
     return (
         <div className="container-fluid p-3">
             <div className="card">
