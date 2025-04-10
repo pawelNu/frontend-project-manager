@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import { ThemeToggleButton } from './ThemeToggleButton';
+import { routes } from '../routes';
 
 export const Sidebar = () => {
     type TSidebar = {
@@ -13,40 +15,47 @@ export const Sidebar = () => {
 
     const sidebarElements: TSidebar[] = [
         {
-            levelName: 'Projects',
+            levelName: 'Companies',
             subLevel: [
-                { levelName: 'All projects', linkTo: '/all-projects' },
-                { levelName: 'Add new project', linkTo: '/add-new-project' },
-            ],
-        },
-        {
-            levelName: 'Users',
-            subLevel: [
-                { levelName: 'All users', linkTo: '/' },
-                { levelName: 'Empty', linkTo: '/' },
+                { levelName: 'All companies', linkTo: routes.companies.list() },
+                { levelName: 'Add company', linkTo: routes.companies.create() },
             ],
         },
         {
             levelName: 'Account',
             subLevel: [
-                { levelName: 'New...', linkTo: '/' },
-                { levelName: 'Profile', linkTo: '/' },
-                { levelName: 'Settings', linkTo: '/' },
-                { levelName: 'Sign out', linkTo: '/' },
+                { levelName: 'New...', linkTo: routes.pages.main() },
+                { levelName: 'Profile', linkTo: routes.pages.main() },
+                { levelName: 'Settings', linkTo: routes.pages.main() },
+                { levelName: 'Sign out', linkTo: routes.pages.main() },
             ],
         },
     ];
+
+    const closeSidebar = () => {
+        const sidebar = document.getElementById('sidebar');
+        if (!sidebar) return;
+
+        const bs = window.bootstrap;
+        const instance = bs?.Offcanvas.getInstance(sidebar);
+        if (instance) {
+            instance.hide();
+        }
+    };
 
     return (
         <div>
             <div className="offcanvas offcanvas-start" tabIndex={-1} id="sidebar" aria-labelledby="sidebarLabel">
                 <div className="offcanvas-header">
-                    <a href="/" className="d-flex align-items-center text-decoration-none offcanvas-title d-sm-block">
+                    <Link
+                        to={routes.pages.main()}
+                        className="d-flex align-items-center text-decoration-none offcanvas-title d-sm-block"
+                        onClick={closeSidebar}>
                         <h5>
                             <i className="bi bi-chat-right-text-fill"></i>
-                            Sidebar
+                            Main Page
                         </h5>
-                    </a>
+                    </Link>
                     <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div className="offcanvas-body px-0">
@@ -73,7 +82,9 @@ export const Sidebar = () => {
                                         <ul className="list-unstyled">
                                             {element.subLevel.map((sublevel, subIndex) => (
                                                 <li key={subIndex}>
-                                                    <a href={sublevel.linkTo}>{sublevel.levelName}</a>
+                                                    <Link to={sublevel.linkTo} onClick={closeSidebar}>
+                                                        {sublevel.levelName}
+                                                    </Link>
                                                 </li>
                                             ))}
                                         </ul>

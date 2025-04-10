@@ -25,7 +25,7 @@ export const ThemeToggleButton: React.FC = () => {
 
     return (
         <button onClick={toggleTheme} className="btn btn-primary mt-2">
-            Przełącz na motyw: {theme === 'light' ? 'Ciemny' : 'Jasny'}
+            Przełącz na {theme === 'light' ? 'ciemny' : 'jasny'} motyw
         </button>
     );
 };

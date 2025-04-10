@@ -1,0 +1,21 @@
+export const routes = {
+    pages: {
+        main: () => '/',
+    },
+    companies: {
+        list: () => '/companies',
+        create: () => '/companies/create',
+        edit: (id: string) => `/companies/${id}/edit`,
+        details: (id: string) => `/companies/${id}`,
+    },
+    users: {
+        list: () => '/users',
+        create: () => '/users/create',
+        edit: (id: string) => `/users/${id}/edit`,
+        details: (id: string) => `/users/${id}`,
+    },
+    products: {
+        list: () => '/products',
+        // itd.
+    },
+};
