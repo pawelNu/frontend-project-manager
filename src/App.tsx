@@ -5,7 +5,7 @@ import { Navbar } from './components/layout/Navbar';
 import { Sidebar } from './components/layout/Sidebar';
 import { MainPage } from './components/pages/MainPage';
 
-function App() {
+export const App = () => {
     return (
         <>
             <Navbar />
@@ -16,6 +16,4 @@ function App() {
             <Footer />
         </>
     );
-}
-
-export default App;
+};
