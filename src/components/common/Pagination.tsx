@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 export type PaginationType = {
     first: number;
     prev: number | null;
@@ -16,13 +14,10 @@ export type PageActions = {
 };
 
 export const Pagination = ({ pagination, actions }: { pagination: PaginationType; actions: PageActions }) => {
-    const [pageSize, setPageSize] = useState<number>(pagination.pageSize);
-
     const changePageNumberAndSize = (e: React.MouseEvent, num: number | null, size: number) => {
         e.preventDefault();
         if (num !== null) {
             actions.updatePageState(num, size, true);
-            setPageSize(size);
         }
     };
 
@@ -34,7 +29,7 @@ export const Pagination = ({ pagination, actions }: { pagination: PaginationType
                         <li className="page-item">
                             <button
                                 className="page-link"
-                                onClick={(e) => changePageNumberAndSize(e, pagination.prev, pageSize)}>
+                                onClick={(e) => changePageNumberAndSize(e, pagination.prev, pagination.pageSize)}>
                                 Previous
                             </button>
                         </li>
@@ -44,7 +39,7 @@ export const Pagination = ({ pagination, actions }: { pagination: PaginationType
                             <li className="page-item">
                                 <button
                                     className="page-link"
-                                    onClick={(e) => changePageNumberAndSize(e, pagination.first, pageSize)}>
+                                    onClick={(e) => changePageNumberAndSize(e, pagination.first, pagination.pageSize)}>
                                     {pagination.first}
                                 </button>
                             </li>
@@ -58,7 +53,7 @@ export const Pagination = ({ pagination, actions }: { pagination: PaginationType
                         <li className="page-item">
                             <button
                                 className="page-link"
-                                onClick={(e) => changePageNumberAndSize(e, pagination.prev, pageSize)}>
+                                onClick={(e) => changePageNumberAndSize(e, pagination.prev, pagination.pageSize)}>
                                 {pagination.prev}
                             </button>
                         </li>
@@ -67,7 +62,7 @@ export const Pagination = ({ pagination, actions }: { pagination: PaginationType
                     <li className="page-item active">
                         <button
                             className={`page-link ${pagination.current === pagination.first || pagination.current === pagination.last ? 'disabled' : ''}`}
-                            onClick={(e) => changePageNumberAndSize(e, pagination.first, pageSize)}>
+                            onClick={(e) => changePageNumberAndSize(e, pagination.first, pagination.pageSize)}>
                             {pagination.current}
                         </button>
                     </li>
@@ -76,7 +71,7 @@ export const Pagination = ({ pagination, actions }: { pagination: PaginationType
                         <li className="page-item">
                             <button
                                 className="page-link"
-                                onClick={(e) => changePageNumberAndSize(e, pagination.next, pageSize)}>
+                                onClick={(e) => changePageNumberAndSize(e, pagination.next, pagination.pageSize)}>
                                 {pagination.next}
                             </button>
                         </li>
@@ -90,7 +85,7 @@ export const Pagination = ({ pagination, actions }: { pagination: PaginationType
                             <li className="page-item">
                                 <button
                                     className="page-link"
-                                    onClick={(e) => changePageNumberAndSize(e, pagination.last, pageSize)}>
+                                    onClick={(e) => changePageNumberAndSize(e, pagination.last, pagination.pageSize)}>
                                     {pagination.last}
                                 </button>
                             </li>
@@ -100,7 +95,7 @@ export const Pagination = ({ pagination, actions }: { pagination: PaginationType
                         <li className="page-item">
                             <button
                                 className="page-link"
-                                onClick={(e) => changePageNumberAndSize(e, pagination.next, pageSize)}>
+                                onClick={(e) => changePageNumberAndSize(e, pagination.next, pagination.pageSize)}>
                                 Next
                             </button>
                         </li>
@@ -112,14 +107,16 @@ export const Pagination = ({ pagination, actions }: { pagination: PaginationType
                                 className="btn btn-outline-primary dropdown-toggle"
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                Page size: {pageSize}
+                                Page size: {pagination.pageSize}
                             </button>
                             <ul className="dropdown-menu">
                                 {[5, 10, 25, 50].map((pageSize, index) => (
                                     <li key={index}>
                                         <button
                                             className="dropdown-item"
-                                            onClick={(e) => changePageNumberAndSize(e, pagination.first, pageSize)}>
+                                            onClick={(e) =>
+                                                changePageNumberAndSize(e, pagination.first, pagination.pageSize)
+                                            }>
                                             Page size: {pageSize}
                                         </button>
                                     </li>
