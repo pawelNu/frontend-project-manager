@@ -85,16 +85,4 @@ export type PaginatedResponse<T> = {
     data: T[];
 };
 
-// TODO move to pagination component
-export type PaginationType = {
-    first: number;
-    prev: number | null;
-    current: number;
-    next: number | null;
-    last: number;
-    pages: number;
-    items: number;
-    pageSize: number;
-};
-
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms * 1000));
