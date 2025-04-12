@@ -2,6 +2,7 @@ import { UUIDTypes } from 'uuid';
 import { PaginatedResponse, Result } from '../components/common';
 import axios from 'axios';
 import { jsonServerApi } from '../config/data.generator';
+import { api } from '../components/routes';
 
 export type Address = {
     id: UUIDTypes;
@@ -56,16 +57,23 @@ export type CompanyContactEmployee = {
     contactEmployeeId: UUIDTypes;
 };
 
+const errors = {
+    general: {
+        get_data: () => 'Błąd przy pobieraniu danych.',
+    },
+};
+
 export const getCompanies = async (
     pageNumber: number,
     pageSize: number,
 ): Promise<Result<PaginatedResponse<Company>>> => {
     try {
-        const url = jsonServerApi + `companies?_page=${pageNumber}&_per_page=${pageSize}`;
+        // const url = jsonServerApi + `companies?_page=${pageNumber}&_per_page=${pageSize}`;
+        const url = jsonServerApi + api.company.list(pageNumber, pageSize);
         const response = await axios.get(url);
         return { success: true, data: response.data };
     } catch (error) {
-        const msg = 'Błąd przy pobieraniu danych:';
+        const msg = errors.general.get_data();
         console.error(msg, error);
         return {
             success: false,
@@ -83,7 +91,7 @@ export const getCompanyById = async (id: UUIDTypes): Promise<Result<Company>> =>
         const response = await axios.get(url);
         return { success: true, data: response.data };
     } catch (error) {
-        const msg = 'Błąd przy pobieraniu danych:';
+        const msg = errors.general.get_data();
         console.error(msg, error);
         return {
             success: false,
@@ -104,11 +112,6 @@ export const getCompanyAddressesByCompanyId = async (id: UUIDTypes | undefined):
         const listOfAddresses = await axios.get(url);
         const addressIds: string[] = listOfAddresses.data.map((item: CompanyAddress) => item.addressId);
         const addresses: Address[] = [];
-        // addressIds.forEach((id) => {
-        //   const url = jsonServerApi + `addresses/${id}`;
-        //   const response = await axios.get(url);
-        //   addresses.push(response.data);
-        // });
         for (const id of addressIds) {
             const url = jsonServerApi + `addresses/${id}`;
             const response = await axios.get(url);
@@ -116,7 +119,7 @@ export const getCompanyAddressesByCompanyId = async (id: UUIDTypes | undefined):
         }
         return { success: true, data: addresses };
     } catch (error) {
-        const msg = 'Błąd przy pobieraniu danych:';
+        const msg = errors.general.get_data();
         console.error(msg, error);
         return {
             success: false,

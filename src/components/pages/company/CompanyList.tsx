@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Link, NavigateFunction, useNavigate, useParams } from 'react-router-dom';
 import { routes } from '../../routes';
 import { Company, getCompanies } from '../../../client/company';
-import { PaginationType } from '../../common';
+import { ErrorResponse, PaginationType } from '../../common';
 
 export const CompanyList = () => {
     const { pageNumber, pageSize } = useParams();
@@ -20,8 +20,8 @@ export const CompanyList = () => {
         items: 1,
         pageSize: currentPageSize,
     });
-    const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<ErrorResponse | null>(null);
 
     const setPageNumberAndSize = (
         pageNumber: string | undefined,
@@ -60,6 +60,8 @@ export const CompanyList = () => {
                     items: result.data.items,
                     pageSize: pagination.pageSize,
                 });
+            } else {
+                setError(result.error);
             }
         } catch (err) {
             console.log(' getCompanyList   err:', err);
@@ -77,7 +79,11 @@ export const CompanyList = () => {
         <div className="container">
             <h1>Company List</h1>
             {loading && <p>Loading...</p>}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {error && (
+                <p style={{ color: 'red' }}>
+                    {error.details}: {error.message}
+                </p>
+            )}
             <ul></ul>
             <table className="table table-hover">
                 <thead>
