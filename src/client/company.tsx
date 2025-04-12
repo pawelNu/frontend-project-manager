@@ -1,7 +1,7 @@
-import { UUIDTypes } from "uuid";
-import { PaginatedResponse, Result } from "../components/common";
-import axios from "axios";
-import { jsonServerApi } from "../config/data.generator";
+import { UUIDTypes } from 'uuid';
+import { PaginatedResponse, Result } from '../components/common';
+import axios from 'axios';
+import { jsonServerApi } from '../config/data.generator';
 
 export type Address = {
     id: UUIDTypes;

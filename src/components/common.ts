@@ -7,11 +7,11 @@ export const sidebarElements: TSidebarItem[] = [
         subMenu: [
             {
                 label: 'All companies',
-                linkTo: routes.companies.list(),
+                linkTo: routes.company.list(),
             },
             {
                 label: 'Add company',
-                linkTo: routes.companies.create(),
+                linkTo: routes.company.create(),
             },
             {
                 label: 'Manage Companies',
@@ -20,13 +20,13 @@ export const sidebarElements: TSidebarItem[] = [
                         label: 'Company Details',
 
                         subMenu: [
-                            { label: 'Details', linkTo: routes.companies.details('1') },
-                            { label: 'Delete', linkTo: routes.companies.delete('1') },
+                            { label: 'Details', linkTo: routes.company.details('1') },
+                            { label: 'Delete', linkTo: routes.company.delete('1') },
                         ],
                     },
                     {
                         label: 'Delete Company',
-                        linkTo: routes.companies.delete('1'),
+                        linkTo: routes.company.delete('1'),
                     },
                 ],
             },
@@ -37,32 +37,32 @@ export const sidebarElements: TSidebarItem[] = [
         subMenu: [
             {
                 label: 'New...',
-                linkTo: routes.pages.placeholder(),
+                linkTo: routes.page.placeholder(),
             },
             {
                 label: 'Profile',
-                linkTo: routes.pages.placeholder(),
+                linkTo: routes.page.placeholder(),
             },
             {
                 label: 'Settings',
-                linkTo: routes.pages.placeholder(),
+                linkTo: routes.page.placeholder(),
             },
             {
                 label: 'Security',
                 subMenu: [
                     {
                         label: 'Change Password',
-                        linkTo: routes.pages.placeholder(),
+                        linkTo: routes.page.placeholder(),
                     },
                     {
                         label: 'Two-Factor Authentication',
-                        linkTo: routes.pages.placeholder(),
+                        linkTo: routes.page.placeholder(),
                     },
                 ],
             },
             {
                 label: 'Sign out',
-                linkTo: routes.pages.placeholder(),
+                linkTo: routes.page.placeholder(),
             },
         ],
     },
@@ -83,4 +83,16 @@ export type PaginatedResponse<T> = {
     pages: number;
     items: number;
     data: T[];
+};
+
+// TODO move to pagination component
+export type PaginationType = {
+    first: number;
+    prev: number | null;
+    current: number;
+    next: number | null;
+    last: number;
+    pages: number;
+    items: number;
+    pageSize: number;
 };
