@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ThemeToggleButton } from './ThemeToggleButton';
 import { routes } from '../routes';
+import { sidebarElements } from '../common';
 
 export type TSidebarItem = {
     label: string;
@@ -12,73 +13,6 @@ export const Sidebar = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const currentPath = location.pathname;
-
-    const sidebarElements: TSidebarItem[] = [
-        {
-            label: 'Companies',
-            subMenu: [
-                {
-                    label: 'All companies',
-                    linkTo: routes.companies.list(),
-                },
-                {
-                    label: 'Add company',
-                    linkTo: routes.companies.create(),
-                },
-                {
-                    label: 'Manage Companies',
-                    subMenu: [
-                        {
-                            label: 'Company Details',
-
-                            subMenu: [
-                                { label: 'Details', linkTo: routes.companies.details('1') },
-                                { label: 'Delete', linkTo: routes.companies.delete('1') },
-                            ],
-                        },
-                        {
-                            label: 'Delete Company',
-                            linkTo: routes.companies.delete('1'),
-                        },
-                    ],
-                },
-            ],
-        },
-        {
-            label: 'Account',
-            subMenu: [
-                {
-                    label: 'New...',
-                    linkTo: routes.pages.main(),
-                },
-                {
-                    label: 'Profile',
-                    linkTo: routes.pages.main(),
-                },
-                {
-                    label: 'Settings',
-                    linkTo: routes.pages.main(),
-                },
-                {
-                    label: 'Security',
-                    subMenu: [
-                        {
-                            label: 'Change Password',
-                            linkTo: routes.pages.main(),
-                        },
-                        {
-                            label: 'Two-Factor Authentication',
-                            linkTo: routes.pages.main(),
-                        },
-                    ],
-                },
-                {
-                    label: 'Sign out',
-                    linkTo: routes.pages.main(),
-                },
-            ],
-        },
-    ];
 
     const closeSidebar = () => {
         const sidebar = document.getElementById('sidebar');

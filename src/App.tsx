@@ -4,6 +4,7 @@ import { Footer } from './components/layout/Footer';
 import { Navbar } from './components/layout/Navbar';
 import { Sidebar } from './components/layout/Sidebar';
 import { MainPage } from './components/pages/MainPage';
+import { routes } from './components/routes';
 
 export const App = () => {
     return (
@@ -11,7 +12,7 @@ export const App = () => {
             <Navbar />
             <Sidebar />
             <Routes>
-                <Route path="/" element={<MainPage />} />
+                <Route path={routes.pages.main()} element={<MainPage />} />
             </Routes>
             <Footer />
         </>

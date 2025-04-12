@@ -1,6 +1,7 @@
 export const routes = {
     pages: {
         main: () => '/',
+        placeholder: () => '/placeholder',
     },
     companies: {
         list: () => '/companies',
