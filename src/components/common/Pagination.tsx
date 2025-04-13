@@ -12,7 +12,7 @@ export type PaginationType = {
 };
 
 export type PageActions = {
-    updatePageState: (num: number | null, size: number, replace: boolean) => void;
+    updatePageState: (num: number | null, size: number) => void;
 };
 
 export const Pagination = ({ pagination, actions }: { pagination: PaginationType; actions: PageActions }) => {
@@ -21,7 +21,7 @@ export const Pagination = ({ pagination, actions }: { pagination: PaginationType
     const changePageNumberAndSize = (e: React.MouseEvent, num: number | null, size: number) => {
         e.preventDefault();
         if (num !== null) {
-            actions.updatePageState(num, size, true);
+            actions.updatePageState(num, size);
             setPageSize(size);
         }
     };
