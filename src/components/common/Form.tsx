@@ -19,6 +19,8 @@ type FormValues = {
     [key: string]: string | boolean;
 };
 
+// TODO add type data
+// TODO add function with request to api
 export const DynamicForm: React.FC<FormConfig> = ({ fields }) => {
     const initialValues = fields.reduce<FormValues>((values, field) => {
         values[field.name] = field.type === 'checkbox' ? false : '';
