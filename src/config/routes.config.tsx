@@ -1,3 +1,4 @@
+import { CompanyCreate } from '../components/pages/company/CompanyCreate';
 import { CompanyDetails } from '../components/pages/company/CompanyDetails';
 import { CompanyList } from '../components/pages/company/CompanyList';
 import { MainPage } from '../components/pages/MainPage';
@@ -19,5 +20,9 @@ export const routeConfig = [
     {
         path: routes.company.details(id),
         element: <CompanyDetails />,
+    },
+    {
+        path: routes.company.create(),
+        element: <CompanyCreate />,
     },
 ];
