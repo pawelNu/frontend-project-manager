@@ -9,6 +9,7 @@ export type TSidebarItem = {
     subMenu?: TSidebarItem[];
 };
 
+// FIXME sidebar elements are not open at opened page
 export const Sidebar = () => {
     const location = useLocation();
     const navigate = useNavigate();
