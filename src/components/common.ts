@@ -70,7 +70,7 @@ export const sidebarElements: TSidebarItem[] = [
 
 export type ErrorResponse = {
     message: string;
-    details?: string;
+    type?: string;
 };
 
 export type Result<T> = { success: true; data: T } | { success: false; error: ErrorResponse };

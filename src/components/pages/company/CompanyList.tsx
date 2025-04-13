@@ -21,7 +21,6 @@ export const CompanyList = () => {
         items: 1,
         pageSize: size,
     });
-    console.log(' CompanyList   pagination:', pagination);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<ErrorResponse | null>(null);
 
@@ -72,44 +71,47 @@ export const CompanyList = () => {
             <div className="container">
                 <h1>Company List</h1>
                 {loading && <p>Loading...</p>}
-                {error && (
+                {error && !companies && (
                     <p style={{ color: 'red' }}>
-                        {error.details}: {error.message}
+                        {error.type}: {error.message}
                     </p>
                 )}
-                <ul></ul>
-                <table className="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Nip</th>
-                            <th>Regon</th>
-                            <th>Website</th>
-                            <th>Details</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {companies.map((company, index) => (
-                            <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>{company.name}</td>
-                                <td>{company.nip}</td>
-                                <td>{company.regon}</td>
-                                <td>{company.website}</td>
-                                <td>
-                                    <Link
-                                        to={routes.company.details(company.id.toString())}
-                                        className="link-opacity-75-hover">
-                                        Details
-                                    </Link>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                {companies && (
+                    <>
+                        <table className="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Nip</th>
+                                    <th>Regon</th>
+                                    <th>Website</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {companies.map((company, index) => (
+                                    <tr key={index}>
+                                        <td>{index + 1}</td>
+                                        <td>{company.name}</td>
+                                        <td>{company.nip}</td>
+                                        <td>{company.regon}</td>
+                                        <td>{company.website}</td>
+                                        <td>
+                                            <Link
+                                                to={routes.company.details(company.id.toString())}
+                                                className="link-opacity-75-hover">
+                                                Details
+                                            </Link>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        <Pagination pagination={pagination} actions={{ updatePageState }} />
+                    </>
+                )}
             </div>
-            <Pagination pagination={pagination} actions={{ updatePageState }} />
         </>
     );
 };

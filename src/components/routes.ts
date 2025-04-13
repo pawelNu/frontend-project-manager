@@ -18,19 +18,8 @@ export const routes = {
             return `/companies/page/${pageNumber}/size/${pageSize}${queryString}`;
         },
         create: () => '/companies/create',
-        edit: (id: string) => `/companies/${id}/edit`,
-        details: (id: string) => `/companies/${id}/details`,
-        delete: (id: string) => `/companies/${id}/delete`,
-    },
-    user: {
-        list: (pageNumber: string | number, pageSize: string | number) => `/users/page/${pageNumber}/size/${pageSize}`,
-        create: () => '/users/create',
-        edit: (id: string) => `/users/${id}/edit`,
-        details: (id: string) => `/users/${id}`,
-    },
-    product: {
-        list: (pageNumber: string | number, pageSize: string | number) =>
-            `/products/page/${pageNumber}/size/${pageSize}`,
+        edit: (id: string) => `/companies/edit/${id}`,
+        details: (id: string) => `/companies/details/${id}`,
     },
 };
 
@@ -47,11 +36,29 @@ export const api = {
                           .map(([key, values]) => values.map((value) => `${key}=${value}`).join('&'))
                           .join('&')}`
                     : '';
-            return `companies?_page=${pageNumber}&_per_page=${pageSize}${queryString}`;
+            return `/companies?_page=${pageNumber}&_per_page=${pageSize}${queryString}`;
         },
         create: () => '/companies/create',
         edit: (id: string) => `/companies/${id}/edit`,
-        details: (id: string) => `/companies/${id}/details`,
+        id: (id: string) => `/companies/${id}`,
         delete: (id: string) => `/companies/${id}/delete`,
+    },
+    companyAddresses: {
+        companyId: (id: string) => `/company-addresses?companyId=${id}`,
+    },
+    addresses: {
+        id: (id: string) => `/addresses/${id}`,
+    },
+    companyContacts: {
+        companyId: (id: string) => `/company-contacts?companyId=${id}`,
+    },
+    companyContactEmployees: {
+        companyId: (id: string) => `/company-contact-employees?companyId=${id}`,
+    },
+    contacts: {
+        id: (id: string) => `/contacts/${id}`,
+    },
+    contactEmployees: {
+        id: (id: string) => `/contact-employees/${id}`,
     },
 };

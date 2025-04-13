@@ -12,7 +12,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { faker, simpleFaker } from '@faker-js/faker';
 
-export const jsonServerApi = 'http://localhost:5000/';
+export const jsonServerApi = 'http://localhost:5000';
 
 const generateAddress = (): Address => ({
     id: uuidv4(),
