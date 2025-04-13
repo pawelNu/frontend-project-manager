@@ -27,7 +27,7 @@ export const Sidebar = () => {
 
     const handleLinkClick = (link: string | undefined) => {
         if (link === undefined) {
-            link = routes.pages.main();
+            link = routes.page.main();
         }
         closeSidebar();
         navigate(link);
@@ -50,9 +50,9 @@ export const Sidebar = () => {
             <div className="offcanvas offcanvas-start" tabIndex={-1} id="sidebar" aria-labelledby="sidebarLabel">
                 <div className="offcanvas-header">
                     <Link
-                        to={routes.pages.main()}
+                        to={routes.page.main()}
                         className="d-flex align-items-center text-decoration-none offcanvas-title d-sm-block"
-                        onClick={() => handleLinkClick(routes.pages.main())}>
+                        onClick={() => handleLinkClick(routes.page.main())}>
                         <h5>
                             <i className="bi bi-chat-right-text-fill"></i>
                             Main Page
