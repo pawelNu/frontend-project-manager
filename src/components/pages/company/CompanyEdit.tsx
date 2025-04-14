@@ -44,6 +44,7 @@ const formConfig: FormConfig = {
     onSubmit: handleDynamicFormSubmit,
 };
 
+// TODO fix Edit form
 export const CompanyEdit = () => {
     return (
         <div className="container">

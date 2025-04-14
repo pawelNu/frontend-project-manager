@@ -27,4 +27,8 @@ Accept: application/json
     "test": "test"
 }
 
+###
 
+DELETE {{host}}/companies/5377bf90-b1df-4255-aab0-8fe7267c6170
+Accept: application/json
+Content-Type: application/json

@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { routes } from '../../routes';
-import { Company, getCompanies } from '../../../client/company';
+import { Company, getCompanies, handleDeleteCompany } from '../../../client/company';
 import { ErrorResponse } from '../../common';
 import { Pagination, PaginationType } from '../../common/Pagination';
+import { ActionsButton } from '../../common/ActionButton';
 
 export const CompanyList = () => {
     const { pageNumber, pageSize } = useParams();
@@ -35,7 +36,6 @@ export const CompanyList = () => {
     );
 
     const getCompanyList = useCallback(async (page: number, size: number) => {
-        console.log('getCompanyList');
         setLoading(true);
         setError(null);
         try {
@@ -86,7 +86,7 @@ export const CompanyList = () => {
                                     <th>Nip</th>
                                     <th>Regon</th>
                                     <th>Website</th>
-                                    <th>Details</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -96,13 +96,18 @@ export const CompanyList = () => {
                                         <td>{company.name}</td>
                                         <td>{company.nip}</td>
                                         <td>{company.regon}</td>
-                                        <td>{company.website}</td>
                                         <td>
-                                            <Link
-                                                to={routes.company.details(company.id.toString())}
-                                                className="link-opacity-75-hover">
-                                                Details
-                                            </Link>
+                                            <a href={company.website} target="_blank">
+                                                {company.website}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <ActionsButton
+                                                id={company.id}
+                                                detailsLink={routes.company.details(company.id.toString())}
+                                                editLink={routes.company.edit(company.id.toString())}
+                                                deleteItem={handleDeleteCompany}
+                                            />
                                         </td>
                                     </tr>
                                 ))}

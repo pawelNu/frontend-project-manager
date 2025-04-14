@@ -215,7 +215,7 @@ export const createCompany = async (companyData: TFormValues): Promise<Result<Co
 
 export const updateCompany = async (id: string, updatedData: unknown) => {
     try {
-        const url = jsonServerApi + `/companies/${id}`;
+        const url = jsonServerApi + api.company.edit(id);
         const response = await axios.put(url, updatedData);
         console.log('Zaktualizowano firmę:', response.data);
     } catch (error) {
@@ -223,12 +223,34 @@ export const updateCompany = async (id: string, updatedData: unknown) => {
     }
 };
 
-export const deleteCompany = async (id: string) => {
+export const deleteCompany = async (id: string): Promise<Result<CompanyNotFull>> => {
     try {
-        const url = jsonServerApi + `/companies/${id}`;
+        const url = jsonServerApi + api.company.delete(id);
         const response = await axios.delete(url);
-        console.log('Usunięto firmę:', response.data);
+        const responseData = response.data;
+        console.log('Usunięto firmę:', JSON.stringify(responseData, null, 2));
+        return { success: true, data: responseData };
     } catch (error) {
-        console.error('Błąd przy usuwaniu firmy:', error);
+        const msg = 'Błąd przy usuwaniu firmy';
+        console.error(msg, error);
+        return {
+            success: false,
+            error: {
+                message: msg,
+                type: error instanceof Error ? error.message : msg,
+            },
+        };
     }
+};
+
+export const handleDeleteCompany = async (id: string) => {
+    const result = await deleteCompany(id);
+    if (result.success) {
+        console.log(' handleDeleteCompany   result:', JSON.stringify(result.data, null, 2));
+        return { success: true };
+    } else {
+        alert(result.error);
+        return { success: false, errors: `${result.error.type}: ${result.error.message}` };
+    }
+    // TODO validation form server not tested, json-server does not throw errors
 };
