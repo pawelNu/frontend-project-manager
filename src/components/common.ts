@@ -21,12 +21,12 @@ export const sidebarElements: TSidebarItem[] = [
 
                         subMenu: [
                             { label: 'Details', linkTo: routes.company.details('1') },
-                            { label: 'Delete', linkTo: routes.company.delete('1') },
+                            // { label: 'Delete', linkTo: routes.company.delete('1') },
                         ],
                     },
                     {
                         label: 'Delete Company',
-                        linkTo: routes.company.delete('1'),
+                        // linkTo: routes.company.delete('1'),
                     },
                 ],
             },

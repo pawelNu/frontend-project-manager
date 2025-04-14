@@ -38,7 +38,7 @@ export const api = {
                     : '';
             return `/companies?_page=${pageNumber}&_per_page=${pageSize}${queryString}`;
         },
-        create: () => '/companies/create',
+        create: () => '/companies',
         edit: (id: string) => `/companies/${id}/edit`,
         id: (id: string) => `/companies/${id}`,
         delete: (id: string) => `/companies/${id}/delete`,

@@ -39,14 +39,20 @@ export const CompanyDetails = () => {
                 const companyAddressesData = await getCompanyAddressesByCompanyId(company?.id);
                 if (companyAddressesData.success) {
                     setAddresses(companyAddressesData.data);
+                } else {
+                    setError(companyAddressesData.error);
                 }
                 const companyContactsData = await getCompanyContactsByCompanyId(company?.id);
                 if (companyContactsData.success) {
                     setContacts(companyContactsData.data);
+                } else {
+                    setError(companyContactsData.error);
                 }
                 const companyContactEmployeesData = await getCompanyContactEmployeesByCompanyId(company?.id);
                 if (companyContactEmployeesData.success) {
                     setContactEmployees(companyContactEmployeesData.data);
+                } else {
+                    setError(companyContactEmployeesData.error);
                 }
             } catch (err) {
                 setError({ message: String(err), type: 'Error Type' });
