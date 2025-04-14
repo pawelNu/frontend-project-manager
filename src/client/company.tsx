@@ -3,6 +3,8 @@ import { PaginatedResponse, Result } from '../components/common';
 import axios from 'axios';
 import { jsonServerApi } from '../config/data.generator';
 import { api } from '../components/routes';
+import { TFormValues } from '../components/common/Form';
+import { v4 as uuidv4 } from 'uuid';
 
 export type Address = {
     id: UUIDTypes;
@@ -190,13 +192,24 @@ export const getCompanyContactEmployeesByCompanyId = async (
     }
 };
 
-export const createCompany = async (companyData: unknown) => {
+export const createCompany = async (companyData: TFormValues): Promise<Result<CompanyNotFull>> => {
     try {
-        const url = jsonServerApi + 'companies';
-        const response = await axios.post(url, companyData);
-        console.log('Stworzono firmę:', response.data);
+        const url = jsonServerApi + api.company.create();
+        const companyWithId = { ...companyData, id: uuidv4() };
+        const response = await axios.post(url, companyWithId);
+        const responseData = response.data;
+        console.log('Stworzono firmę:', JSON.stringify(responseData, null, 2));
+        return { success: true, data: responseData };
     } catch (error) {
-        console.error('Błąd przy tworzeniu firmy:', error);
+        const msg = 'Błąd przy tworzeniu firmy';
+        console.error(msg, error);
+        return {
+            success: false,
+            error: {
+                message: msg,
+                type: error instanceof Error ? error.message : msg,
+            },
+        };
     }
 };
 

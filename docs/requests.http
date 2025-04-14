@@ -1,0 +1,30 @@
+@host=http://localhost:5000
+
+###
+
+POST {{host}}/companies
+Accept: application/json
+
+{
+    "id": "293ddb5c-d5df-47ba-9be5-09752af1a6f9",
+    "name": "test",
+    "nip": "1538910233",
+    "regon": "243416985",
+    "website": "https://test.net/"
+}
+
+###
+
+POST {{host}}/companies
+Accept: application/json
+
+{
+    "id": "5377bf90-b1df-4255-aab0-8fe7267c6170",
+    "name": "test",
+    "nip": "1538910233",
+    "regon": "243416985",
+    "website": "https://test.net/",
+    "test": "test"
+}
+
+

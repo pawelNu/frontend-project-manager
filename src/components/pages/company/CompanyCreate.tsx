@@ -1,69 +1,54 @@
 import * as Yup from 'yup';
-import { DynamicForm, FormConfig } from '../../common/Form';
+import { DynamicForm, FormConfig, TFormValues } from '../../common/Form';
+import { createCompany } from '../../../client/company';
 
-// type FormValues = {
-//     firstName: string;
-//     lastName: string;
-//     username: string;
-//     city: string;
-//     state: string;
-//     zip: string;
-//     terms: boolean;
-// };
+const handleDynamicFormSubmit = async (values: TFormValues) => {
+    const result = await createCompany(values);
+    if (result.success) {
+        console.log(' handleDynamicFormSubmit   result:', JSON.stringify(result.data, null, 2));
+    } else {
+        alert(result.error);
+    }
+    // TODO validation form server not tested, json-server does not throw errors
+
+    return { message: 'Form submitted successfully!' };
+};
 
 const formConfig: FormConfig = {
     fields: [
         {
-            name: 'firstName',
-            label: 'First Name',
+            name: 'name',
+            label: 'Company Name',
             type: 'text',
-            validation: Yup.string().required('First name is required'),
+            validation: Yup.string().required('Company Name is required'),
         },
         {
-            name: 'lastName',
-            label: 'Last Name',
+            name: 'nip',
+            label: 'NIP',
             type: 'text',
-            validation: Yup.string().required('Last name is required'),
+            validation: Yup.string().required('NIP is required'),
         },
         {
-            name: 'username',
-            label: 'Username',
+            name: 'regon',
+            label: 'REGON',
             type: 'text',
-            validation: Yup.string().required('Username is required'),
+            validation: Yup.string().required('REGON is required'),
         },
         {
-            name: 'city',
-            label: 'City',
+            name: 'website',
+            label: 'Website',
             type: 'text',
-            validation: Yup.string().required('City is required'),
-        },
-        {
-            name: 'state',
-            label: 'State',
-            type: 'select',
-            options: ['California', 'Texas', 'Florida'],
-            validation: Yup.string().required('State is required'),
-        },
-        {
-            name: 'zip',
-            label: 'Zip Code',
-            type: 'text',
-            validation: Yup.string().required('Zip is required'),
-        },
-        {
-            name: 'terms',
-            label: 'Agree to terms',
-            type: 'checkbox',
-            validation: Yup.boolean().oneOf([true], 'You must agree to the terms'),
+            validation: Yup.string().required('Website is required'),
         },
     ],
+    onSubmit: handleDynamicFormSubmit,
 };
 
 export const CompanyCreate = () => {
     return (
         <div className="container">
             <h1>Company Create Form</h1>
-            <DynamicForm fields={formConfig.fields} />
+            <DynamicForm fields={formConfig.fields} onSubmit={handleDynamicFormSubmit} />
         </div>
     );
 };

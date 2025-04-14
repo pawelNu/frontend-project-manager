@@ -2,30 +2,30 @@ import { Formik, Field, Form, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 
 type YupSchemaType = string | boolean | undefined;
+type FieldType = 'text' | 'select' | 'checkbox' | 'email' | 'number';
 
 type FieldConfig = {
     name: string;
     label: string;
-    type: 'text' | 'select' | 'checkbox';
+    type: FieldType;
     options?: string[];
     validation?: Yup.Schema<YupSchemaType>;
 };
 
 export type FormConfig = {
     fields: FieldConfig[];
+    onSubmit: (values: TFormValues) => Promise<{ message?: string; errors?: { [key: string]: string } }>;
 };
 
-type FormValues = {
+export type TFormValues = {
     [key: string]: string | boolean;
 };
 
-// TODO add type data
-// TODO add function with request to api
-export const DynamicForm: React.FC<FormConfig> = ({ fields }) => {
-    const initialValues = fields.reduce<FormValues>((values, field) => {
+export const DynamicForm: React.FC<FormConfig> = ({ fields, onSubmit }) => {
+    const initialValues = fields.reduce<TFormValues>((values, field) => {
         values[field.name] = field.type === 'checkbox' ? false : '';
         return values;
-    }, {} as FormValues);
+    }, {} as TFormValues);
 
     const validationSchema = Yup.object(
         fields.reduce<{ [key: string]: Yup.Schema<YupSchemaType> }>((schema, field) => {
@@ -36,46 +36,64 @@ export const DynamicForm: React.FC<FormConfig> = ({ fields }) => {
         }, {}),
     );
 
-    const fakeServerRequest = (values: FormValues) => {
-        return new Promise<{ [key: string]: string }>((resolve, reject) => {
-            const errors: { [key: string]: string } = {};
+    // const fakeServerRequest = (values: FormValues) => {
+    //     return new Promise<{ [key: string]: string }>((resolve, reject) => {
+    //         const errors: { [key: string]: string } = {};
 
-            if (values.username === 'existingUser') {
-                errors.username = 'Username already exists';
-            }
-            if (values.zip === '12345') {
-                errors.zip = 'Invalid Zip Code 2';
-            }
+    //         if (values.username === 'existingUser') {
+    //             errors.username = 'Username already exists';
+    //         }
+    //         if (values.zip === '12345') {
+    //             errors.zip = 'Invalid Zip Code 2';
+    //         }
 
-            if (Object.keys(errors).length > 0) {
-                reject(errors);
-            } else {
-                resolve({ message: 'Form submitted successfully' });
-            }
-        });
-    };
+    //         if (Object.keys(errors).length > 0) {
+    //             reject(errors);
+    //         } else {
+    //             resolve({ message: 'Form submitted successfully' });
+    //         }
+    //     });
+    // };
 
-    const handleSubmit = (values: FormValues, { setErrors, resetForm, setSubmitting }: FormikHelpers<FormValues>) => {
-        console.log('Sending values to server:', JSON.stringify(values, null));
+    const handleSubmit = async (
+        values: TFormValues,
+        { setErrors, resetForm, setSubmitting }: FormikHelpers<TFormValues>,
+    ) => {
+        console.log('Sending values to server:', JSON.stringify(values, null, 2));
 
-        fakeServerRequest(values)
-            .then((response) => {
-                console.log('Server response:', response);
+        // fakeServerRequest(values)
+        //     .then((response) => {
+        //         console.log('Server response:', response);
+        //         resetForm();
+        //         setSubmitting(false);
+        //     })
+        //     .catch((error) => {
+        //         console.error('Server errors received:', error);
+        //         setErrors(error);
+        //         setSubmitting(false);
+        //     });
+
+        try {
+            const response = await onSubmit(values);
+
+            if (response.errors) {
+                setErrors(response.errors);
+            } else if (response.message) {
                 alert(response.message);
                 resetForm();
-                setSubmitting(false);
-            })
-            .catch((error) => {
-                console.error('Server errors received:', error);
-                setErrors(error);
-                setSubmitting(false);
-            });
+            }
+        } catch (error) {
+            console.error('Unexpected error during submission:', error);
+            alert('Unexpected error during submission');
+        } finally {
+            setSubmitting(false);
+        }
     };
 
     return (
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
             {({ errors, touched, isSubmitting }) => (
-                <Form>
+                <Form autoComplete="off">
                     {fields.map((field) => (
                         <div key={field.name} className="col-md-4 mb-3">
                             <label htmlFor={field.name} className="form-label">
