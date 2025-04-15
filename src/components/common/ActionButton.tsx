@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UUIDTypes } from 'uuid';
+import { ConfirmDeleteModal } from './ConfirmDeleteModal';
+import DropdownButton from 'react-bootstrap/esm/DropdownButton';
+import Dropdown from 'react-bootstrap/esm/Dropdown';
+import { InfoModal } from './InfoModal';
 
 type Props = {
     id: UUIDTypes;
@@ -39,37 +43,22 @@ export const ActionsButton: React.FC<Props> = ({ id, detailsLink, editLink, dele
     };
 
     return (
-        <>
-            <div className="ms-3">
-                <div className="dropdown">
-                    <a
-                        className="btn btn-secondary dropdown-toggle"
-                        href="#"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Actions
-                    </a>
+        <div className="ms-3">
+            <DropdownButton id="actions-dropdown" variant="secondary" title="Actions">
+                <Link to={detailsLink} className="dropdown-item">
+                    Details
+                </Link>
+                <Link to={editLink} className="dropdown-item">
+                    Edit
+                </Link>
+                <Dropdown.Item className="bg-danger text-white" onClick={handleShow}>
+                    Delete
+                </Dropdown.Item>
+            </DropdownButton>
 
-                    <ul className="dropdown-menu">
-                        <li>
-                            <Link to={detailsLink} className="dropdown-item">
-                                Details
-                            </Link>
-                        </li>
-                        <li>
-                            <a className="dropdown-item" href="#">
-                                Edit
-                            </a>
-                        </li>
-                        <li>
-                            <button className="dropdown-item bg-danger text-white" href="#">
-                                Delete
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </>
+            <ConfirmDeleteModal show={showDeleteModal} handleClose={handleClose} handleConfirmDelete={confirmDelete} />
+
+            {error && <InfoModal message={error} show={showErrorModal} handleClose={handleClose} />}
+        </div>
     );
 };

@@ -226,13 +226,15 @@ export const updateCompany = async (id: string, updatedData: unknown) => {
 export const deleteCompany = async (id: string): Promise<Result<CompanyNotFull>> => {
     try {
         const url = jsonServerApi + api.company.delete(id);
+        console.log(' deleteCompany   url:', url);
         const response = await axios.delete(url);
         const responseData = response.data;
         console.log('Usunięto firmę:', JSON.stringify(responseData, null, 2));
         return { success: true, data: responseData };
+        // TODO think about better error handling
     } catch (error) {
         const msg = 'Błąd przy usuwaniu firmy';
-        console.error(msg, error);
+        console.log(msg, error);
         return {
             success: false,
             error: {
@@ -249,7 +251,7 @@ export const handleDeleteCompany = async (id: string) => {
         console.log(' handleDeleteCompany   result:', JSON.stringify(result.data, null, 2));
         return { success: true };
     } else {
-        alert(result.error);
+        alert(result.error.message);
         return { success: false, errors: `${result.error.type}: ${result.error.message}` };
     }
     // TODO validation form server not tested, json-server does not throw errors

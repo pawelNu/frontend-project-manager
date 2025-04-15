@@ -41,7 +41,7 @@ export const api = {
         create: () => '/companies',
         edit: (id: string) => `/companies/${id}/edit`,
         id: (id: string) => `/companies/${id}`,
-        delete: (id: string) => `/companies/${id}/delete`,
+        delete: (id: string) => `/companiess/${id}`,
     },
     companyAddresses: {
         companyId: (id: string) => `/company-addresses?companyId=${id}`,

@@ -45,6 +45,7 @@ const formConfig: FormConfig = {
 };
 
 // TODO fix Edit form
+// TODO added fetching data from api
 export const CompanyEdit = () => {
     return (
         <div className="container">

@@ -1,6 +1,5 @@
-// TODO create modal
-// https://getbootstrap.com/docs/5.3/components/modal/#static-backdrop
-// https://getbootstrap.com/docs/5.3/components/modal/#vertically-centered
+import Button from 'react-bootstrap/esm/Button';
+import Modal from 'react-bootstrap/esm/Modal';
 
 type Props = {
     show: boolean;
@@ -10,10 +9,15 @@ type Props = {
 
 export const ConfirmDeleteModal: React.FC<Props> = ({ show, handleClose, handleConfirmDelete }) => {
     return (
-        <>
-            {/* <Modal show={show} onHide={handleClose}>
+        <Modal
+            show={show}
+            onHide={handleClose}
+            backdrop="static"
+            keyboard={false}
+            centered
+            aria-labelledby="contained-modal-title-vcenter">
             <Modal.Header closeButton>
-                <Modal.Title>Delete Confirmation</Modal.Title>
+                <Modal.Title id="contained-modal-title-vcenter">Delete Confirmation</Modal.Title>
             </Modal.Header>
             <Modal.Body>Are you sure you want to delete this item?</Modal.Body>
             <Modal.Footer>
@@ -24,7 +28,6 @@ export const ConfirmDeleteModal: React.FC<Props> = ({ show, handleClose, handleC
                     Cancel
                 </Button>
             </Modal.Footer>
-        </Modal> */}
-        </>
+        </Modal>
     );
 };

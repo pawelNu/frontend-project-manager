@@ -1,20 +1,6 @@
 {
     "companies": [
         {
-            "id": "1632ba74-73fe-40bd-acfa-36d0816a07c4",
-            "name": "Luettgen, Mante and Weber",
-            "nip": "1538910233",
-            "regon": "243416985",
-            "website": "https://enchanted-viability.net/"
-        },
-        {
-            "id": "28de9d45-2293-48d7-aa4d-2ed16a61db92",
-            "name": "Kreiger Group",
-            "nip": "6191375260",
-            "regon": "397103492",
-            "website": "https://tattered-sanity.net/"
-        },
-        {
             "id": "684f6d6d-f3fd-415b-91db-f4c0cf4b90f0",
             "name": "Jerde - Ortiz",
             "nip": "8506023009",
@@ -910,22 +896,22 @@
     "company-contact-employees": [
         {
             "id": "86785aee-b303-4152-8e53-ec3132d0773e",
-            "companyId": "1632ba74-73fe-40bd-acfa-36d0816a07c4",
+            "companyId": null,
             "contactEmployeeId": "517ffda0-d45f-4804-bcd7-2e5dea0b2a07"
         },
         {
             "id": "e2489a63-a56a-4654-8d1e-48b6436da0f4",
-            "companyId": "1632ba74-73fe-40bd-acfa-36d0816a07c4",
+            "companyId": null,
             "contactEmployeeId": "cb65607a-97e2-42a6-9eb9-3de8d5e916b3"
         },
         {
             "id": "0e309c59-9087-4e8c-819f-8734772e74c9",
-            "companyId": "28de9d45-2293-48d7-aa4d-2ed16a61db92",
+            "companyId": null,
             "contactEmployeeId": "26ac8780-d122-4fae-895d-56014f0fbb32"
         },
         {
             "id": "93560e9f-990a-4964-a35e-6dd4110de02c",
-            "companyId": "28de9d45-2293-48d7-aa4d-2ed16a61db92",
+            "companyId": null,
             "contactEmployeeId": "ca2e46be-8059-430e-b231-3b3fdb157108"
         },
         {
@@ -1112,22 +1098,22 @@
     "company-contacts": [
         {
             "id": "600e1fa2-d0a9-4c61-9793-22752b7d815f",
-            "companyId": "1632ba74-73fe-40bd-acfa-36d0816a07c4",
+            "companyId": null,
             "contactId": "941dc9cf-fbc2-4c7a-8737-864d8cf16bc5"
         },
         {
             "id": "1c24bd01-9aef-417f-831f-4c5c40e28007",
-            "companyId": "1632ba74-73fe-40bd-acfa-36d0816a07c4",
+            "companyId": null,
             "contactId": "a5efc8f0-ebfb-4682-b833-03a1fc07a5ab"
         },
         {
             "id": "7a9f67e9-74bf-43a0-b60d-14b991b5cd53",
-            "companyId": "28de9d45-2293-48d7-aa4d-2ed16a61db92",
+            "companyId": null,
             "contactId": "02e4bac6-fbbe-432f-9522-0ef3db651896"
         },
         {
             "id": "613b4467-5626-48b6-9149-f96f2ad34f90",
-            "companyId": "28de9d45-2293-48d7-aa4d-2ed16a61db92",
+            "companyId": null,
             "contactId": "2e8f6f41-68de-4ad8-aa9a-cb33d8533af1"
         },
         {
@@ -1314,22 +1300,22 @@
     "company-addresses": [
         {
             "id": "cfd0debb-7357-4eca-95d6-10cd68f89f7e",
-            "companyId": "1632ba74-73fe-40bd-acfa-36d0816a07c4",
+            "companyId": null,
             "addressId": "b41f46f3-077e-4232-b5ce-f15f374479c4"
         },
         {
             "id": "b2697583-e0bc-429b-b0dc-6208b819d7ae",
-            "companyId": "1632ba74-73fe-40bd-acfa-36d0816a07c4",
+            "companyId": null,
             "addressId": "ac3bdc4f-1031-4109-9131-de4c57324c99"
         },
         {
             "id": "1b7f539b-2baf-4b3d-840c-eda5633c23d7",
-            "companyId": "28de9d45-2293-48d7-aa4d-2ed16a61db92",
+            "companyId": null,
             "addressId": "d5934715-050f-4ce0-9dc8-23a65e3b1e16"
         },
         {
             "id": "5d7e6ba7-305c-4611-ac62-598129f6955c",
-            "companyId": "28de9d45-2293-48d7-aa4d-2ed16a61db92",
+            "companyId": null,
             "addressId": "62446115-ffa9-4b9b-8035-9dd56c3c0a03"
         },
         {
