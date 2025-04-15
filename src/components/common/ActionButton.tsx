@@ -29,6 +29,7 @@ export const ActionsButton: React.FC<Props> = ({ id, detailsLink, editLink, dele
         const result = await deleteItem(id.toString());
         if (!result.success) {
             if (result.error) {
+                console.log(' confirmDelete   error:', error);
                 setError(result.error);
                 setShowDeleteModal(false);
                 setShowErrorModal(true);

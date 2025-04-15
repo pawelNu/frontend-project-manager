@@ -1,7 +1,6 @@
 import { UUIDTypes } from 'uuid';
 import { PaginatedResponse, Result } from '../components/common';
 import axios from 'axios';
-import { jsonServerApi } from '../config/data.generator';
 import { api } from '../components/routes';
 import { TFormValues } from '../components/common/Form';
 import { v4 as uuidv4 } from 'uuid';
@@ -70,8 +69,7 @@ export const getCompanies = async (
     pageSize: number,
 ): Promise<Result<PaginatedResponse<Company>>> => {
     try {
-        const url = jsonServerApi + api.company.list(pageNumber, pageSize);
-        const response = await axios.get(url);
+        const response = await axios.get(api.company.list(pageNumber, pageSize));
         return { success: true, data: response.data };
     } catch (error) {
         const msg = errors.general.get_data();
@@ -86,10 +84,41 @@ export const getCompanies = async (
     }
 };
 
+// export const createCompany2 = async (companyData: TFormValues): Promise<CompanyNotFull | undefined> => {
+//     const companyWithId = { ...companyData, id: uuidv4() };
+
+//     const config = {
+//         method: 'POST',
+//         url: api.company.create(),
+//         data: companyWithId,
+//     };
+
+//     // Wywołanie httpRequest, bezpośrednie zwrócenie danych lub błędu
+//     const result = await httpRequest<CompanyNotFull>(config);
+
+//     if (result.statusCode === 201) {
+//         console.log('Stworzono firmę:', JSON.stringify(result.data, null, 2));
+//         return result.data; // Zwrócenie danych firmy
+//     } else {
+//         console.error('Błąd przy tworzeniu firmy:', result.error);
+//         throw new Error(result.error); // Rzucenie błędu, jeśli operacja się nie powiedzie
+//     }
+// };
+
+export const getCompanies2 = async (pageNumber: number, pageSize: number): Promise<PaginatedResponse<Company>> => {
+    const config = {
+        method: 'GET',
+        url: api.company.list(pageNumber, pageSize),
+    };
+    // TODO change to https://github.com/riyons/centralized-error-handling-react/blob/main/src/services/productServices.js
+    const result = await httpRequest<PaginatedResponse<Company>>(config);
+
+    return result;
+};
+
 export const getCompanyById = async (id: UUIDTypes): Promise<Result<Company>> => {
     try {
-        const url = jsonServerApi + api.company.id(id.toString());
-        const response = await axios.get(url);
+        const response = await axios.get(api.company.id(id.toString()));
         return { success: true, data: response.data };
     } catch (error) {
         const msg = errors.general.get_data();
@@ -109,13 +138,11 @@ export const getCompanyAddressesByCompanyId = async (id: UUIDTypes | undefined):
         throw Error('Id undefined');
     }
     try {
-        const url = jsonServerApi + api.companyAddresses.companyId(id.toString());
-        const listOfAddresses = await axios.get(url);
+        const listOfAddresses = await axios.get(api.companyAddresses.companyId(id.toString()));
         const addressIds: string[] = listOfAddresses.data.map((item: CompanyAddress) => item.addressId);
         const addresses: Address[] = [];
         for (const id of addressIds) {
-            const url = jsonServerApi + api.addresses.id(id);
-            const response = await axios.get(url);
+            const response = await axios.get(api.addresses.id(id));
             addresses.push(response.data);
         }
         return { success: true, data: addresses };
@@ -137,13 +164,11 @@ export const getCompanyContactsByCompanyId = async (id: UUIDTypes | undefined): 
         throw Error('Id undefined');
     }
     try {
-        const url = jsonServerApi + api.companyContacts.companyId(id.toString());
-        const listOfAddresses = await axios.get(url);
+        const listOfAddresses = await axios.get(api.companyContacts.companyId(id.toString()));
         const contactIds: string[] = listOfAddresses.data.map((item: CompanyContact) => item.contactId);
         const addresses: Contact[] = [];
         for (const id of contactIds) {
-            const url = jsonServerApi + api.contacts.id(id);
-            const response = await axios.get(url);
+            const response = await axios.get(api.contacts.id(id));
             addresses.push(response.data);
         }
         return { success: true, data: addresses };
@@ -167,15 +192,13 @@ export const getCompanyContactEmployeesByCompanyId = async (
         throw Error('Id undefined');
     }
     try {
-        const url = jsonServerApi + api.companyContactEmployees.companyId(id.toString());
-        const listOfAddresses = await axios.get(url);
+        const listOfAddresses = await axios.get(api.companyContactEmployees.companyId(id.toString()));
         const contactEmployeeIds: string[] = listOfAddresses.data.map(
             (item: CompanyContactEmployee) => item.contactEmployeeId,
         );
         const addresses: ContactEmployee[] = [];
         for (const id of contactEmployeeIds) {
-            const url = jsonServerApi + api.contactEmployees.id(id);
-            const response = await axios.get(url);
+            const response = await axios.get(api.contactEmployees.id(id));
             addresses.push(response.data);
         }
         return { success: true, data: addresses };
@@ -194,9 +217,8 @@ export const getCompanyContactEmployeesByCompanyId = async (
 
 export const createCompany = async (companyData: TFormValues): Promise<Result<CompanyNotFull>> => {
     try {
-        const url = jsonServerApi + api.company.create();
         const companyWithId = { ...companyData, id: uuidv4() };
-        const response = await axios.post(url, companyWithId);
+        const response = await axios.post(api.company.create(), companyWithId);
         const responseData = response.data;
         console.log('Stworzono firmę:', JSON.stringify(responseData, null, 2));
         return { success: true, data: responseData };
@@ -213,10 +235,30 @@ export const createCompany = async (companyData: TFormValues): Promise<Result<Co
     }
 };
 
+export const createCompany2 = async (companyData: TFormValues): Promise<CompanyNotFull | undefined> => {
+    const companyWithId = { ...companyData, id: uuidv4() };
+
+    const config = {
+        method: 'POST',
+        url: api.company.create(),
+        data: companyWithId,
+    };
+
+    // Wywołanie httpRequest, bezpośrednie zwrócenie danych lub błędu
+    const result = await httpRequest<CompanyNotFull>(config);
+
+    if (result.statusCode === 201) {
+        console.log('Stworzono firmę:', JSON.stringify(result.data, null, 2));
+        return result.data; // Zwrócenie danych firmy
+    } else {
+        console.error('Błąd przy tworzeniu firmy:', result.error);
+        throw new Error(result.error); // Rzucenie błędu, jeśli operacja się nie powiedzie
+    }
+};
+
 export const updateCompany = async (id: string, updatedData: unknown) => {
     try {
-        const url = jsonServerApi + api.company.edit(id);
-        const response = await axios.put(url, updatedData);
+        const response = await axios.put(api.company.edit(id), updatedData);
         console.log('Zaktualizowano firmę:', response.data);
     } catch (error) {
         console.error('Błąd przy aktualizacji firmy:', error);
@@ -225,9 +267,7 @@ export const updateCompany = async (id: string, updatedData: unknown) => {
 
 export const deleteCompany = async (id: string): Promise<Result<CompanyNotFull>> => {
     try {
-        const url = jsonServerApi + api.company.delete(id);
-        console.log(' deleteCompany   url:', url);
-        const response = await axios.delete(url);
+        const response = await axios.delete(api.company.delete(id));
         const responseData = response.data;
         console.log('Usunięto firmę:', JSON.stringify(responseData, null, 2));
         return { success: true, data: responseData };
