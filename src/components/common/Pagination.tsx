@@ -28,7 +28,7 @@ export const Pagination = ({ pagination, actions }: { pagination: PaginationType
             setPageSize(size);
         }
     };
-    
+
     return (
         <>
             <nav aria-label="Page navigation example" className="mb-3">

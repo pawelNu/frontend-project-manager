@@ -5,15 +5,17 @@ import { ConfirmDeleteModal } from './ConfirmDeleteModal';
 import DropdownButton from 'react-bootstrap/esm/DropdownButton';
 import Dropdown from 'react-bootstrap/esm/Dropdown';
 import { InfoModal } from './InfoModal';
+import { toast } from 'react-toastify';
 
 type Props = {
     id: UUIDTypes;
     detailsLink: string;
     editLink: string;
     deleteItem: (id: string) => Promise<{ success: boolean; error?: string }>;
+    onDeleteSuccess?: () => void;
 };
-// TODO add success deleting toast
-export const ActionsButton: React.FC<Props> = ({ id, detailsLink, editLink, deleteItem }) => {
+
+export const ActionsButton: React.FC<Props> = ({ id, detailsLink, editLink, deleteItem, onDeleteSuccess }) => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [error, setError] = useState<string>('');
@@ -39,6 +41,8 @@ export const ActionsButton: React.FC<Props> = ({ id, detailsLink, editLink, dele
             }
         } else {
             handleClose();
+            if (onDeleteSuccess) onDeleteSuccess();
+            toast.success('Successfully deleted item!');
         }
     };
 
