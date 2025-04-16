@@ -52,3 +52,10 @@ class Company(BaseModel):
     addresses: List[Address]
     contacts: List[Contact]
     contactEmployees: List[ContactEmployee]
+
+class Company2(BaseModel):
+    id: UUID
+    name: str
+    nip: str
+    regon: str
+    website: str

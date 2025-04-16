@@ -4,7 +4,7 @@ from fastapi.responses import JSONResponse
 import httpx
 from fastapi.middleware.cors import CORSMiddleware
 
-from models import Address, Company, Contact, ContactEmployee
+from models import Address, Company, Company2, Contact, ContactEmployee
 from utils import log_config
 
 log = log_config()
@@ -44,7 +44,6 @@ async def proxy_companies(
             return Response(
                 content=resp.content,
                 status_code=resp.status_code,
-                # status_code=401,
                 headers={
                     "X-Total-Count": resp.headers.get("X-Total-Count", ""),
                     "Content-Type": resp.headers.get(
@@ -58,65 +57,38 @@ async def proxy_companies(
             )
 
 
-@app.get("/companies2/{company_id}")
-async def proxy_company_by_id(company_id: str = Path(..., description="UUID firmy")):
-    url = f"{JSON_SERVER_URL}/{company_id}"
-
-    async with httpx.AsyncClient() as client:
-        try:
-            resp = await client.get(url)
-
-            return Response(
-                content=resp.content,
-                status_code=resp.status_code,
-                headers={
-                    "Content-Type": resp.headers.get("Content-Type", "application/json")
-                },
-            )
-        except httpx.RequestError as e:
-            return JSONResponse(
-                content={"error": f"JSON Server error: {str(e)}"},
-                status_code=502,
-            )
-
-
 @app.get("/companies/{company_id}", response_model=Company)
 async def get_company_by_id(company_id: UUID):
     async with httpx.AsyncClient() as client:
         try:
-            # Pobieramy firmę
+
             company_res = await client.get(f"{JSON_SERVER_URL}/companies/{company_id}")
             company_data = company_res.json()
 
             if not company_data:
                 raise HTTPException(status_code=404, detail="Company not found")
 
-            # Pobieramy powiązane adresy (pośrednio przez company-addresses)
             company_addresses_res = await client.get(
                 f"{JSON_SERVER_URL}/company-addresses?companyId={company_id}"
             )
             company_addresses_data = company_addresses_res.json()
 
-            # Tworzymy listę addressIds za pomocą klasycznej pętli
             address_ids = []
             for ca in company_addresses_data:
                 address_ids.append(ca["addressId"])
             log.info(address_ids)
 
-            # Pobieramy szczegóły adresów
             addresses_data = []
             for id in address_ids:
                 res = await client.get(f"{JSON_SERVER_URL}/addresses/{id}")
                 log.info(res.url)
                 addresses_data.append(res.json())
 
-            # Pobieramy powiązane kontakty (pośrednio przez company-contacts)
             company_contacts_res = await client.get(
                 f"{JSON_SERVER_URL}/company-contacts?companyId={company_id}"
             )
             company_contacts_data = company_contacts_res.json()
 
-            # Tworzymy listę contactIds za pomocą klasycznej pętli
             contact_ids = []
             for cc in company_contacts_data:
                 contact_ids.append(cc["contactId"])
@@ -127,13 +99,11 @@ async def get_company_by_id(company_id: UUID):
                 log.info(res.url)
                 contacts_data.append(res.json())
 
-            # Pobieramy powiązanych pracowników kontaktowych (pośrednio przez company-contact-employees)
             company_contact_employees_res = await client.get(
                 f"{JSON_SERVER_URL}/company-contact-employees?companyId={company_id}"
             )
             company_contact_employees_data = company_contact_employees_res.json()
 
-            # Tworzymy listę contactEmployeeIds za pomocą klasycznej pętli
             contact_employee_ids = []
             for cce in company_contact_employees_data:
                 contact_employee_ids.append(cce["contactEmployeeId"])
@@ -144,7 +114,6 @@ async def get_company_by_id(company_id: UUID):
                 log.info(res.url)
                 contact_employees_data.append(res.json())
 
-            # Łączenie danych w obiektach Pydantic
             addresses = []
             for addr in addresses_data:
                 log.info(addr)
@@ -158,7 +127,6 @@ async def get_company_by_id(company_id: UUID):
             for ce in contact_employees_data:
                 contact_employees.append(ContactEmployee(**ce))
 
-            # Tworzymy obiekt firmy
             company = Company(
                 id=company_data["id"],
                 name=company_data["name"],
@@ -176,3 +144,36 @@ async def get_company_by_id(company_id: UUID):
             raise HTTPException(
                 status_code=500, detail=f"Error connecting to JSON Server: {str(e)}"
             )
+
+
+@app.delete("/companies/{company_id}")
+async def delete_company_by_id(company_id: UUID):
+
+    url = f"{JSON_SERVER_URL}/companies/{company_id}"
+    log.info(url)
+
+    async with httpx.AsyncClient() as client:
+
+        response = await client.delete(url)
+        log.info(response)
+
+    if response.status_code == 200:
+        return Response(
+            content=response.content,
+            status_code=response.status_code,
+            headers={
+                key: value
+                for key, value in response.headers.items()
+                if key.lower() in {"content-type", "cache-control"}
+            },
+        )
+    elif response.status_code == 404:
+        return JSONResponse(
+            content={"error": f"Not found company with id: {str(company_id)}"},
+            status_code=response.status_code,
+        )
+    else:
+        return JSONResponse(
+            content={"error": f"Unexpected error"},
+            status_code=500,
+        )
