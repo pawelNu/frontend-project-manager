@@ -100,8 +100,8 @@ export const CompanyList = () => {
                                                 id={company.id}
                                                 detailsLink={routes.company.details(company.id.toString())}
                                                 editLink={routes.company.edit(company.id.toString())}
-                                                // FIXME after deleting company companies list is not updating
                                                 deleteItem={handleDeleteCompany}
+                                                onDeleteSuccess={() => request(page, size)}
                                             />
                                         </td>
                                     </tr>
