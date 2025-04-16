@@ -23,16 +23,7 @@ export const Sidebar = () => {
     const navigate = useNavigate();
     const currentPath = location.pathname;
 
-    const closeSidebar = () => {
-        const sidebar = document.getElementById('sidebar');
-        if (!sidebar) return;
-
-        const bs = window.bootstrap;
-        const instance = bs?.Offcanvas.getInstance(sidebar);
-        if (instance) {
-            instance.hide();
-        }
-    };
+    const closeSidebar = () => setShow(false);
 
     const handleLinkClick = (link: string | undefined) => {
         if (link === undefined) {
@@ -65,7 +56,7 @@ export const Sidebar = () => {
                     <Offcanvas.Title>
                         <Link
                             to={routes.page.main()}
-                            className="d-flex align-items-center text-decoration-none offcanvas-title d-sm-block"
+                            className="text-decoration-none"
                             onClick={() => handleLinkClick(routes.page.main())}>
                             <h5>
                                 <i className="bi bi-chat-right-text-fill"></i>
