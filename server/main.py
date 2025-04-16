@@ -57,16 +57,18 @@ async def proxy_companies(
             )
 
 
-@app.get("/companies/{company_id}", response_model=Company)
+@app.get("/companies/{company_id}")
 async def get_company_by_id(company_id: UUID):
     async with httpx.AsyncClient() as client:
         try:
 
             company_res = await client.get(f"{JSON_SERVER_URL}/companies/{company_id}")
+            if company_res.status_code == 404:
+                return JSONResponse(
+                    content={"error": f"Not found company with id: {str(company_id)}"},
+                    status_code=company_res.status_code,
+                )
             company_data = company_res.json()
-
-            if not company_data:
-                raise HTTPException(status_code=404, detail="Company not found")
 
             company_addresses_res = await client.get(
                 f"{JSON_SERVER_URL}/company-addresses?companyId={company_id}"
@@ -138,7 +140,7 @@ async def get_company_by_id(company_id: UUID):
                 contactEmployees=contact_employees,
             )
 
-            return company
+            return JSONResponse(content=company, status_code=200)
 
         except httpx.RequestError as e:
             raise HTTPException(

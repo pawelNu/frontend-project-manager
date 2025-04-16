@@ -89,27 +89,6 @@ export const createCompany = async (companyData: TFormValues): Promise<Result<Co
     }
 };
 
-// export const createCompany2 = async (companyData: TFormValues): Promise<CompanyNotFull | undefined> => {
-//     const companyWithId = { ...companyData, id: uuidv4() };
-
-//     const config = {
-//         method: 'POST',
-//         url: api.company.create(),
-//         data: companyWithId,
-//     };
-
-//     // Wywołanie httpRequest, bezpośrednie zwrócenie danych lub błędu
-//     const result = await httpRequest<CompanyNotFull>(config);
-
-//     if (result.statusCode === 201) {
-//         console.log('Stworzono firmę:', JSON.stringify(result.data, null, 2));
-//         return result.data; // Zwrócenie danych firmy
-//     } else {
-//         console.error('Błąd przy tworzeniu firmy:', result.error);
-//         throw new Error(result.error); // Rzucenie błędu, jeśli operacja się nie powiedzie
-//     }
-// };
-
 export const updateCompany = async (id: string, updatedData: unknown) => {
     try {
         const response = await axios.put(api.company.edit(id), updatedData);
@@ -119,34 +98,20 @@ export const updateCompany = async (id: string, updatedData: unknown) => {
     }
 };
 
-export const deleteCompany = async (id: string): Promise<Result<CompanyNotFull>> => {
-    try {
-        const response = await axios.delete(api.company.delete(id));
-        const responseData = response.data;
-        console.log('Usunięto firmę:', JSON.stringify(responseData, null, 2));
-        return { success: true, data: responseData };
-        // TODO think about better error handling
-    } catch (error) {
-        const msg = 'Błąd przy usuwaniu firmy';
-        console.log(msg, error);
-        return {
-            success: false,
-            error: {
-                message: msg,
-                type: error instanceof Error ? error.message : msg,
-            },
-        };
-    }
+export const deleteCompany = async (id: string) => {
+    return axiosInstance.delete<CompanyNotFull>(api.company.delete(id));
 };
 
 export const handleDeleteCompany = async (id: string) => {
-    const result = await deleteCompany(id);
-    if (result.success) {
-        console.log(' handleDeleteCompany   result:', JSON.stringify(result.data, null, 2));
+    try {
+        await deleteCompany(id);
         return { success: true };
-    } else {
-        alert(result.error.message);
-        return { success: false, errors: `${result.error.type}: ${result.error.message}` };
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            const message = `${error.message}: ${error.response?.data?.error}`;
+            return { success: false, error: message };
+        }
+
+        return { success: false, error: 'Unexpected error occurred' };
     }
-    // TODO validation form server not tested, json-server does not throw errors
 };

@@ -13,7 +13,6 @@ export const CompanyList = () => {
     const page = isNaN(Number(pageNumber)) ? 1 : Number(pageNumber);
     const size = isNaN(Number(pageSize)) ? 10 : Number(pageSize);
     const [companies, setCompanies] = useState<Company[] | undefined>([]);
-    console.log(' CompanyList   companies:', companies);
     const [pagination, setPagination] = useState<PaginationType>({
         first: 1,
         prev: null,
@@ -31,7 +30,6 @@ export const CompanyList = () => {
     const updatePageState = useCallback(
         (pageNum: number | null, pageSize: number) => {
             if (pageNum !== null) {
-                console.log('updatePageState');
                 navigate(routes.company.list(pageNum, pageSize));
             }
         },

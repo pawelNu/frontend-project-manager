@@ -12,7 +12,7 @@ type Props = {
     editLink: string;
     deleteItem: (id: string) => Promise<{ success: boolean; error?: string }>;
 };
-
+// TODO add success deleting toast
 export const ActionsButton: React.FC<Props> = ({ id, detailsLink, editLink, deleteItem }) => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showErrorModal, setShowErrorModal] = useState(false);
@@ -29,7 +29,6 @@ export const ActionsButton: React.FC<Props> = ({ id, detailsLink, editLink, dele
         const result = await deleteItem(id.toString());
         if (!result.success) {
             if (result.error) {
-                console.log(' confirmDelete   error:', error);
                 setError(result.error);
                 setShowDeleteModal(false);
                 setShowErrorModal(true);

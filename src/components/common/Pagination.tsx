@@ -26,7 +26,7 @@ export const Pagination = ({ pagination, actions }: { pagination: PaginationType
             setPageSize(size);
         }
     };
-
+    // FIXME pagination dropdown not working
     return (
         <>
             <nav aria-label="Page navigation example" className="mb-3">
