@@ -1,13 +1,19 @@
 import * as Yup from 'yup';
 import { DynamicForm, FormConfig, TFormValues } from '../../common/Form';
 import { createCompany } from '../../../services/company';
+import axios from 'axios';
 
+// TODO test form after changes
+// TODO add validation from server
 const handleDynamicFormSubmit = async (values: TFormValues) => {
-    const result = await createCompany(values);
-    if (result.success) {
+    try {
+        const result = await createCompany(values);
         console.log(' handleDynamicFormSubmit   result:', JSON.stringify(result.data, null, 2));
-    } else {
-        alert(result.error);
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            const message = `${error.message}: ${error.response?.data?.error}`;
+            return { success: false, error: message };
+        }
     }
     // TODO validation form server not tested, json-server does not throw errors
 

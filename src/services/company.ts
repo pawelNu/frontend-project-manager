@@ -1,5 +1,5 @@
 import { UUIDTypes } from 'uuid';
-import { PaginatedResponse, Result } from '../components/common';
+import { PaginatedResponse } from '../components/common';
 import axios from 'axios';
 import { api } from '../components/routes';
 import { TFormValues } from '../components/common/Form';
@@ -69,24 +69,9 @@ export const getCompanyById = async (id: string) => {
     return axiosInstance.get<Company>(api.company.id(id.toString()));
 };
 
-export const createCompany = async (companyData: TFormValues): Promise<Result<CompanyNotFull>> => {
-    try {
-        const companyWithId = { ...companyData, id: uuidv4() };
-        const response = await axios.post(api.company.create(), companyWithId);
-        const responseData = response.data;
-        console.log('Stworzono firmę:', JSON.stringify(responseData, null, 2));
-        return { success: true, data: responseData };
-    } catch (error) {
-        const msg = 'Błąd przy tworzeniu firmy';
-        console.error(msg, error);
-        return {
-            success: false,
-            error: {
-                message: msg,
-                type: error instanceof Error ? error.message : msg,
-            },
-        };
-    }
+export const createCompany = async (companyData: TFormValues) => {
+    const companyWithId = { ...companyData, id: uuidv4() };
+    return axiosInstance.post<CompanyNotFull>(api.company.create(), companyWithId);
 };
 
 export const updateCompany = async (id: string, updatedData: unknown) => {

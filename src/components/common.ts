@@ -73,8 +73,6 @@ export type ErrorResponse = {
     type?: string;
 };
 
-export type Result<T> = { success: true; data: T } | { success: false; error: ErrorResponse };
-
 export type PaginatedResponse<T> = {
     first: number;
     prev: number | null;
