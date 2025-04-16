@@ -13,6 +13,7 @@ export const CompanyList = () => {
     const page = isNaN(Number(pageNumber)) ? 1 : Number(pageNumber);
     const size = isNaN(Number(pageSize)) ? 10 : Number(pageSize);
     const [companies, setCompanies] = useState<Company[] | undefined>([]);
+    console.log(' CompanyList   companies:', companies);
     const [pagination, setPagination] = useState<PaginationType>({
         first: 1,
         prev: null,
@@ -47,7 +48,7 @@ export const CompanyList = () => {
 
     useEffect(() => {
         if (data) {
-            setCompanies(data.data); // zakładam, że firmy są w data.data
+            setCompanies(data.data);
             setPagination({
                 first: data.first,
                 prev: data.prev,

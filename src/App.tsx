@@ -3,7 +3,6 @@ import './App.css';
 import { Link, Route, Routes } from 'react-router-dom';
 import { Footer } from './components/layout/Footer';
 import { Navbar } from './components/layout/Navbar';
-import { Sidebar } from './components/layout/Sidebar';
 import { routes } from './components/routes';
 import { routeConfig } from './config/routes.config';
 import { ToastContainer } from 'react-toastify';
@@ -12,7 +11,6 @@ export const App = () => {
     return (
         <>
             <Navbar />
-            <Sidebar />
             <Routes>
                 {routeConfig.map((route, index) => (
                     <Route key={index} path={route.path} element={route.element} />

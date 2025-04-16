@@ -18,8 +18,8 @@ export const routes = {
             return `/companies/page/${pageNumber}/size/${pageSize}${queryString}`;
         },
         create: () => '/companies/create',
-        edit: (id: string) => `${jsonServerApi}/companies/edit/${id}`,
-        details: (id: string) => `${jsonServerApi}/companies/details/${id}`,
+        edit: (id: string) => `/companies/edit/${id}`,
+        details: (id: string) => `/companies/details/${id}`,
     },
 };
 

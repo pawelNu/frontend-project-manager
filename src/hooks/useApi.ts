@@ -14,7 +14,6 @@ export const useApi = <TData, TArgs extends readonly unknown[]>(
     const [data, setData] = useState<TData | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-
     const request = useCallback(
         async (...args: TArgs): Promise<void> => {
             setLoading(true);

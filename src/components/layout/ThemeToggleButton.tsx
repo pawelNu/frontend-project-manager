@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 const THEME_KEY = 'preferred-theme';
 
 export const ThemeToggleButton: React.FC = () => {
+    // FIXME theme change to light after every refresh
     const [theme, setTheme] = useState<'light' | 'dark'>('dark');
 
     useEffect(() => {

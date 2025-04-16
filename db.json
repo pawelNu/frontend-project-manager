@@ -140,22 +140,22 @@
         },
         {
             "id": "02e4bac6-fbbe-432f-9522-0ef3db651896",
-            "type": "phone",
+            "type": "email",
             "value": "Candace.McKenzie@yahoo.com"
         },
         {
             "id": "2e8f6f41-68de-4ad8-aa9a-cb33d8533af1",
-            "type": "phone",
+            "type": "email",
             "value": "Sylvester57@yahoo.com"
         },
         {
             "id": "2551437c-7a1e-474e-a771-ea7fdd7e19cc",
-            "type": "email",
+            "type": "phone",
             "value": "821.493.7366 x5652"
         },
         {
             "id": "ff229219-51e2-45fb-bc14-ab2ce5298008",
-            "type": "email",
+            "type": "phone",
             "value": "(795) 612-6540 x90400"
         },
         {
@@ -165,12 +165,12 @@
         },
         {
             "id": "b17d4558-7b91-41dd-a32b-791bbe3cf99e",
-            "type": "phone",
+            "type": "email",
             "value": "Rhea.Lakin@yahoo.com"
         },
         {
             "id": "23f869e0-aa93-46c3-94f8-6454918d0355",
-            "type": "phone",
+            "type": "email",
             "value": "Hazle78@hotmail.com"
         },
         {
@@ -180,17 +180,17 @@
         },
         {
             "id": "aef9d79d-7795-476d-a3d5-7f0a5d2d340a",
-            "type": "phone",
+            "type": "email",
             "value": "Stephon_Leannon@hotmail.com"
         },
         {
             "id": "91f91735-1a6e-4390-8dd5-cdd3778cdc38",
-            "type": "phone",
+            "type": "email",
             "value": "Jannie36@hotmail.com"
         },
         {
             "id": "6126bf87-981d-49d0-b122-e0e9da989d66",
-            "type": "email",
+            "type": "phone",
             "value": "1-369-381-5158 x307"
         },
         {
@@ -210,7 +210,7 @@
         },
         {
             "id": "4cf4643b-12c9-45c9-a666-293267b97c34",
-            "type": "phone",
+            "type": "email",
             "value": "Minerva74@yahoo.com"
         },
         {
@@ -225,27 +225,27 @@
         },
         {
             "id": "856dd132-d39d-478a-9b7a-4cf6fa5a8018",
-            "type": "email",
+            "type": "phone",
             "value": "322.725.9478"
         },
         {
             "id": "12b6001d-56c7-465d-ac86-cbd60bc9e8fa",
-            "type": "email",
+            "type": "phone",
             "value": "1-739-508-2198 x19807"
         },
         {
             "id": "72639d4e-b6a4-40b6-86a2-ba14558ef53e",
-            "type": "phone",
+            "type": "email",
             "value": "Margret_Steuber31@gmail.com"
         },
         {
             "id": "88c73a1e-a77b-43ed-9761-c5aca5665c57",
-            "type": "phone",
+            "type": "email",
             "value": "(712) 221-1408 x612"
         },
         {
             "id": "b04dea38-1325-49ff-9b37-da52ce7f1ef6",
-            "type": "phone",
+            "type": "email",
             "value": "Danny_Ward@yahoo.com"
         },
         {
@@ -255,42 +255,42 @@
         },
         {
             "id": "41c669f9-ec60-4f9e-9caf-8edab64aa3f6",
-            "type": "email",
+            "type": "phone",
             "value": "600-763-1737 x3630"
         },
         {
             "id": "a57f7c16-0401-4303-a2d9-4bfe7261019b",
-            "type": "email",
+            "type": "phone",
             "value": "700-404-8781 x39098"
         },
         {
             "id": "7d213205-b3cd-4076-9293-c20eca4f1415",
-            "type": "email",
+            "type": "phone",
             "value": "710-935-6054 x627"
         },
         {
             "id": "a3610046-bfb8-4104-8b6e-a34d9a45b53c",
-            "type": "phone",
+            "type": "email",
             "value": "Katrina2@hotmail.com"
         },
         {
             "id": "0ad56f53-ee25-4a0e-8224-cbfecfabd6fc",
-            "type": "phone",
+            "type": "email",
             "value": "Hobart_Conn90@yahoo.com"
         },
         {
             "id": "60ac3050-25bf-4fad-b033-ef52c1ff25de",
-            "type": "phone",
+            "type": "email",
             "value": "Casandra.Wiegand26@hotmail.com"
         },
         {
             "id": "6d77efa3-91d2-4f73-8ae9-66ed05c5d964",
-            "type": "phone",
+            "type": "email",
             "value": "Karina_Mertz@yahoo.com"
         },
         {
             "id": "baff9e29-d6c0-486f-b07a-577222d63322",
-            "type": "email",
+            "type": "phone",
             "value": "863.491.9050"
         },
         {
@@ -305,17 +305,17 @@
         },
         {
             "id": "df8ee378-ee3c-4487-99f0-43f250f71152",
-            "type": "email",
+            "type": "phone",
             "value": "1-542-934-2332 x13785"
         },
         {
             "id": "9d3a1fba-d191-4506-a404-6c19564ba53d",
-            "type": "phone",
+            "type": "email",
             "value": "Caroline.Gibson50@hotmail.com"
         },
         {
             "id": "2f925839-a1fa-4291-94f8-ac65b28238f2",
-            "type": "email",
+            "type": "phone",
             "value": "1-305-409-9923 x8994"
         },
         {
@@ -1298,26 +1298,6 @@
         }
     ],
     "company-addresses": [
-        {
-            "id": "cfd0debb-7357-4eca-95d6-10cd68f89f7e",
-            "companyId": null,
-            "addressId": "b41f46f3-077e-4232-b5ce-f15f374479c4"
-        },
-        {
-            "id": "b2697583-e0bc-429b-b0dc-6208b819d7ae",
-            "companyId": null,
-            "addressId": "ac3bdc4f-1031-4109-9131-de4c57324c99"
-        },
-        {
-            "id": "1b7f539b-2baf-4b3d-840c-eda5633c23d7",
-            "companyId": null,
-            "addressId": "d5934715-050f-4ce0-9dc8-23a65e3b1e16"
-        },
-        {
-            "id": "5d7e6ba7-305c-4611-ac62-598129f6955c",
-            "companyId": null,
-            "addressId": "62446115-ffa9-4b9b-8035-9dd56c3c0a03"
-        },
         {
             "id": "75fe63ac-e4dc-4b46-9ee0-fa6f8764dfc8",
             "companyId": "684f6d6d-f3fd-415b-91db-f4c0cf4b90f0",

@@ -2,6 +2,9 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ThemeToggleButton } from './ThemeToggleButton';
 import { routes } from '../routes';
 import { sidebarElements } from '../common';
+import { useState } from 'react';
+import Button from 'react-bootstrap/esm/Button';
+import Offcanvas from 'react-bootstrap/esm/Offcanvas';
 
 export type TSidebarItem = {
     label: string;
@@ -11,6 +14,10 @@ export type TSidebarItem = {
 
 // FIXME sidebar elements are not open at opened page
 export const Sidebar = () => {
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     const location = useLocation();
     const navigate = useNavigate();
     const currentPath = location.pathname;
@@ -48,7 +55,33 @@ export const Sidebar = () => {
 
     return (
         <div>
-            <div className="offcanvas offcanvas-start" tabIndex={-1} id="sidebar" aria-labelledby="sidebarLabel">
+            <Button variant="primary" onClick={handleShow}>
+                Menu
+            </Button>
+
+            <Offcanvas show={show} onHide={handleClose}>
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title>
+                        <Link
+                            to={routes.page.main()}
+                            className="d-flex align-items-center text-decoration-none offcanvas-title d-sm-block"
+                            onClick={() => handleLinkClick(routes.page.main())}>
+                            <h5>
+                                <i className="bi bi-chat-right-text-fill"></i>
+                                Main Page
+                            </h5>
+                        </Link>
+                    </Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                    {/* FIXME accordion not working */}
+                    <div className="accordion" id="sidebarMenu">
+                        {renderMenu(sidebarElements, isActive, undefined, handleLinkClick)} <ThemeToggleButton />
+                    </div>
+                </Offcanvas.Body>
+            </Offcanvas>
+
+            {/* <div className="offcanvas offcanvas-start" tabIndex={-1} id="sidebar" aria-labelledby="sidebarLabel">
                 <div className="offcanvas-header">
                     <Link
                         to={routes.page.main()}
@@ -61,12 +94,8 @@ export const Sidebar = () => {
                     </Link>
                     <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
-                <div className="offcanvas-body px-0">
-                    <div className="accordion" id="sidebarMenu">
-                        {renderMenu(sidebarElements, isActive, undefined, handleLinkClick)} <ThemeToggleButton />
-                    </div>
-                </div>
-            </div>
+                <div className="offcanvas-body px-0"></div>
+            </div>*/}
         </div>
     );
 };
