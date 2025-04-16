@@ -8,7 +8,7 @@ import {
     CompanyAddress,
     CompanyContact,
     CompanyContactEmployee,
-} from '../client/company';
+} from '../services/company';
 import { v4 as uuidv4 } from 'uuid';
 import { faker, simpleFaker } from '@faker-js/faker';
 import { api } from '../components/routes';

@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import { DynamicForm, FormConfig, TFormValues } from '../../common/Form';
-import { createCompany } from '../../../client/company';
+import { createCompany } from '../../../services/company';
 
 const handleDynamicFormSubmit = async (values: TFormValues) => {
     const result = await createCompany(values);

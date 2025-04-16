@@ -1,18 +1,18 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { routes } from '../../routes';
-import { Company, getCompanies, getCompanies2, handleDeleteCompany } from '../../../client/company';
-import { ErrorResponse } from '../../common';
-import { Pagination, PaginationType } from '../../common/Pagination';
+import { Company, getCompanies, handleDeleteCompany } from '../../../services/company';
+import { Pagination } from '../../common/Pagination';
 import { ActionsButton } from '../../common/ActionButton';
+import { useApi } from '../../../hooks/useApi';
+import { PaginationType } from '../../common/Pagination';
 
 export const CompanyList = () => {
     const { pageNumber, pageSize } = useParams();
     const navigate = useNavigate();
     const page = isNaN(Number(pageNumber)) ? 1 : Number(pageNumber);
     const size = isNaN(Number(pageSize)) ? 10 : Number(pageSize);
-    const [companies, setCompanies] = useState<Company[]>([]);
-    console.log(' CompanyList   companies:', companies);
+    const [companies, setCompanies] = useState<Company[] | undefined>([]);
     const [pagination, setPagination] = useState<PaginationType>({
         first: 1,
         prev: null,
@@ -23,8 +23,9 @@ export const CompanyList = () => {
         items: 1,
         pageSize: size,
     });
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<ErrorResponse | null>(null);
+    // const [loading, setLoading] = useState<boolean>(true);
+    // const [error, setError] = useState<ErrorResponse | null>(null);
+    const { data, loading, error, request } = useApi(getCompanies);
 
     const updatePageState = useCallback(
         (pageNum: number | null, pageSize: number) => {
@@ -38,62 +39,27 @@ export const CompanyList = () => {
 
     // TODO https://youtu.be/qa996Dh0TNo?si=QhNXu00eUzI4njb6&t=2065
 
-    // const getCompanyList = useCallback(async (page: number, size: number) => {
-    //     setLoading(true);
-    //     setError(null);
-    //     try {
-    //         const result = await getCompanies(page, size);
-    //         if (result.success) {
-    //             setCompanies(result.data.data);
-    //             setPagination({
-    //                 first: result.data.first,
-    //                 prev: result.data.prev,
-    //                 current: page,
-    //                 next: result.data.next,
-    //                 last: result.data.last,
-    //                 pages: result.data.pages,
-    //                 items: result.data.items,
-    //                 pageSize: size,
-    //             });
-    //         } else {
-    //             setError(result.error);
-    //         }
-    //     } catch (err) {
-    //         console.log(' getCompanyList   err:', err);
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // }, []);
-    const getCompanyList = useCallback(async (page: number, size: number) => {
-        setLoading(true);
-        setError(null);
-        try {
-            const result = await getCompanies2(page, size);
-            setCompanies(result.data);
-            setPagination({
-                first: result.first,
-                prev: result.prev,
-                current: page,
-                next: result.next,
-                last: result.last,
-                pages: result.pages,
-                items: result.items,
-                pageSize: size,
-            });
-            // }
-            // else {
-            // setError(result.error);
-            // }
-        } catch (err) {
-            console.log(' getCompanyList   err:', err);
-        } finally {
-            setLoading(false);
-        }
-    }, []);
+    // TODO check how component react with errors
 
     useEffect(() => {
-        getCompanyList(page, size);
-    }, [getCompanyList, page, size]);
+        request(page, size);
+    }, [page, request, size]);
+
+    useEffect(() => {
+        if (data) {
+            setCompanies(data.data); // zakładam, że firmy są w data.data
+            setPagination({
+                first: data.first,
+                prev: data.prev,
+                current: page,
+                next: data.next,
+                last: data.last,
+                pages: data.pages,
+                items: data.items,
+                pageSize: size,
+            });
+        }
+    }, [data, page, size]);
 
     return (
         <>
@@ -102,7 +68,7 @@ export const CompanyList = () => {
                 {loading && <p>Loading...</p>}
                 {error && !companies && (
                     <p style={{ color: 'red' }}>
-                        {error.type}: {error.message}
+                        {error}: {error}
                     </p>
                 )}
                 {companies && (
@@ -119,7 +85,7 @@ export const CompanyList = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {companies.map((company, index) => (
+                                {companies.map((company: Company, index: number) => (
                                     <tr key={index}>
                                         <td>{index + 1}</td>
                                         <td>{company.name}</td>

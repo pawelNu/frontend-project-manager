@@ -8,7 +8,7 @@ import {
     getCompanyById,
     getCompanyContactEmployeesByCompanyId,
     getCompanyContactsByCompanyId,
-} from '../../../client/company';
+} from '../../../services/company';
 import { useParams } from 'react-router-dom';
 import { ErrorResponse } from '../../common';
 

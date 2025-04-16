@@ -4,6 +4,7 @@ import axios from 'axios';
 import { api } from '../components/routes';
 import { TFormValues } from '../components/common/Form';
 import { v4 as uuidv4 } from 'uuid';
+import { axiosInstance } from '../config/axiosInstance';
 
 export type Address = {
     id: UUIDTypes;
@@ -64,56 +65,10 @@ const errors = {
     },
 };
 
-export const getCompanies = async (
-    pageNumber: number,
-    pageSize: number,
-): Promise<Result<PaginatedResponse<Company>>> => {
-    try {
-        const response = await axios.get(api.company.list(pageNumber, pageSize));
-        return { success: true, data: response.data };
-    } catch (error) {
-        const msg = errors.general.get_data();
-        console.error(msg, error);
-        return {
-            success: false,
-            error: {
-                message: msg,
-                type: error instanceof Error ? error.message : msg,
-            },
-        };
-    }
-};
+// TODO change to https://github.com/riyons/centralized-error-handling-react/blob/main/src/services/productServices.js
 
-// export const createCompany2 = async (companyData: TFormValues): Promise<CompanyNotFull | undefined> => {
-//     const companyWithId = { ...companyData, id: uuidv4() };
-
-//     const config = {
-//         method: 'POST',
-//         url: api.company.create(),
-//         data: companyWithId,
-//     };
-
-//     // Wywołanie httpRequest, bezpośrednie zwrócenie danych lub błędu
-//     const result = await httpRequest<CompanyNotFull>(config);
-
-//     if (result.statusCode === 201) {
-//         console.log('Stworzono firmę:', JSON.stringify(result.data, null, 2));
-//         return result.data; // Zwrócenie danych firmy
-//     } else {
-//         console.error('Błąd przy tworzeniu firmy:', result.error);
-//         throw new Error(result.error); // Rzucenie błędu, jeśli operacja się nie powiedzie
-//     }
-// };
-
-export const getCompanies2 = async (pageNumber: number, pageSize: number): Promise<PaginatedResponse<Company>> => {
-    const config = {
-        method: 'GET',
-        url: api.company.list(pageNumber, pageSize),
-    };
-    // TODO change to https://github.com/riyons/centralized-error-handling-react/blob/main/src/services/productServices.js
-    const result = await httpRequest<PaginatedResponse<Company>>(config);
-
-    return result;
+export const getCompanies = (pageNumber: number, pageSize: number) => {
+    return axiosInstance.get<PaginatedResponse<Company>>(api.company.list(pageNumber, pageSize));
 };
 
 export const getCompanyById = async (id: UUIDTypes): Promise<Result<Company>> => {
@@ -235,26 +190,26 @@ export const createCompany = async (companyData: TFormValues): Promise<Result<Co
     }
 };
 
-export const createCompany2 = async (companyData: TFormValues): Promise<CompanyNotFull | undefined> => {
-    const companyWithId = { ...companyData, id: uuidv4() };
+// export const createCompany2 = async (companyData: TFormValues): Promise<CompanyNotFull | undefined> => {
+//     const companyWithId = { ...companyData, id: uuidv4() };
 
-    const config = {
-        method: 'POST',
-        url: api.company.create(),
-        data: companyWithId,
-    };
+//     const config = {
+//         method: 'POST',
+//         url: api.company.create(),
+//         data: companyWithId,
+//     };
 
-    // Wywołanie httpRequest, bezpośrednie zwrócenie danych lub błędu
-    const result = await httpRequest<CompanyNotFull>(config);
+//     // Wywołanie httpRequest, bezpośrednie zwrócenie danych lub błędu
+//     const result = await httpRequest<CompanyNotFull>(config);
 
-    if (result.statusCode === 201) {
-        console.log('Stworzono firmę:', JSON.stringify(result.data, null, 2));
-        return result.data; // Zwrócenie danych firmy
-    } else {
-        console.error('Błąd przy tworzeniu firmy:', result.error);
-        throw new Error(result.error); // Rzucenie błędu, jeśli operacja się nie powiedzie
-    }
-};
+//     if (result.statusCode === 201) {
+//         console.log('Stworzono firmę:', JSON.stringify(result.data, null, 2));
+//         return result.data; // Zwrócenie danych firmy
+//     } else {
+//         console.error('Błąd przy tworzeniu firmy:', result.error);
+//         throw new Error(result.error); // Rzucenie błędu, jeśli operacja się nie powiedzie
+//     }
+// };
 
 export const updateCompany = async (id: string, updatedData: unknown) => {
     try {
