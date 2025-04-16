@@ -3,19 +3,13 @@ import { useEffect, useState } from 'react';
 const THEME_KEY = 'preferred-theme';
 
 export const ThemeToggleButton: React.FC = () => {
-    // FIXME theme change to light after every refresh
-    const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+    const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+        const current = document.documentElement.getAttribute('data-bs-theme');
+        return current === 'light' || current === 'dark' ? current : 'dark';
+    });
 
     useEffect(() => {
-        const storedTheme = localStorage.getItem(THEME_KEY) as 'light' | 'dark' | null;
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-        const initialTheme = storedTheme || (prefersDark ? 'dark' : 'light');
-        setTheme(initialTheme);
-        document.documentElement.setAttribute('data-bs-theme', initialTheme);
-    }, []);
-
-    useEffect(() => {
+        // Zaktualizuj atrybut HTML oraz zapisz do localStorage
         document.documentElement.setAttribute('data-bs-theme', theme);
         localStorage.setItem(THEME_KEY, theme);
     }, [theme]);
