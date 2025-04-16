@@ -6,6 +6,7 @@ import { Navbar } from './components/layout/Navbar';
 import { Sidebar } from './components/layout/Sidebar';
 import { routes } from './components/routes';
 import { routeConfig } from './config/routes.config';
+import { ToastContainer } from 'react-toastify';
 
 export const App = () => {
     return (
@@ -19,6 +20,7 @@ export const App = () => {
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
             <Footer />
+            <ToastContainer />
         </>
     );
 };

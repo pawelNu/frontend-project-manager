@@ -23,7 +23,15 @@ export const routes = {
     },
 };
 
-export const jsonServerApi = 'http://localhost:5000';
+export const jsonServerApi = 'http://localhost:8000';
+
+const COMPANIES = '/companies';
+const COMPANY_ADDRESSES = '/company-addresses';
+const ADDRESSES = '/addresses';
+const COMPANY_CONTACTS = '/company-contacts';
+const COMPANY_CONTACT_EMPLOYEES = '/company-contact-employees';
+const CONTACTS = '/contacts';
+const CONTACT_EMPLOYESS = '/contact-employees';
 
 export const api = {
     company: {
@@ -38,34 +46,35 @@ export const api = {
                           .map(([key, values]) => values.map((value) => `${key}=${value}`).join('&'))
                           .join('&')}`
                     : '';
-            return `/companies?_page=${pageNumber}&_per_page=${pageSize}${queryString}`;
+            return `${COMPANIES}?_page=${pageNumber}&_per_page=${pageSize}${queryString}`;
         },
-        create: () => `/companies`,
-        edit: (id: string) => `/companies/${id}/edit`,
-        id: (id: string) => `/companies/${id}`,
-        delete: (id: string) => `/companiess/${id}`,
+        create: () => `${COMPANIES}`,
+        edit: (id: string) => `${COMPANIES}/${id}/edit`,
+        id: (id: string) => `${COMPANIES}/${id}`,
+        delete: (id: string) => `${COMPANIES}/${id}`,
     },
     companyAddresses: {
-        companyId: (id: string) => `/company-addresses?companyId=${id}`,
-        create: () => `/company-addresses`,
+        companyId: (id: string) => `${COMPANY_ADDRESSES}?companyId=${id}`,
+        create: () => `${COMPANY_ADDRESSES}`,
     },
     addresses: {
-        id: (id: string) => `/addresses/${id}`,
-        create: () => `/addresses`,
+        id: (id: string) => `${ADDRESSES}/${id}`,
+        create: () => `${ADDRESSES}`,
     },
     companyContacts: {
-        companyId: (id: string) => `/company-contacts?companyId=${id}`,
-        create: () => `/company-contacts`,
+        companyId: (id: string) => `${COMPANY_CONTACTS}?companyId=${id}`,
+        create: () => `${COMPANY_CONTACTS}`,
     },
     companyContactEmployees: {
-        companyId: (id: string) => `/company-contact-employees?companyId=${id}`,
+        companyId: (id: string) => `${COMPANY_CONTACT_EMPLOYEES}?companyId=${id}`,
+        create: () => `${COMPANY_CONTACT_EMPLOYEES}`,
     },
     contacts: {
-        id: (id: string) => `/contacts/${id}`,
-        create: () => `/contacts`,
+        id: (id: string) => `${CONTACTS}/${id}`,
+        create: () => `${CONTACTS}`,
     },
     contactEmployees: {
-        id: (id: string) => `/contact-employees/${id}`,
-        create: () => `/contact-employees`,
+        id: (id: string) => `${CONTACT_EMPLOYESS}/${id}`,
+        create: () => `${CONTACT_EMPLOYESS}`,
     },
 };

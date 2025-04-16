@@ -103,7 +103,7 @@ const createContactEmployee = async (contact: ContactEmployee) => {
 
 const createCompanyContactEmployee = async (contact: CompanyContactEmployee) => {
     try {
-        const response = await axios.post(jsonServerApi + 'company-contact-employees', contact);
+        const response = await axios.post(api.companyContactEmployees.create(), contact);
         console.log('Added contact employee to company:', response.data);
     } catch (error) {
         console.error('Error adding contact employee:', error);
