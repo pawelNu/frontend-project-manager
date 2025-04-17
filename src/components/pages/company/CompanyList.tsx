@@ -36,8 +36,6 @@ export const CompanyList = () => {
         [navigate],
     );
 
-    // TODO https://youtu.be/qa996Dh0TNo?si=QhNXu00eUzI4njb6&t=2065
-
     // TODO check how component react with errors
 
     useEffect(() => {

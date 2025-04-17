@@ -9,7 +9,13 @@ type Props = {
 
 export const InfoModal: React.FC<Props> = ({ message, show, handleClose }) => {
     return (
-        <Modal show={show} onHide={handleClose}>
+        <Modal
+            show={show}
+            onHide={handleClose}
+            backdrop="static"
+            keyboard={false}
+            centered
+            aria-labelledby="contained-modal-title-vcenter">
             <Modal.Header closeButton>
                 <Modal.Title>Info Message</Modal.Title>
             </Modal.Header>

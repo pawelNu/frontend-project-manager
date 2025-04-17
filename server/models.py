@@ -54,7 +54,7 @@ class Company(BaseModel):
     contactEmployees: List[ContactEmployee]
 
 class Company2(BaseModel):
-    id: UUID
+    id: str
     name: str
     nip: str
     regon: str

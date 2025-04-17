@@ -152,12 +152,9 @@ async def get_company_by_id(company_id: UUID):
 async def delete_company_by_id(company_id: UUID):
 
     url = f"{JSON_SERVER_URL}/companies/{company_id}"
-    log.info(url)
 
     async with httpx.AsyncClient() as client:
-
         response = await client.delete(url)
-        log.info(response)
 
     if response.status_code == 200:
         return Response(
@@ -179,3 +176,58 @@ async def delete_company_by_id(company_id: UUID):
             content={"error": f"Unexpected error"},
             status_code=500,
         )
+
+
+@app.post("/companies")
+async def create_company(company: Company2):
+    url = f"{JSON_SERVER_URL}/companies"
+    errors = {}
+    if company.name == "t":
+        errors["name"] = errors.get("name", []) + ["Name cannot be 't'."]
+
+    if company.nip == "t" or len(company.nip) != 10:
+        errors["nip"] = ["Invalid NIP format."]
+
+    if company.website == "t" or not company.website.startswith("http"):
+        errors["website"] = ["Website URL is invalid."]
+
+    if errors:
+        error_content = {"success": False, "errors": errors}
+        log.error(error_content)
+        return JSONResponse(content=error_content, status_code=400)
+
+    if company.name == "e":
+        error = {"error": "Unexpected error: testing single error message"}
+        log.error(error)
+        return JSONResponse(
+            content=error,
+            status_code=500,
+        )
+
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.post(url, json=company.model_dump())
+            response.raise_for_status()
+
+            log.success(response.json())
+            return JSONResponse(
+                content=response.json(),
+                status_code=response.status_code,
+                headers={
+                    key: value
+                    for key, value in response.headers.items()
+                    if key.lower() in {"content-type", "cache-control"}
+                },
+            )
+        except httpx.HTTPStatusError as e:
+            log.error(e)
+            return JSONResponse(
+                content={"error": f"Upstream error: {str(e)}"},
+                status_code=e.response.status_code,
+            )
+        except Exception as e:
+            log.error(e)
+            return JSONResponse(
+                content={"error": f"Unexpected error: {str(e)}"},
+                status_code=500,
+            )

@@ -1,23 +1,36 @@
 import * as Yup from 'yup';
-import { DynamicForm, FormConfig, TFormValues } from '../../common/Form';
+import { DynamicForm, FormConfig, SubmitResponse, TFormValues } from '../../common/Form';
 import { createCompany } from '../../../services/company';
 import axios from 'axios';
 
-// TODO test form after changes
-// TODO add validation from server
-const handleDynamicFormSubmit = async (values: TFormValues) => {
+// TODO refactor this function
+const handleDynamicFormSubmit = async (values: TFormValues): Promise<SubmitResponse> => {
     try {
         const result = await createCompany(values);
         console.log(' handleDynamicFormSubmit   result:', JSON.stringify(result.data, null, 2));
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
+            console.log(' handleDynamicFormSubmit   error:', error);
+
+            if (error.response?.data?.errors) {
+                const errorData = error.response?.data.errors;
+                const formattedErrors: { [key: string]: string } = {};
+
+                Object.keys(errorData).forEach((field) => {
+                    formattedErrors[field] = errorData[field].join(', ');
+                });
+
+                console.log(' handleDynamicFormSubmit   formattedErrors:', formattedErrors);
+                return { success: false, errors: formattedErrors };
+            }
+
             const message = `${error.message}: ${error.response?.data?.error}`;
+            console.log(' handleDynamicFormSubmit   message:', message);
             return { success: false, error: message };
         }
     }
-    // TODO validation form server not tested, json-server does not throw errors
 
-    return { message: 'Form submitted successfully!' };
+    return { success: true };
 };
 
 const formConfig: FormConfig = {
