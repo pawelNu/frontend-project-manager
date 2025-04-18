@@ -7,6 +7,7 @@ import { useGetApi } from '../../../hooks/useGetApi';
 export const CompanyDetails = () => {
     const { id } = useParams();
     const [error, setError] = useState<ErrorResponse[]>([]);
+    console.log(' CompanyDetails   error:', error);
     const [company, setCompany] = useState<Company | null>(null);
 
     const { data: companyData, loading, error: companyError, request: fetchCompany } = useGetApi(getCompanyById);
@@ -23,11 +24,37 @@ export const CompanyDetails = () => {
     useEffect(() => {
         if (companyData) {
             setCompany(companyData);
+            const missingFields: string[] = [];
+
+            if (!companyData.contacts || companyData.contacts.length === 0) {
+                missingFields.push('contacts');
+            }
+            if (!companyData.addresses || companyData.addresses.length === 0) {
+                missingFields.push('addresses');
+            }
+            if (!companyData.contactEmployees || companyData.contactEmployees.length === 0) {
+                missingFields.push('contactEmployees');
+            }
+
+            if (missingFields.length > 0) {
+                setError((prev) => [
+                    ...prev,
+                    {
+                        message: `Missing required data: ${missingFields.join(', ')}`,
+                        type: 'Data Error',
+                    },
+                ]);
+            }
         }
+
         if (companyError) {
             setError((prev) => [...prev, { message: companyError, type: 'API Error' }]);
         }
     }, [companyData, companyError]);
+
+    const checkIfDataExists = (company: Company | null): company is Company => {
+        return Boolean(company && company.contacts && company.addresses && company.contactEmployees);
+    };
 
     return (
         <>
@@ -35,13 +62,12 @@ export const CompanyDetails = () => {
                 <h1>Company Details</h1>
                 {loading && <p>Loading...</p>}
                 {error &&
-                    !company &&
                     error.map((err, i) => (
                         <p key={i} style={{ color: 'red' }}>
                             {err.type}: {err.message}
                         </p>
                     ))}
-                {company && (
+                {checkIfDataExists(company) && (
                     <>
                         <CompanyInfo company={company} />
                         <CompanyContactsDetails contacts={company.contacts} />

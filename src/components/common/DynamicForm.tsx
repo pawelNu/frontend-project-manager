@@ -1,7 +1,7 @@
 import { Formik, Field, Form, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { InfoModal } from './InfoModal';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import { AxiosResponse } from 'axios';
 import { usePostApi } from '../../hooks/usePostApi';
 import { toast } from 'react-toastify';
@@ -9,6 +9,8 @@ import { HasId, objectToString } from '../common';
 import { Link, useParams } from 'react-router-dom';
 import { routes } from '../routes';
 import Spinner from 'react-bootstrap/esm/Spinner';
+import { useGetApi } from '../../hooks/useGetApi';
+import { useMemoizedServiceFunctions } from '../../hooks/useMemoizedServiceFunctions';
 
 type YupSchemaType = string | boolean | undefined;
 type FieldType = 'text' | 'select' | 'checkbox' | 'email' | 'number';
@@ -26,7 +28,7 @@ export type SubmitResponse<ResponseDataType> =
     | { success: false; errors: Record<string, string> }
     | { success: false; error: string };
 
-type ServiceFunction<ArgumentType, ResponseDataType> = (
+export type ServiceFunction<ArgumentType, ResponseDataType> = (
     id: string | undefined,
     values: ArgumentType,
 ) => Promise<AxiosResponse<ResponseDataType>>;
@@ -34,28 +36,91 @@ type ServiceFunction<ArgumentType, ResponseDataType> = (
 export type FormConfig<ArgumentType, ResponseDataType> = {
     fields: FieldConfig[];
     mode: 'create' | 'edit';
-    serviceFunction: ServiceFunction<ArgumentType, ResponseDataType>;
+    postPutServiceFunction: ServiceFunction<ArgumentType, ResponseDataType>;
+    getServiceFunction: (id: string) => Promise<AxiosResponse<ResponseDataType>>;
 };
 
 export type FormValuesType = {
-    [key: string]: string | boolean;
+    [key: string]: string | boolean | number;
 };
 
 export const DynamicForm = <ArgumentType extends FormValuesType, ResponseDataType>({
     fields,
-    serviceFunction,
+    postPutServiceFunction,
     mode,
+    getServiceFunction,
 }: FormConfig<ArgumentType, ResponseDataType>) => {
     const { id } = useParams();
-    const { request, loading } = usePostApi(serviceFunction);
+    const [formData, setFormData] = useState<FormValuesType | null>(null);
+    const { memoizedPostPutServiceFunction, memoizedGetServiceFunction } = useMemoizedServiceFunctions(
+        postPutServiceFunction,
+        getServiceFunction,
+    );
+    // const { request, loading } = usePostApi(postPutServiceFunction);
+    // const { data: apiData, error: apiError, request: fetchData } = useGetApi(getServiceFunction);
+    const { request, loading } = usePostApi(memoizedPostPutServiceFunction);
+    const { data: apiData, error: apiError, request: fetchData } = useGetApi(memoizedGetServiceFunction);
     const [info, setInfo] = useState<string | undefined>(undefined);
     const [extraInfo, setExtraInfo] = useState<ReactNode>(null);
-
     const [showInfoModal, setShowInfoModal] = useState(false);
-    const initialValues = fields.reduce<FormValuesType>((values, field) => {
-        values[field.name] = field.type === 'checkbox' ? false : '';
-        return values;
-    }, {} as FormValuesType);
+    const initialValues = useMemo(() => {
+        return fields.reduce<FormValuesType>((values, field) => {
+            values[field.name] = field.type === 'checkbox' ? false : '';
+            return values;
+        }, {});
+    }, [fields]);
+
+    const mapDataToFormValues = useCallback(
+        (data: NonNullable<ResponseDataType>, fields: FieldConfig[]): FormValuesType => {
+            return fields.reduce<FormValuesType>((acc, field) => {
+                const value = data[field.name as keyof ResponseDataType];
+
+                switch (field.type) {
+                    case 'checkbox':
+                        acc[field.name] = value === true || value === 'true';
+                        break;
+                    case 'select':
+                    case 'text':
+                    case 'email':
+                    case 'number':
+                        if (typeof value === 'string' || typeof value === 'number') {
+                            acc[field.name] = value;
+                        } else {
+                            acc[field.name] = '';
+                        }
+                        break;
+                    default:
+                        acc[field.name] = '';
+                        break;
+                }
+
+                return acc;
+            }, {} as FormValuesType);
+        },
+        [],
+    );
+
+    useEffect(() => {
+        // Tylko wywołaj fetchData, jeśli jesteśmy w trybie edycji i id jest dostępne
+        if (mode === 'edit' && id && !apiData && !apiError) {
+            fetchData(id);
+        }
+    }, [apiData, apiError, fetchData, id, mode]);
+
+    useEffect(() => {
+        if (apiData) {
+            const mappedValues = mapDataToFormValues(apiData, fields);
+            console.log(' useEffect   mappedValues:', mappedValues);
+            const areEqual = JSON.stringify(mappedValues) === JSON.stringify(formData);
+            console.log(' useEffect   formData:', formData);
+
+            if (!areEqual) {
+                setFormData(mappedValues);
+            }
+        } else if (formData === null) {
+            setFormData(initialValues);
+        }
+    }, [apiData, fields, formData, initialValues, mapDataToFormValues]);
 
     const validationSchema = Yup.object(
         fields.reduce<{ [key: string]: Yup.Schema<YupSchemaType> }>((schema, field) => {
@@ -66,21 +131,26 @@ export const DynamicForm = <ArgumentType extends FormValuesType, ResponseDataTyp
         }, {}),
     );
 
-    const handleFieldChange = (
-        fieldName: string,
-        setFieldValue: FormikHelpers<FormValuesType>['setFieldValue'],
-        setFieldError: FormikHelpers<FormValuesType>['setFieldError'],
-    ) => {
-        return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-            const target = e.target;
+    const handleFieldChange = useCallback(
+        (
+            fieldName: string,
+            setFieldValue: FormikHelpers<FormValuesType>['setFieldValue'],
+            setFieldError: FormikHelpers<FormValuesType>['setFieldError'],
+        ) => {
+            return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+                const target = e.target;
 
-            const value =
-                target.type === 'checkbox' && 'checked' in target ? (target as HTMLInputElement).checked : target.value;
+                const value =
+                    target.type === 'checkbox' && 'checked' in target
+                        ? (target as HTMLInputElement).checked
+                        : target.value;
 
-            setFieldValue(fieldName, value);
-            setFieldError(fieldName, '');
-        };
-    };
+                setFieldValue(fieldName, value);
+                setFieldError(fieldName, '');
+            };
+        },
+        [],
+    );
 
     const handleClose = () => {
         setShowInfoModal(false);
@@ -123,91 +193,106 @@ export const DynamicForm = <ArgumentType extends FormValuesType, ResponseDataTyp
     return (
         <>
             <div className="container mb-3">
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={validationSchema}
-                    onSubmit={handleSubmit}
-                    validateOnChange={false}>
-                    {({ errors, touched, isSubmitting, setFieldValue, setFieldError }) => (
-                        <Form autoComplete="off">
-                            {fields.map((field) => (
-                                <div key={field.name} className="col-md-4 mb-3">
-                                    <label htmlFor={field.name} className="form-label">
-                                        {field.label}
-                                    </label>
+                {formData && (
+                    <Formik
+                        initialValues={formData != null ? formData : initialValues}
+                        enableReinitialize={true}
+                        validationSchema={validationSchema}
+                        onSubmit={handleSubmit}
+                        validateOnChange={false}>
+                        {({ errors, touched, isSubmitting, setFieldValue, setFieldError }) => (
+                            <Form autoComplete="off">
+                                {fields.map((field) => (
+                                    <div key={field.name} className="col-md-4 mb-3">
+                                        <label htmlFor={field.name} className="form-label">
+                                            {field.label}
+                                        </label>
 
-                                    {field.type === 'select' ? (
-                                        <>
-                                            <Field
-                                                as="select"
-                                                name={field.name}
-                                                className={`form-select ${errors[field.name] && touched[field.name] ? 'is-invalid' : ''}`}
-                                                onChange={handleFieldChange(field.name, setFieldValue, setFieldError)}>
-                                                <option value="" disabled>
-                                                    Choose...
-                                                </option>
-                                                {field.options?.map((option, idx) => (
-                                                    <option key={idx} value={option}>
-                                                        {option}
+                                        {field.type === 'select' ? (
+                                            <>
+                                                <Field
+                                                    as="select"
+                                                    name={field.name}
+                                                    className={`form-select ${errors[field.name] && touched[field.name] ? 'is-invalid' : ''}`}
+                                                    onChange={handleFieldChange(
+                                                        field.name,
+                                                        setFieldValue,
+                                                        setFieldError,
+                                                    )}>
+                                                    <option value="" disabled>
+                                                        Choose...
                                                     </option>
-                                                ))}
-                                            </Field>
-                                            <ErrorMessage
-                                                name={field.name}
-                                                component="div"
-                                                className="invalid-feedback"
-                                            />
-                                        </>
-                                    ) : field.type === 'checkbox' ? (
-                                        <div className="form-check">
-                                            <Field
-                                                type="checkbox"
-                                                name={field.name}
-                                                className={`form-check-input ${errors[field.name] && touched[field.name] ? 'is-invalid' : ''}`}
-                                                id={field.name}
-                                                onChange={handleFieldChange(field.name, setFieldValue, setFieldError)}
-                                            />
-                                            <label htmlFor={field.name} className="form-check-label">
-                                                {field.label}
-                                            </label>
-                                            <ErrorMessage
-                                                name={field.name}
-                                                component="div"
-                                                className="invalid-feedback"
-                                            />
-                                        </div>
+                                                    {field.options?.map((option, idx) => (
+                                                        <option key={idx} value={option}>
+                                                            {option}
+                                                        </option>
+                                                    ))}
+                                                </Field>
+                                                <ErrorMessage
+                                                    name={field.name}
+                                                    component="div"
+                                                    className="invalid-feedback"
+                                                />
+                                            </>
+                                        ) : field.type === 'checkbox' ? (
+                                            <div className="form-check">
+                                                <Field
+                                                    type="checkbox"
+                                                    name={field.name}
+                                                    className={`form-check-input ${errors[field.name] && touched[field.name] ? 'is-invalid' : ''}`}
+                                                    id={field.name}
+                                                    onChange={handleFieldChange(
+                                                        field.name,
+                                                        setFieldValue,
+                                                        setFieldError,
+                                                    )}
+                                                />
+                                                <label htmlFor={field.name} className="form-check-label">
+                                                    {field.label}
+                                                </label>
+                                                <ErrorMessage
+                                                    name={field.name}
+                                                    component="div"
+                                                    className="invalid-feedback"
+                                                />
+                                            </div>
+                                        ) : (
+                                            <>
+                                                <Field
+                                                    type={field.type}
+                                                    name={field.name}
+                                                    className={`form-control ${errors[field.name] && touched[field.name] ? 'is-invalid' : ''}`}
+                                                    onChange={handleFieldChange(
+                                                        field.name,
+                                                        setFieldValue,
+                                                        setFieldError,
+                                                    )}
+                                                />
+                                                <ErrorMessage
+                                                    name={field.name}
+                                                    component="div"
+                                                    className="invalid-feedback"
+                                                />
+                                            </>
+                                        )}
+                                    </div>
+                                ))}
+
+                                <div className="col-12">
+                                    {loading === true ? (
+                                        <Spinner animation="border" role="status">
+                                            <span className="visually-hidden">Loading...</span>
+                                        </Spinner>
                                     ) : (
-                                        <>
-                                            <Field
-                                                type={field.type}
-                                                name={field.name}
-                                                className={`form-control ${errors[field.name] && touched[field.name] ? 'is-invalid' : ''}`}
-                                                onChange={handleFieldChange(field.name, setFieldValue, setFieldError)}
-                                            />
-                                            <ErrorMessage
-                                                name={field.name}
-                                                component="div"
-                                                className="invalid-feedback"
-                                            />
-                                        </>
+                                        <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                                            Submit Form
+                                        </button>
                                     )}
                                 </div>
-                            ))}
-
-                            <div className="col-12">
-                                {loading === true ? (
-                                    <Spinner animation="border" role="status">
-                                        <span className="visually-hidden">Loading...</span>
-                                    </Spinner>
-                                ) : (
-                                    <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-                                        Submit Form
-                                    </button>
-                                )}
-                            </div>
-                        </Form>
-                    )}
-                </Formik>
+                            </Form>
+                        )}
+                    </Formik>
+                )}
             </div>
             {(info || extraInfo) && (
                 <InfoModal message={info} show={showInfoModal} handleClose={handleClose}>

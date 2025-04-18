@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import { DynamicForm, FormConfig, FormValuesType } from '../../common/DynamicForm';
-import { CompanyNotFull, updateCompany } from '../../../services/company';
+import { CompanyNotFull, getCompanyById, updateCompany } from '../../../services/company';
 
 const formConfig: FormConfig<FormValuesType, CompanyNotFull> = {
     fields: [
@@ -29,20 +29,20 @@ const formConfig: FormConfig<FormValuesType, CompanyNotFull> = {
             validation: Yup.string().required('Website is required'),
         },
     ],
-    serviceFunction: updateCompany,
+    postPutServiceFunction: updateCompany,
     mode: 'edit',
+    getServiceFunction: getCompanyById,
 };
 
-// TODO fix Edit form
-// TODO added fetching data from api
 export const CompanyEdit = () => {
     return (
         <div className="container">
             <h1>Company Edit Form</h1>
             <DynamicForm
                 fields={formConfig.fields}
-                serviceFunction={formConfig.serviceFunction}
+                postPutServiceFunction={formConfig.postPutServiceFunction}
                 mode={formConfig.mode}
+                getServiceFunction={formConfig.getServiceFunction}
             />
         </div>
     );

@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import { DynamicForm, FormConfig, FormValuesType } from '../../common/DynamicForm';
-import { CompanyNotFull, createCompany } from '../../../services/company';
+import { CompanyNotFull, createCompany, getCompanyById } from '../../../services/company';
 
 export const CompanyCreate = () => {
     const formConfig: FormConfig<FormValuesType, CompanyNotFull> = {
@@ -30,16 +30,18 @@ export const CompanyCreate = () => {
                 validation: Yup.string().required('Website is required'),
             },
         ],
-        serviceFunction: createCompany,
+        postPutServiceFunction: createCompany,
         mode: 'create',
+        getServiceFunction: getCompanyById,
     };
     return (
         <div className="container">
             <h1>Company Create Form</h1>
             <DynamicForm<FormValuesType, CompanyNotFull>
                 fields={formConfig.fields}
-                serviceFunction={formConfig.serviceFunction}
+                postPutServiceFunction={formConfig.postPutServiceFunction}
                 mode={formConfig.mode}
+                getServiceFunction={formConfig.getServiceFunction}
             />
         </div>
     );

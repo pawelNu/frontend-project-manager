@@ -1,5 +1,6 @@
 from uuid import UUID
 from fastapi import FastAPI, HTTPException, Path, Query, Response
+from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 import httpx
 from fastapi.middleware.cors import CORSMiddleware
@@ -129,18 +130,27 @@ async def get_company_by_id(company_id: UUID):
             for ce in contact_employees_data:
                 contact_employees.append(ContactEmployee(**ce))
 
-            company = Company(
+            # company = Company(
+            #     id=company_data["id"],
+            #     name=company_data["name"],
+            #     nip=company_data["nip"],
+            #     regon=company_data["regon"],
+            #     website=company_data["website"],
+            #     addresses=addresses,
+            #     contacts=contacts,
+            #     contactEmployees=contact_employees,
+            # )
+            # log.info(company)
+            company = Company2(
                 id=company_data["id"],
                 name=company_data["name"],
                 nip=company_data["nip"],
                 regon=company_data["regon"],
                 website=company_data["website"],
-                addresses=addresses,
-                contacts=contacts,
-                contactEmployees=contact_employees,
             )
+            # log.info(company)
 
-            return JSONResponse(content=company, status_code=200)
+            return JSONResponse(content=jsonable_encoder(company), status_code=200)
 
         except httpx.RequestError as e:
             raise HTTPException(
@@ -149,6 +159,35 @@ async def get_company_by_id(company_id: UUID):
 
 
 @app.delete("/companies/{company_id}")
+async def delete_company_by_id(company_id: UUID):
+
+    url = f"{JSON_SERVER_URL}/companies/{company_id}"
+
+    async with httpx.AsyncClient() as client:
+        response = await client.delete(url)
+
+    if response.status_code == 200:
+        return Response(
+            content=response.content,
+            status_code=response.status_code,
+            headers={
+                key: value
+                for key, value in response.headers.items()
+                if key.lower() in {"content-type", "cache-control"}
+            },
+        )
+    elif response.status_code == 404:
+        return JSONResponse(
+            content={"error": f"Not found company with id: {str(company_id)}"},
+            status_code=response.status_code,
+        )
+    else:
+        return JSONResponse(
+            content={"error": f"Unexpected error"},
+            status_code=500,
+        )
+    
+@app.put("/companies/{company_id}")
 async def delete_company_by_id(company_id: UUID):
 
     url = f"{JSON_SERVER_URL}/companies/{company_id}"
