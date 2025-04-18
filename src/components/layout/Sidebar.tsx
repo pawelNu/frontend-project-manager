@@ -2,6 +2,11 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ThemeToggleButton } from './ThemeToggleButton';
 import { routes } from '../routes';
 import { sidebarElements } from '../common';
+import { useState } from 'react';
+import Button from 'react-bootstrap/esm/Button';
+import Offcanvas from 'react-bootstrap/esm/Offcanvas';
+import Nav from 'react-bootstrap/esm/Nav';
+import Collapse from 'react-bootstrap/esm/Collapse';
 
 export type TSidebarItem = {
     label: string;
@@ -9,22 +14,16 @@ export type TSidebarItem = {
     subMenu?: TSidebarItem[];
 };
 
-// FIXME sidebar elements are not open at opened page
 export const Sidebar = () => {
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     const location = useLocation();
     const navigate = useNavigate();
     const currentPath = location.pathname;
 
-    const closeSidebar = () => {
-        const sidebar = document.getElementById('sidebar');
-        if (!sidebar) return;
-
-        const bs = window.bootstrap;
-        const instance = bs?.Offcanvas.getInstance(sidebar);
-        if (instance) {
-            instance.hide();
-        }
-    };
+    const closeSidebar = () => setShow(false);
 
     const handleLinkClick = (link: string | undefined) => {
         if (link === undefined) {
@@ -48,74 +47,86 @@ export const Sidebar = () => {
 
     return (
         <div>
-            <div className="offcanvas offcanvas-start" tabIndex={-1} id="sidebar" aria-labelledby="sidebarLabel">
-                <div className="offcanvas-header">
-                    <Link
-                        to={routes.page.main()}
-                        className="d-flex align-items-center text-decoration-none offcanvas-title d-sm-block"
-                        onClick={() => handleLinkClick(routes.page.main())}>
-                        <h5>
-                            <i className="bi bi-chat-right-text-fill"></i>
-                            Main Page
-                        </h5>
-                    </Link>
-                    <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div className="offcanvas-body px-0">
-                    <div className="accordion" id="sidebarMenu">
-                        {renderMenu(sidebarElements, isActive, undefined, handleLinkClick)} <ThemeToggleButton />
-                    </div>
-                </div>
-            </div>
+            <Button variant="primary" onClick={handleShow}>
+                Menu
+            </Button>
+
+            <Offcanvas show={show} onHide={handleClose}>
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title>
+                        <Link
+                            to={routes.page.main()}
+                            className="text-decoration-none"
+                            onClick={() => handleLinkClick(routes.page.main())}>
+                            <h5>
+                                <i className="bi bi-chat-right-text-fill"></i>
+                                Main Page
+                            </h5>
+                        </Link>
+                    </Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                    <Nav className="flex-column">
+                        {sidebarElements.map((item, idx) => (
+                            <SidebarMenuItemRB
+                                key={idx}
+                                item={item}
+                                isActive={isActive}
+                                handleLinkClick={handleLinkClick}
+                            />
+                        ))}
+                        <div className="mt-3">
+                            <ThemeToggleButton />
+                        </div>
+                    </Nav>
+                </Offcanvas.Body>
+            </Offcanvas>
         </div>
     );
 };
 
-const renderMenu = (
-    elements: TSidebarItem[],
-    isActive: (item: TSidebarItem) => boolean,
-    level: number = 0,
-    handleLinkClick: (link: string | undefined) => void,
-) => {
-    return elements.map((item, index) => {
-        const accordionId = `accordion-${level}-${index}`;
-        const isCurrentPathActive = isActive(item);
+const SidebarMenuItemRB = ({
+    item,
+    isActive,
+    handleLinkClick,
+}: {
+    item: TSidebarItem;
+    isActive: (item: TSidebarItem) => boolean;
+    handleLinkClick: (link: string | undefined) => void;
+}) => {
+    const [open, setOpen] = useState(isActive(item));
 
-        return (
-            <div key={index}>
-                {item.subMenu ? (
-                    <div className="accordion-item">
-                        <h2 className="accordion-header" id={`${accordionId}-heading`}>
-                            <button
-                                className={`accordion-button ${isCurrentPathActive ? '' : 'collapsed'}`}
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target={`#${accordionId}-collapse`}
-                                aria-expanded={isCurrentPathActive ? 'true' : 'false'}
-                                aria-controls={`${accordionId}-collapse`}>
-                                {item.label}
-                            </button>
-                        </h2>
-                        <div
-                            id={`${accordionId}-collapse`}
-                            className={`accordion-collapse collapse ${isCurrentPathActive ? 'show' : ''}`}
-                            aria-labelledby={`${accordionId}-heading`}>
-                            <div className="accordion-body">
-                                <div className="list-group">
-                                    {renderMenu(item.subMenu, isActive, level + 1, handleLinkClick)}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                ) : (
-                    <button
-                        type="button"
-                        className={`list-group-item list-group-item-action rounded-0 ${isCurrentPathActive ? ' active' : ''}`}
-                        onClick={() => handleLinkClick(item.linkTo)}>
+    return (
+        <>
+            {item.subMenu ? (
+                <>
+                    <Nav.Link
+                        onClick={() => setOpen(!open)}
+                        aria-expanded={open}
+                        className={`d-flex justify-content-between ${isActive(item) ? 'fw-bold' : ''}`}>
                         {item.label}
-                    </button>
-                )}
-            </div>
-        );
-    });
+                        <i className={`bi ${open ? 'bi-chevron-up' : 'bi-chevron-down'}`}></i>
+                    </Nav.Link>
+                    <Collapse in={open}>
+                        <div className="ms-3">
+                            {item.subMenu.map((subItem, idx) => (
+                                <SidebarMenuItemRB
+                                    key={idx}
+                                    item={subItem}
+                                    isActive={isActive}
+                                    handleLinkClick={handleLinkClick}
+                                />
+                            ))}
+                        </div>
+                    </Collapse>
+                </>
+            ) : (
+                <Nav.Link
+                    onClick={() => handleLinkClick(item.linkTo)}
+                    className={isActive(item) ? 'fw-bold text-primary' : ''}>
+                    {item.label}
+                </Nav.Link>
+            )}
+        </>
+    );
 };

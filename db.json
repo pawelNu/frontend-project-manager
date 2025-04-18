@@ -1,83 +1,6 @@
 {
     "companies": [
         {
-            "id": "1632ba74-73fe-40bd-acfa-36d0816a07c4",
-            "name": "Luettgen, Mante and Weber",
-            "nip": "1538910233",
-            "regon": "243416985",
-            "website": "https://enchanted-viability.net/"
-        },
-        {
-            "id": "28de9d45-2293-48d7-aa4d-2ed16a61db92",
-            "name": "Kreiger Group",
-            "nip": "6191375260",
-            "regon": "397103492",
-            "website": "https://tattered-sanity.net/"
-        },
-        {
-            "id": "684f6d6d-f3fd-415b-91db-f4c0cf4b90f0",
-            "name": "Jerde - Ortiz",
-            "nip": "8506023009",
-            "regon": "776858115",
-            "website": "https://clear-hamburger.biz/"
-        },
-        {
-            "id": "3d96556a-ea01-422c-815a-9c649c0ce06a",
-            "name": "Rath Group",
-            "nip": "4602238378",
-            "regon": "937305280",
-            "website": "https://ruddy-lace.net/"
-        },
-        {
-            "id": "748d286b-47e9-4cd9-a634-10072694e42e",
-            "name": "Ritchie, Wintheiser and Schimmel",
-            "nip": "5795402905",
-            "regon": "861136999",
-            "website": "https://internal-seal.info/"
-        },
-        {
-            "id": "2432d88a-acd2-4399-8a2f-346d063d3b8d",
-            "name": "Heller, Runolfsson and Dooley",
-            "nip": "2357212314",
-            "regon": "201431969",
-            "website": "https://personal-mathematics.com/"
-        },
-        {
-            "id": "ac18d127-eb36-4af7-bf26-499097156bae",
-            "name": "Rempel LLC",
-            "nip": "4572610418",
-            "regon": "374979494",
-            "website": "https://brisk-handle.info"
-        },
-        {
-            "id": "ae9d8272-7e3d-4ebc-8d65-7fe616ae6f9a",
-            "name": "Okuneva - Murphy",
-            "nip": "6731676286",
-            "regon": "137367899",
-            "website": "https://indolent-eternity.biz"
-        },
-        {
-            "id": "efa0da8d-eb04-4902-a8d0-986008422e19",
-            "name": "Kuhlman and Sons",
-            "nip": "9490417243",
-            "regon": "238550930",
-            "website": "https://remarkable-ice-cream.name/"
-        },
-        {
-            "id": "3e75f431-fdf9-493c-a683-64bf90a235c1",
-            "name": "Smitham, Reilly and Dibbert",
-            "nip": "1151377554",
-            "regon": "594727603",
-            "website": "https://uneven-cantaloupe.name"
-        },
-        {
-            "id": "1f27abdd-b236-4c44-bcc3-926879db1078",
-            "name": "Roberts, Cassin and Littel",
-            "nip": "6617742925",
-            "regon": "665491941",
-            "website": "https://severe-publication.info"
-        },
-        {
             "id": "641d9adb-71f1-4137-a06b-49f67bf13f2c",
             "name": "Moen - Yundt",
             "nip": "4449640779",
@@ -154,22 +77,22 @@
         },
         {
             "id": "02e4bac6-fbbe-432f-9522-0ef3db651896",
-            "type": "phone",
+            "type": "email",
             "value": "Candace.McKenzie@yahoo.com"
         },
         {
             "id": "2e8f6f41-68de-4ad8-aa9a-cb33d8533af1",
-            "type": "phone",
+            "type": "email",
             "value": "Sylvester57@yahoo.com"
         },
         {
             "id": "2551437c-7a1e-474e-a771-ea7fdd7e19cc",
-            "type": "email",
+            "type": "phone",
             "value": "821.493.7366 x5652"
         },
         {
             "id": "ff229219-51e2-45fb-bc14-ab2ce5298008",
-            "type": "email",
+            "type": "phone",
             "value": "(795) 612-6540 x90400"
         },
         {
@@ -179,12 +102,12 @@
         },
         {
             "id": "b17d4558-7b91-41dd-a32b-791bbe3cf99e",
-            "type": "phone",
+            "type": "email",
             "value": "Rhea.Lakin@yahoo.com"
         },
         {
             "id": "23f869e0-aa93-46c3-94f8-6454918d0355",
-            "type": "phone",
+            "type": "email",
             "value": "Hazle78@hotmail.com"
         },
         {
@@ -194,17 +117,17 @@
         },
         {
             "id": "aef9d79d-7795-476d-a3d5-7f0a5d2d340a",
-            "type": "phone",
+            "type": "email",
             "value": "Stephon_Leannon@hotmail.com"
         },
         {
             "id": "91f91735-1a6e-4390-8dd5-cdd3778cdc38",
-            "type": "phone",
+            "type": "email",
             "value": "Jannie36@hotmail.com"
         },
         {
             "id": "6126bf87-981d-49d0-b122-e0e9da989d66",
-            "type": "email",
+            "type": "phone",
             "value": "1-369-381-5158 x307"
         },
         {
@@ -224,7 +147,7 @@
         },
         {
             "id": "4cf4643b-12c9-45c9-a666-293267b97c34",
-            "type": "phone",
+            "type": "email",
             "value": "Minerva74@yahoo.com"
         },
         {
@@ -239,27 +162,27 @@
         },
         {
             "id": "856dd132-d39d-478a-9b7a-4cf6fa5a8018",
-            "type": "email",
+            "type": "phone",
             "value": "322.725.9478"
         },
         {
             "id": "12b6001d-56c7-465d-ac86-cbd60bc9e8fa",
-            "type": "email",
+            "type": "phone",
             "value": "1-739-508-2198 x19807"
         },
         {
             "id": "72639d4e-b6a4-40b6-86a2-ba14558ef53e",
-            "type": "phone",
+            "type": "email",
             "value": "Margret_Steuber31@gmail.com"
         },
         {
             "id": "88c73a1e-a77b-43ed-9761-c5aca5665c57",
-            "type": "phone",
+            "type": "email",
             "value": "(712) 221-1408 x612"
         },
         {
             "id": "b04dea38-1325-49ff-9b37-da52ce7f1ef6",
-            "type": "phone",
+            "type": "email",
             "value": "Danny_Ward@yahoo.com"
         },
         {
@@ -269,42 +192,42 @@
         },
         {
             "id": "41c669f9-ec60-4f9e-9caf-8edab64aa3f6",
-            "type": "email",
+            "type": "phone",
             "value": "600-763-1737 x3630"
         },
         {
             "id": "a57f7c16-0401-4303-a2d9-4bfe7261019b",
-            "type": "email",
+            "type": "phone",
             "value": "700-404-8781 x39098"
         },
         {
             "id": "7d213205-b3cd-4076-9293-c20eca4f1415",
-            "type": "email",
+            "type": "phone",
             "value": "710-935-6054 x627"
         },
         {
             "id": "a3610046-bfb8-4104-8b6e-a34d9a45b53c",
-            "type": "phone",
+            "type": "email",
             "value": "Katrina2@hotmail.com"
         },
         {
             "id": "0ad56f53-ee25-4a0e-8224-cbfecfabd6fc",
-            "type": "phone",
+            "type": "email",
             "value": "Hobart_Conn90@yahoo.com"
         },
         {
             "id": "60ac3050-25bf-4fad-b033-ef52c1ff25de",
-            "type": "phone",
+            "type": "email",
             "value": "Casandra.Wiegand26@hotmail.com"
         },
         {
             "id": "6d77efa3-91d2-4f73-8ae9-66ed05c5d964",
-            "type": "phone",
+            "type": "email",
             "value": "Karina_Mertz@yahoo.com"
         },
         {
             "id": "baff9e29-d6c0-486f-b07a-577222d63322",
-            "type": "email",
+            "type": "phone",
             "value": "863.491.9050"
         },
         {
@@ -319,17 +242,17 @@
         },
         {
             "id": "df8ee378-ee3c-4487-99f0-43f250f71152",
-            "type": "email",
+            "type": "phone",
             "value": "1-542-934-2332 x13785"
         },
         {
             "id": "9d3a1fba-d191-4506-a404-6c19564ba53d",
-            "type": "phone",
+            "type": "email",
             "value": "Caroline.Gibson50@hotmail.com"
         },
         {
             "id": "2f925839-a1fa-4291-94f8-ac65b28238f2",
-            "type": "email",
+            "type": "phone",
             "value": "1-305-409-9923 x8994"
         },
         {
@@ -910,112 +833,112 @@
     "company-contact-employees": [
         {
             "id": "86785aee-b303-4152-8e53-ec3132d0773e",
-            "companyId": "1632ba74-73fe-40bd-acfa-36d0816a07c4",
+            "companyId": null,
             "contactEmployeeId": "517ffda0-d45f-4804-bcd7-2e5dea0b2a07"
         },
         {
             "id": "e2489a63-a56a-4654-8d1e-48b6436da0f4",
-            "companyId": "1632ba74-73fe-40bd-acfa-36d0816a07c4",
+            "companyId": null,
             "contactEmployeeId": "cb65607a-97e2-42a6-9eb9-3de8d5e916b3"
         },
         {
             "id": "0e309c59-9087-4e8c-819f-8734772e74c9",
-            "companyId": "28de9d45-2293-48d7-aa4d-2ed16a61db92",
+            "companyId": null,
             "contactEmployeeId": "26ac8780-d122-4fae-895d-56014f0fbb32"
         },
         {
             "id": "93560e9f-990a-4964-a35e-6dd4110de02c",
-            "companyId": "28de9d45-2293-48d7-aa4d-2ed16a61db92",
+            "companyId": null,
             "contactEmployeeId": "ca2e46be-8059-430e-b231-3b3fdb157108"
         },
         {
             "id": "00720840-196f-43c6-8e49-038354bdc996",
-            "companyId": "684f6d6d-f3fd-415b-91db-f4c0cf4b90f0",
+            "companyId": null,
             "contactEmployeeId": "38797231-f61d-45c4-84a9-282d6e16cc83"
         },
         {
             "id": "605205bb-1a66-46fa-8685-66c1f77adc46",
-            "companyId": "684f6d6d-f3fd-415b-91db-f4c0cf4b90f0",
+            "companyId": null,
             "contactEmployeeId": "a933e947-8fc6-4d80-aced-8b241e2a87b6"
         },
         {
             "id": "eb6b1f2a-caad-4905-843d-adaaad4e9314",
-            "companyId": "3d96556a-ea01-422c-815a-9c649c0ce06a",
+            "companyId": null,
             "contactEmployeeId": "46e5fc4f-d368-48a9-9aa2-0c753cbc07f3"
         },
         {
             "id": "1cdc443b-fff7-406b-b552-0c90fd61a4b6",
-            "companyId": "3d96556a-ea01-422c-815a-9c649c0ce06a",
+            "companyId": null,
             "contactEmployeeId": "7bfbed4b-8a7d-4c63-9ed8-210bf00f0c16"
         },
         {
             "id": "44cdb07f-f49c-4e45-a9fa-274a79aaa661",
-            "companyId": "748d286b-47e9-4cd9-a634-10072694e42e",
+            "companyId": null,
             "contactEmployeeId": "3ed63559-5592-4cb1-ba24-d8201245a3e7"
         },
         {
             "id": "c91bef97-557d-4378-a45a-4b8bfdecc523",
-            "companyId": "748d286b-47e9-4cd9-a634-10072694e42e",
+            "companyId": null,
             "contactEmployeeId": "723ff0aa-dcaf-46c2-9909-1e7f99dad292"
         },
         {
             "id": "763a9ee6-fc14-4aed-b8db-89c15b92c9b8",
-            "companyId": "2432d88a-acd2-4399-8a2f-346d063d3b8d",
+            "companyId": null,
             "contactEmployeeId": "eff63a26-87d6-4de8-832d-13747aab472d"
         },
         {
             "id": "6ee47c8e-ad2c-4c5c-b85e-ba59d12ca179",
-            "companyId": "2432d88a-acd2-4399-8a2f-346d063d3b8d",
+            "companyId": null,
             "contactEmployeeId": "0b962f35-1c05-4923-8c73-369ba55625d8"
         },
         {
             "id": "37887148-229c-4fa7-b264-583deea79d2e",
-            "companyId": "ac18d127-eb36-4af7-bf26-499097156bae",
+            "companyId": null,
             "contactEmployeeId": "fde82e5f-7b06-4761-9e88-0b78b4e27934"
         },
         {
             "id": "d7a6d507-eda9-4489-beb8-c21315a75290",
-            "companyId": "ac18d127-eb36-4af7-bf26-499097156bae",
+            "companyId": null,
             "contactEmployeeId": "213a6524-2d32-42b9-9047-d2f00abace2f"
         },
         {
             "id": "7166c242-f3fd-40f3-8953-36c44fd1685f",
-            "companyId": "ae9d8272-7e3d-4ebc-8d65-7fe616ae6f9a",
+            "companyId": null,
             "contactEmployeeId": "7a2367ac-1f87-416f-bfcc-a2f3e97100a5"
         },
         {
             "id": "5ab6eb9b-55b8-4870-ac79-c7d225c2048d",
-            "companyId": "ae9d8272-7e3d-4ebc-8d65-7fe616ae6f9a",
+            "companyId": null,
             "contactEmployeeId": "0642df71-b235-4c24-ad79-d5453bac2438"
         },
         {
             "id": "b2609cd0-0b86-4184-adc5-6fd14d0ca961",
-            "companyId": "efa0da8d-eb04-4902-a8d0-986008422e19",
+            "companyId": null,
             "contactEmployeeId": "51efcad9-e22a-48da-a378-2fb1e89b167a"
         },
         {
             "id": "e35f11d8-44c7-4433-96f7-6e89091034de",
-            "companyId": "efa0da8d-eb04-4902-a8d0-986008422e19",
+            "companyId": null,
             "contactEmployeeId": "d199af7e-5a0b-4a85-8ddf-ab19b3c02424"
         },
         {
             "id": "da2fe3f2-9e96-4405-8155-f35a2d301df3",
-            "companyId": "3e75f431-fdf9-493c-a683-64bf90a235c1",
+            "companyId": null,
             "contactEmployeeId": "b2876b19-1518-4a8a-a84f-7b0e62c87fc1"
         },
         {
             "id": "fef467f9-bf22-4770-afa6-2e0eaca5f2f5",
-            "companyId": "3e75f431-fdf9-493c-a683-64bf90a235c1",
+            "companyId": null,
             "contactEmployeeId": "8a5b2a6a-8f24-49e0-a6c1-8c77cef19490"
         },
         {
             "id": "094b146e-9d11-4146-8762-e0fea6f5b10d",
-            "companyId": "1f27abdd-b236-4c44-bcc3-926879db1078",
+            "companyId": null,
             "contactEmployeeId": "9c064c97-2566-437b-9a74-d9979a1ee4aa"
         },
         {
             "id": "bf666a84-abef-46d1-a698-f271246cfc0f",
-            "companyId": "1f27abdd-b236-4c44-bcc3-926879db1078",
+            "companyId": null,
             "contactEmployeeId": "5e77c6d2-37b8-4d08-a8b0-5e04ddac9d19"
         },
         {
@@ -1112,112 +1035,112 @@
     "company-contacts": [
         {
             "id": "600e1fa2-d0a9-4c61-9793-22752b7d815f",
-            "companyId": "1632ba74-73fe-40bd-acfa-36d0816a07c4",
+            "companyId": null,
             "contactId": "941dc9cf-fbc2-4c7a-8737-864d8cf16bc5"
         },
         {
             "id": "1c24bd01-9aef-417f-831f-4c5c40e28007",
-            "companyId": "1632ba74-73fe-40bd-acfa-36d0816a07c4",
+            "companyId": null,
             "contactId": "a5efc8f0-ebfb-4682-b833-03a1fc07a5ab"
         },
         {
             "id": "7a9f67e9-74bf-43a0-b60d-14b991b5cd53",
-            "companyId": "28de9d45-2293-48d7-aa4d-2ed16a61db92",
+            "companyId": null,
             "contactId": "02e4bac6-fbbe-432f-9522-0ef3db651896"
         },
         {
             "id": "613b4467-5626-48b6-9149-f96f2ad34f90",
-            "companyId": "28de9d45-2293-48d7-aa4d-2ed16a61db92",
+            "companyId": null,
             "contactId": "2e8f6f41-68de-4ad8-aa9a-cb33d8533af1"
         },
         {
             "id": "7eecc871-874f-4c45-b190-5819b9e7c669",
-            "companyId": "684f6d6d-f3fd-415b-91db-f4c0cf4b90f0",
+            "companyId": null,
             "contactId": "ff229219-51e2-45fb-bc14-ab2ce5298008"
         },
         {
             "id": "fb89f5a3-9685-4ccb-a38f-48c89d17a395",
-            "companyId": "684f6d6d-f3fd-415b-91db-f4c0cf4b90f0",
+            "companyId": null,
             "contactId": "2551437c-7a1e-474e-a771-ea7fdd7e19cc"
         },
         {
             "id": "32eaaf20-3cc1-49bf-942c-07884a45ee5d",
-            "companyId": "3d96556a-ea01-422c-815a-9c649c0ce06a",
+            "companyId": null,
             "contactId": "b17d4558-7b91-41dd-a32b-791bbe3cf99e"
         },
         {
             "id": "19a2eefc-dcbb-48c1-85c6-6e4c8b3bd8c1",
-            "companyId": "3d96556a-ea01-422c-815a-9c649c0ce06a",
+            "companyId": null,
             "contactId": "87a5d030-a0a1-4b31-a316-e228e1fcda9d"
         },
         {
             "id": "072bbc89-1cf8-4078-b406-752d6c5c2829",
-            "companyId": "748d286b-47e9-4cd9-a634-10072694e42e",
+            "companyId": null,
             "contactId": "23f869e0-aa93-46c3-94f8-6454918d0355"
         },
         {
             "id": "aba67a23-d91b-4021-a9e0-dbcf9fc50b80",
-            "companyId": "748d286b-47e9-4cd9-a634-10072694e42e",
+            "companyId": null,
             "contactId": "745ea7a8-233d-4913-85e9-f5ff049c8d41"
         },
         {
             "id": "e8add7e0-2f6e-402d-840f-ca44c2b240dc",
-            "companyId": "2432d88a-acd2-4399-8a2f-346d063d3b8d",
+            "companyId": null,
             "contactId": "aef9d79d-7795-476d-a3d5-7f0a5d2d340a"
         },
         {
             "id": "a5b27dd3-e12b-47cb-9591-7390f25b9e1b",
-            "companyId": "2432d88a-acd2-4399-8a2f-346d063d3b8d",
+            "companyId": null,
             "contactId": "91f91735-1a6e-4390-8dd5-cdd3778cdc38"
         },
         {
             "id": "28954681-91dc-4e2f-abec-4622311a9f64",
-            "companyId": "ac18d127-eb36-4af7-bf26-499097156bae",
+            "companyId": null,
             "contactId": "c9512532-bc8c-4d2e-b08e-8a45ccfbde3f"
         },
         {
             "id": "b46fe753-2eb8-4a62-84ca-62d8c0fcf922",
-            "companyId": "ac18d127-eb36-4af7-bf26-499097156bae",
+            "companyId": null,
             "contactId": "6126bf87-981d-49d0-b122-e0e9da989d66"
         },
         {
             "id": "77c92b96-df87-40af-bec3-4dc2f40c1b5d",
-            "companyId": "ae9d8272-7e3d-4ebc-8d65-7fe616ae6f9a",
+            "companyId": null,
             "contactId": "97df4477-e413-4b1d-beb1-3458ee9e9f34"
         },
         {
             "id": "31a15861-6c4b-4796-83d0-9f31f5b96a2c",
-            "companyId": "ae9d8272-7e3d-4ebc-8d65-7fe616ae6f9a",
+            "companyId": null,
             "contactId": "b2ee066e-2db4-4d47-95c7-2cf532848024"
         },
         {
             "id": "efefe6e6-7510-4e90-8f8d-52795a18f6e3",
-            "companyId": "efa0da8d-eb04-4902-a8d0-986008422e19",
+            "companyId": null,
             "contactId": "f0e40e11-17b0-4f2d-8ed0-12d95ca371be"
         },
         {
             "id": "90ad2c85-96b5-417a-a395-20e8fcb17f39",
-            "companyId": "efa0da8d-eb04-4902-a8d0-986008422e19",
+            "companyId": null,
             "contactId": "4cf4643b-12c9-45c9-a666-293267b97c34"
         },
         {
             "id": "c63f1118-8f6e-4f4c-9d0d-9a644e92165d",
-            "companyId": "3e75f431-fdf9-493c-a683-64bf90a235c1",
+            "companyId": null,
             "contactId": "c3250edf-cb56-4dd0-9010-d58dc5e2c616"
         },
         {
             "id": "dc24e53e-ee3e-47f9-be74-02facf4d5eac",
-            "companyId": "3e75f431-fdf9-493c-a683-64bf90a235c1",
+            "companyId": null,
             "contactId": "856dd132-d39d-478a-9b7a-4cf6fa5a8018"
         },
         {
             "id": "cdea848f-3873-4033-8a98-23354953123c",
-            "companyId": "1f27abdd-b236-4c44-bcc3-926879db1078",
+            "companyId": null,
             "contactId": "12b6001d-56c7-465d-ac86-cbd60bc9e8fa"
         },
         {
             "id": "b733134e-e802-4a2c-8bc6-c69379a208dd",
-            "companyId": "1f27abdd-b236-4c44-bcc3-926879db1078",
+            "companyId": null,
             "contactId": "72639d4e-b6a4-40b6-86a2-ba14558ef53e"
         },
         {
@@ -1313,113 +1236,93 @@
     ],
     "company-addresses": [
         {
-            "id": "cfd0debb-7357-4eca-95d6-10cd68f89f7e",
-            "companyId": "1632ba74-73fe-40bd-acfa-36d0816a07c4",
-            "addressId": "b41f46f3-077e-4232-b5ce-f15f374479c4"
-        },
-        {
-            "id": "b2697583-e0bc-429b-b0dc-6208b819d7ae",
-            "companyId": "1632ba74-73fe-40bd-acfa-36d0816a07c4",
-            "addressId": "ac3bdc4f-1031-4109-9131-de4c57324c99"
-        },
-        {
-            "id": "1b7f539b-2baf-4b3d-840c-eda5633c23d7",
-            "companyId": "28de9d45-2293-48d7-aa4d-2ed16a61db92",
-            "addressId": "d5934715-050f-4ce0-9dc8-23a65e3b1e16"
-        },
-        {
-            "id": "5d7e6ba7-305c-4611-ac62-598129f6955c",
-            "companyId": "28de9d45-2293-48d7-aa4d-2ed16a61db92",
-            "addressId": "62446115-ffa9-4b9b-8035-9dd56c3c0a03"
-        },
-        {
             "id": "75fe63ac-e4dc-4b46-9ee0-fa6f8764dfc8",
-            "companyId": "684f6d6d-f3fd-415b-91db-f4c0cf4b90f0",
+            "companyId": null,
             "addressId": "ab1b3041-d3d2-4260-9c19-faeed59d08dd"
         },
         {
             "id": "8a691b3f-7270-493b-bff4-4fe54168ccd3",
-            "companyId": "684f6d6d-f3fd-415b-91db-f4c0cf4b90f0",
+            "companyId": null,
             "addressId": "369e1898-6948-41ff-8871-8f8b68483224"
         },
         {
             "id": "063eab1d-87c7-4c6a-aa6c-987a32667414",
-            "companyId": "3d96556a-ea01-422c-815a-9c649c0ce06a",
+            "companyId": null,
             "addressId": "d807e361-8f31-40a4-ba16-a1e7d593be0c"
         },
         {
             "id": "8d339712-5aee-49d4-a050-1968916078e0",
-            "companyId": "3d96556a-ea01-422c-815a-9c649c0ce06a",
+            "companyId": null,
             "addressId": "80f8bb4e-6181-4a02-8297-b21d00ce9114"
         },
         {
             "id": "83271726-4845-441f-81e4-facc1bd60a00",
-            "companyId": "748d286b-47e9-4cd9-a634-10072694e42e",
+            "companyId": null,
             "addressId": "1c015e8f-1d5e-4b39-b4ea-8b439e080820"
         },
         {
             "id": "d1f81c80-8f86-449a-8d66-efc69020ff7f",
-            "companyId": "748d286b-47e9-4cd9-a634-10072694e42e",
+            "companyId": null,
             "addressId": "32375205-9628-4a8c-9a3f-3a8b06c42e62"
         },
         {
             "id": "beb4f230-baab-4b08-a279-b8ec30a79aa4",
-            "companyId": "2432d88a-acd2-4399-8a2f-346d063d3b8d",
+            "companyId": null,
             "addressId": "132be065-5105-498e-9e19-bd32ff0aa3d5"
         },
         {
             "id": "5b45c11e-aeaf-4560-8c71-60b5cd229390",
-            "companyId": "2432d88a-acd2-4399-8a2f-346d063d3b8d",
+            "companyId": null,
             "addressId": "f51be985-df90-4aac-b329-6b8c6a3d8468"
         },
         {
             "id": "2daaa3b4-aa0f-47c0-8640-0589a68c04e5",
-            "companyId": "ac18d127-eb36-4af7-bf26-499097156bae",
+            "companyId": null,
             "addressId": "318be2f3-f3cb-489f-9c77-4003feb3853f"
         },
         {
             "id": "bb19840d-5688-441e-946e-32d029b4ebc3",
-            "companyId": "ac18d127-eb36-4af7-bf26-499097156bae",
+            "companyId": null,
             "addressId": "4069967e-e970-4871-a601-ae2798773dfe"
         },
         {
             "id": "93eaf1c5-2171-4c02-9a2d-cee4c2603464",
-            "companyId": "ae9d8272-7e3d-4ebc-8d65-7fe616ae6f9a",
+            "companyId": null,
             "addressId": "fa6334f3-9ef6-4589-99fd-d60f781ffeba"
         },
         {
             "id": "1988acd6-66f6-41e7-9e1a-160a96af30bc",
-            "companyId": "ae9d8272-7e3d-4ebc-8d65-7fe616ae6f9a",
+            "companyId": null,
             "addressId": "d46961c3-7ef2-4cf1-8eb7-c6c33eed9706"
         },
         {
             "id": "3df177c3-ace1-4d12-84cd-4f037487c3fb",
-            "companyId": "efa0da8d-eb04-4902-a8d0-986008422e19",
+            "companyId": null,
             "addressId": "c1b3f455-ae48-4ba2-bd67-d13ce9fc79b2"
         },
         {
             "id": "7b01fdf4-f3a9-4777-b931-eb541914c542",
-            "companyId": "efa0da8d-eb04-4902-a8d0-986008422e19",
+            "companyId": null,
             "addressId": "bb084253-0f37-4e08-9353-746c0d056ed4"
         },
         {
             "id": "9c1dc06d-730b-4306-abad-617f1cce4fca",
-            "companyId": "3e75f431-fdf9-493c-a683-64bf90a235c1",
+            "companyId": null,
             "addressId": "c74d9e64-c3ee-40b2-8845-8ab76c9deab3"
         },
         {
             "id": "94ee1952-44c5-45c9-8a08-b5f95fc0460b",
-            "companyId": "3e75f431-fdf9-493c-a683-64bf90a235c1",
+            "companyId": null,
             "addressId": "a5da2513-d4cc-4507-b865-01bc717384e4"
         },
         {
             "id": "54f17a30-4a60-4c03-a7e9-6ec550bf3764",
-            "companyId": "1f27abdd-b236-4c44-bcc3-926879db1078",
+            "companyId": null,
             "addressId": "a2154b45-1830-4fb0-a779-452bc443beb3"
         },
         {
             "id": "3d02071c-fda2-4d2f-96f5-889da137a5bb",
-            "companyId": "1f27abdd-b236-4c44-bcc3-926879db1078",
+            "companyId": null,
             "addressId": "da7374f6-6e54-4b7c-954c-c2f8a6708fd0"
         },
         {

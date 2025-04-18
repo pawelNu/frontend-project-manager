@@ -8,11 +8,10 @@ import {
     CompanyAddress,
     CompanyContact,
     CompanyContactEmployee,
-} from '../client/company';
+} from '../services/company';
 import { v4 as uuidv4 } from 'uuid';
 import { faker, simpleFaker } from '@faker-js/faker';
-
-export const jsonServerApi = 'http://localhost:5000';
+import { api, jsonServerApi } from '../components/routes';
 
 const generateAddress = (): Address => ({
     id: uuidv4(),
@@ -21,11 +20,17 @@ const generateAddress = (): Address => ({
     postalCode: faker.location.zipCode(),
 });
 
-const generateContact = (): Contact => ({
-    id: uuidv4(),
-    type: faker.helpers.arrayElement(['phone', 'email']),
-    value: faker.helpers.arrayElement([faker.phone.number(), faker.internet.email()]),
-});
+const generateContact = (): Contact => {
+    const type = faker.helpers.arrayElement(['phone', 'email']) as 'phone' | 'email';
+
+    const value = type === 'phone' ? faker.phone.number() : faker.internet.email();
+
+    return {
+        id: uuidv4(),
+        type,
+        value,
+    };
+};
 
 const generateContactEmployee = (): ContactEmployee => ({
     id: uuidv4(),
@@ -48,9 +53,8 @@ const generateCompany = (): Company => ({
 });
 
 const createCompany = async (company: CompanyNotFull) => {
-    //   console.log('company ' + JSON.stringify(company, null, 2));
     try {
-        const response = await axios.post(jsonServerApi + 'companies', company);
+        const response = await axios.post(jsonServerApi + api.company.create(), company);
         console.log('Created company:', response.data);
     } catch (error) {
         console.error('Error creating company:', error);
@@ -59,7 +63,7 @@ const createCompany = async (company: CompanyNotFull) => {
 
 const createAddress = async (address: Address) => {
     try {
-        const response = await axios.post(jsonServerApi + 'addresses', address);
+        const response = await axios.post(jsonServerApi + api.addresses.create(), address);
         console.log('Created address:', response.data);
     } catch (error) {
         console.error('Error creating address:', error);
@@ -68,7 +72,7 @@ const createAddress = async (address: Address) => {
 
 const createCompanyAddress = async (address: CompanyAddress) => {
     try {
-        const response = await axios.post(jsonServerApi + 'company-addresses', address);
+        const response = await axios.post(jsonServerApi + api.companyAddresses.create(), address);
         console.log('Added address to company:', response.data);
     } catch (error) {
         console.error('Error adding address:', error);
@@ -77,7 +81,7 @@ const createCompanyAddress = async (address: CompanyAddress) => {
 
 const createContact = async (contact: Contact) => {
     try {
-        const response = await axios.post(jsonServerApi + 'contacts', contact);
+        const response = await axios.post(jsonServerApi + api.contacts.create(), contact);
         console.log('Created contact:', response.data);
     } catch (error) {
         console.error('Error creating contact:', error);
@@ -86,7 +90,7 @@ const createContact = async (contact: Contact) => {
 
 const createCompanyContact = async (contact: CompanyContact) => {
     try {
-        const response = await axios.post(jsonServerApi + 'company-contacts', contact);
+        const response = await axios.post(jsonServerApi + api.companyContacts.create(), contact);
         console.log('Added contact to company:', response.data);
     } catch (error) {
         console.error('Error adding contact:', error);
@@ -95,7 +99,7 @@ const createCompanyContact = async (contact: CompanyContact) => {
 
 const createContactEmployee = async (contact: ContactEmployee) => {
     try {
-        const response = await axios.post(jsonServerApi + 'contact-employees', contact);
+        const response = await axios.post(jsonServerApi + api.contactEmployees.create(), contact);
         console.log('Created contact employee:', response.data);
     } catch (error) {
         console.error('Error creating contact:', error);
@@ -104,7 +108,7 @@ const createContactEmployee = async (contact: ContactEmployee) => {
 
 const createCompanyContactEmployee = async (contact: CompanyContactEmployee) => {
     try {
-        const response = await axios.post(jsonServerApi + 'company-contact-employees', contact);
+        const response = await axios.post(jsonServerApi + api.companyContactEmployees.create(), contact);
         console.log('Added contact employee to company:', response.data);
     } catch (error) {
         console.error('Error adding contact employee:', error);
@@ -112,17 +116,7 @@ const createCompanyContactEmployee = async (contact: CompanyContactEmployee) => 
 };
 
 export const generateData = (numOfCompanies: number): Company[] => {
-    //   const addresses: Address[] = [];
-    //   const contacts: Contact[] = [];
-    //   const contactEmployees: ContactEmployee[] = [];
     const companies: Company[] = [];
-
-    //   for (let i = 0; i < numOfCompanies * 2; i++) {
-    //     addresses.push(generateAddress());
-    //     contacts.push(generateContact());
-    //     contactEmployees.push(generateContactEmployee());
-    //   }
-
     for (let i = 0; i < numOfCompanies; i++) {
         companies.push(generateCompany());
     }

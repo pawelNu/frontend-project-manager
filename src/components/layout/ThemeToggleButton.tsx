@@ -3,16 +3,10 @@ import { useEffect, useState } from 'react';
 const THEME_KEY = 'preferred-theme';
 
 export const ThemeToggleButton: React.FC = () => {
-    const [theme, setTheme] = useState<'light' | 'dark'>('dark');
-
-    useEffect(() => {
-        const storedTheme = localStorage.getItem(THEME_KEY) as 'light' | 'dark' | null;
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-        const initialTheme = storedTheme || (prefersDark ? 'dark' : 'light');
-        setTheme(initialTheme);
-        document.documentElement.setAttribute('data-bs-theme', initialTheme);
-    }, []);
+    const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+        const current = document.documentElement.getAttribute('data-bs-theme');
+        return current === 'light' || current === 'dark' ? current : 'dark';
+    });
 
     useEffect(() => {
         document.documentElement.setAttribute('data-bs-theme', theme);

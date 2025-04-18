@@ -31,24 +31,3 @@ const SidebarLinks = ({ items }: { items: TSidebarItem[] }) => {
         </ul>
     );
 };
-
-// const SidebarTOC = ({ items }: { items: TSidebarItem[] }) => {
-//     return <div className="col-4">{renderItems(items)}</div>;
-// };
-
-// const renderItems = (items: TSidebarItem[], level = 0) => (
-//     <nav className={`nav nav-pills flex-column ${level > 0 ? 'ms-4 my-1' : ''}`}>
-//         {items.map((item, i) => (
-//             <div key={i}>
-//                 {item.linkTo ? (
-//                     <Link className="nav-link custom-nav-link" to={item.linkTo}>
-//                         {item.label}
-//                     </Link>
-//                 ) : (
-//                     <span className="nav-link disabled">{item.label}</span>
-//                 )}
-//                 {item.subMenu && renderItems(item.subMenu, level + 1)}
-//             </div>
-//         ))}
-//     </nav>
-// );

@@ -1,87 +1,78 @@
-import { useCallback, useEffect, useState } from 'react';
-import {
-    Address,
-    Company,
-    Contact,
-    ContactEmployee,
-    getCompanyAddressesByCompanyId,
-    getCompanyById,
-    getCompanyContactEmployeesByCompanyId,
-    getCompanyContactsByCompanyId,
-} from '../../../client/company';
+import { useEffect, useState } from 'react';
+import { Address, Company, Contact, ContactEmployee, getCompanyById } from '../../../services/company';
 import { useParams } from 'react-router-dom';
 import { ErrorResponse } from '../../common';
+import { useGetApi } from '../../../hooks/useGetApi';
 
 export const CompanyDetails = () => {
     const { id } = useParams();
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<ErrorResponse | null>(null);
+    const [error, setError] = useState<ErrorResponse[]>([]);
+    console.log(' CompanyDetails   error:', error);
     const [company, setCompany] = useState<Company | null>(null);
-    const [addresses, setAddresses] = useState<Address[]>([]);
-    const [contacts, setContacts] = useState<Contact[]>([]);
-    const [contactEmployees, setContactEmployees] = useState<ContactEmployee[]>([]);
 
-    const getCompany = useCallback(
-        async (id: string | undefined) => {
-            setLoading(true);
-            setError(null);
-            if (!id) {
-                setError({ message: 'Missing id in params', type: 'Validation Error' });
-                return;
-            }
-            try {
-                const companyData = await getCompanyById(id);
-                if (companyData.success) {
-                    setCompany(companyData.data);
-                } else {
-                    setError(companyData.error);
-                }
-                const companyAddressesData = await getCompanyAddressesByCompanyId(company?.id);
-                if (companyAddressesData.success) {
-                    setAddresses(companyAddressesData.data);
-                } else {
-                    setError(companyAddressesData.error);
-                }
-                const companyContactsData = await getCompanyContactsByCompanyId(company?.id);
-                if (companyContactsData.success) {
-                    setContacts(companyContactsData.data);
-                } else {
-                    setError(companyContactsData.error);
-                }
-                const companyContactEmployeesData = await getCompanyContactEmployeesByCompanyId(company?.id);
-                if (companyContactEmployeesData.success) {
-                    setContactEmployees(companyContactEmployeesData.data);
-                } else {
-                    setError(companyContactEmployeesData.error);
-                }
-            } catch (err) {
-                setError({ message: String(err), type: 'Error Type' });
-            } finally {
-                setLoading(false);
-            }
-        },
-        [company?.id],
-    );
+    const { data: companyData, loading, error: companyError, request: fetchCompany } = useGetApi(getCompanyById);
 
     useEffect(() => {
-        getCompany(id);
-    }, [getCompany, id]);
+        if (!id) {
+            setError([{ message: 'Missing id in params', type: 'Validation Error' }]);
+            return;
+        }
+
+        fetchCompany(id);
+    }, [id, fetchCompany]);
+
+    useEffect(() => {
+        if (companyData) {
+            setCompany(companyData);
+            const missingFields: string[] = [];
+
+            if (!companyData.contacts || companyData.contacts.length === 0) {
+                missingFields.push('contacts');
+            }
+            if (!companyData.addresses || companyData.addresses.length === 0) {
+                missingFields.push('addresses');
+            }
+            if (!companyData.contactEmployees || companyData.contactEmployees.length === 0) {
+                missingFields.push('contactEmployees');
+            }
+
+            if (missingFields.length > 0) {
+                setError((prev) => [
+                    ...prev,
+                    {
+                        message: `Missing required data: ${missingFields.join(', ')}`,
+                        type: 'Data Error',
+                    },
+                ]);
+            }
+        }
+
+        if (companyError) {
+            setError((prev) => [...prev, { message: companyError, type: 'API Error' }]);
+        }
+    }, [companyData, companyError]);
+
+    const checkIfDataExists = (company: Company | null): company is Company => {
+        return Boolean(company && company.contacts && company.addresses && company.contactEmployees);
+    };
+
     return (
         <>
             <div className="container">
                 <h1>Company Details</h1>
                 {loading && <p>Loading...</p>}
-                {error && !company && (
-                    <p style={{ color: 'red' }}>
-                        {error.type}: {error.message}
-                    </p>
-                )}
-                {company && (
+                {error &&
+                    error.map((err, i) => (
+                        <p key={i} style={{ color: 'red' }}>
+                            {err.type}: {err.message}
+                        </p>
+                    ))}
+                {checkIfDataExists(company) && (
                     <>
                         <CompanyInfo company={company} />
-                        <CompanyContactsDetails contacts={contacts} />
-                        <AddressDetails addresses={addresses} />
-                        <CompanyContactEmployeesDetails contactEmployees={contactEmployees} />
+                        <CompanyContactsDetails contacts={company.contacts} />
+                        <AddressDetails addresses={company.addresses} />
+                        <CompanyContactEmployeesDetails contactEmployees={company.contactEmployees} />
                     </>
                 )}
             </div>

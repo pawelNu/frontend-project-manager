@@ -1,16 +1,20 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { routes } from '../../routes';
-import { Company, getCompanies } from '../../../client/company';
-import { ErrorResponse } from '../../common';
-import { Pagination, PaginationType } from '../../common/Pagination';
+import { Company, getCompanies, handleDeleteCompany } from '../../../services/company';
+import { Pagination } from '../../common/Pagination';
+import { ActionsButton } from '../../common/ActionButton';
+import { useGetApi } from '../../../hooks/useGetApi';
+import { PaginationType } from '../../common/Pagination';
+import { useMemoizedGetServiceFunction } from '../../../hooks/useMemoizedServiceFunctions';
 
 export const CompanyList = () => {
     const { pageNumber, pageSize } = useParams();
     const navigate = useNavigate();
     const page = isNaN(Number(pageNumber)) ? 1 : Number(pageNumber);
     const size = isNaN(Number(pageSize)) ? 10 : Number(pageSize);
-    const [companies, setCompanies] = useState<Company[]>([]);
+    const [companies, setCompanies] = useState<Company[] | undefined>([]);
+    console.log(' CompanyList   companies:', companies);
     const [pagination, setPagination] = useState<PaginationType>({
         first: 1,
         prev: null,
@@ -21,62 +25,48 @@ export const CompanyList = () => {
         items: 1,
         pageSize: size,
     });
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<ErrorResponse | null>(null);
+    const [error, setError] = useState<string | null>(null);
+    console.log(' CompanyList   error:', error);
+    const memoizedGetCompanies = useMemoizedGetServiceFunction(getCompanies);
+    const { data, loading, error: apiError, request } = useGetApi(memoizedGetCompanies);
 
     const updatePageState = useCallback(
         (pageNum: number | null, pageSize: number) => {
             if (pageNum !== null) {
-                console.log('updatePageState');
                 navigate(routes.company.list(pageNum, pageSize));
             }
         },
         [navigate],
     );
 
-    const getCompanyList = useCallback(async (page: number, size: number) => {
-        console.log('getCompanyList');
-        setLoading(true);
-        setError(null);
-        try {
-            const result = await getCompanies(page, size);
-            if (result.success) {
-                setCompanies(result.data.data);
-                setPagination({
-                    first: result.data.first,
-                    prev: result.data.prev,
-                    current: page,
-                    next: result.data.next,
-                    last: result.data.last,
-                    pages: result.data.pages,
-                    items: result.data.items,
-                    pageSize: size,
-                });
-            } else {
-                setError(result.error);
-            }
-        } catch (err) {
-            console.log(' getCompanyList   err:', err);
-        } finally {
-            setLoading(false);
-        }
-    }, []);
+    useEffect(() => {
+        request(page, size);
+        setError(apiError);
+    }, [apiError, page, request, size]);
 
     useEffect(() => {
-        getCompanyList(page, size);
-    }, [getCompanyList, page, size]);
+        if (data) {
+            setCompanies(data.data);
+            setPagination({
+                first: data.first,
+                prev: data.prev,
+                current: page,
+                next: data.next,
+                last: data.last,
+                pages: data.pages,
+                items: data.items,
+                pageSize: size,
+            });
+        }
+    }, [data, page, size]);
 
     return (
         <>
             <div className="container">
                 <h1>Company List</h1>
                 {loading && <p>Loading...</p>}
-                {error && !companies && (
-                    <p style={{ color: 'red' }}>
-                        {error.type}: {error.message}
-                    </p>
-                )}
-                {companies && (
+                {error && <p style={{ color: 'red' }}>{error}</p>}
+                {companies && !error && (
                     <>
                         <table className="table table-hover">
                             <thead>
@@ -86,23 +76,29 @@ export const CompanyList = () => {
                                     <th>Nip</th>
                                     <th>Regon</th>
                                     <th>Website</th>
-                                    <th>Details</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {companies.map((company, index) => (
+                                {companies.map((company: Company, index: number) => (
                                     <tr key={index}>
                                         <td>{index + 1}</td>
                                         <td>{company.name}</td>
                                         <td>{company.nip}</td>
                                         <td>{company.regon}</td>
-                                        <td>{company.website}</td>
                                         <td>
-                                            <Link
-                                                to={routes.company.details(company.id.toString())}
-                                                className="link-opacity-75-hover">
-                                                Details
-                                            </Link>
+                                            <a href={company.website} target="_blank">
+                                                {company.website}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <ActionsButton
+                                                id={company.id}
+                                                detailsLink={routes.company.details(company.id.toString())}
+                                                editLink={routes.company.edit(company.id.toString())}
+                                                deleteItem={handleDeleteCompany}
+                                                onDeleteSuccess={() => request(page, size)}
+                                            />
                                         </td>
                                     </tr>
                                 ))}

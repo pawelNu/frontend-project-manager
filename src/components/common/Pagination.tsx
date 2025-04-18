@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import Dropdown from 'react-bootstrap/esm/Dropdown';
+import DropdownButton from 'react-bootstrap/esm/DropdownButton';
 
 export type PaginationType = {
     first: number;
@@ -99,24 +101,19 @@ export const Pagination = ({ pagination, actions }: { pagination: PaginationType
                         </li>
                     </ul>
                     <div className="btn-group">
-                        <button
-                            type="button"
-                            className="btn btn-outline-primary dropdown-toggle"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Page size: {pageSize}
-                        </button>
-                        <ul className="dropdown-menu">
+                        <DropdownButton
+                            id="dropdown-item-button"
+                            variant="outline-primary"
+                            title={`Page size: ${pageSize}`}>
                             {[5, 10, 25, 50].map((pageSize, index) => (
-                                <li key={index}>
-                                    <button
-                                        className="dropdown-item"
-                                        onClick={(e) => changePageNumberAndSize(e, pagination.first, pageSize)}>
-                                        Page size: {pageSize}
-                                    </button>
-                                </li>
+                                <Dropdown.Item
+                                    as="button"
+                                    key={index}
+                                    onClick={(e) => changePageNumberAndSize(e, pagination.first, pageSize)}>
+                                    {pageSize}
+                                </Dropdown.Item>
                             ))}
-                        </ul>
+                        </DropdownButton>
                     </div>
                 </div>
             </nav>
