@@ -30,7 +30,7 @@ JSON_SERVER_URL = "http://localhost:5000"
 
 
 @app.get("/companies")
-async def proxy_companies(
+async def get_all_companies(
     _page: int = Query(1, alias="_page"),
     _per_page: int = Query(10, alias="_per_page"),
 ):
@@ -41,6 +41,12 @@ async def proxy_companies(
                 f"{JSON_SERVER_URL}/companies",
                 params={"_page": _page, "_per_page": _per_page},
             )
+            # resp.status_code = 500
+            if resp.status_code == 500:
+                return JSONResponse(
+                    content={"error": "Not found companies data"},
+                    status_code=resp.status_code,
+                )
 
             return Response(
                 content=resp.content,

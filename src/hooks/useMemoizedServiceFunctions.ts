@@ -14,3 +14,11 @@ export const useMemoizedServiceFunctions = <ArgumentType, ResponseDataType>(
         memoizedGetServiceFunction,
     };
 };
+
+export const useMemoizedGetServiceFunction = <ResponseDataType>(
+    getServiceFunction: (pageNumber: number, pageSize: number) => Promise<AxiosResponse<ResponseDataType>>,
+) => {
+    const memoizedGetCompanies = useCallback(getServiceFunction, [getServiceFunction]);
+
+    return memoizedGetCompanies;
+};

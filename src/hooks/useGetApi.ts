@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 type UseGetApiReturn<TData, TArgs extends readonly unknown[]> = {
     data: TData | null;
@@ -20,9 +20,13 @@ export const useGetApi = <TData, TArgs extends readonly unknown[]>(
             setError(null);
             try {
                 const response = await serviceFunction(...args);
+                console.log(' response:', response);
                 setData(response.data);
             } catch (err) {
-                if (err instanceof Error) {
+                // console.log(' err:', err);
+                if (axios.isAxiosError(err)) {
+                    setError(err.response?.data.error);
+                } else if (err instanceof Error) {
                     setError(err.message);
                 } else {
                     setError('Unknown error');

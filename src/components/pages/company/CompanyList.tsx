@@ -6,6 +6,7 @@ import { Pagination } from '../../common/Pagination';
 import { ActionsButton } from '../../common/ActionButton';
 import { useGetApi } from '../../../hooks/useGetApi';
 import { PaginationType } from '../../common/Pagination';
+import { useMemoizedGetServiceFunction } from '../../../hooks/useMemoizedServiceFunctions';
 
 export const CompanyList = () => {
     const { pageNumber, pageSize } = useParams();
@@ -13,6 +14,7 @@ export const CompanyList = () => {
     const page = isNaN(Number(pageNumber)) ? 1 : Number(pageNumber);
     const size = isNaN(Number(pageSize)) ? 10 : Number(pageSize);
     const [companies, setCompanies] = useState<Company[] | undefined>([]);
+    console.log(' CompanyList   companies:', companies);
     const [pagination, setPagination] = useState<PaginationType>({
         first: 1,
         prev: null,
@@ -23,7 +25,10 @@ export const CompanyList = () => {
         items: 1,
         pageSize: size,
     });
-    const { data, loading, error, request } = useGetApi(getCompanies);
+    const [error, setError] = useState<string | null>(null);
+    console.log(' CompanyList   error:', error);
+    const memoizedGetCompanies = useMemoizedGetServiceFunction(getCompanies);
+    const { data, loading, error: apiError, request } = useGetApi(memoizedGetCompanies);
 
     const updatePageState = useCallback(
         (pageNum: number | null, pageSize: number) => {
@@ -34,11 +39,10 @@ export const CompanyList = () => {
         [navigate],
     );
 
-    // TODO check how component react with errors
-
     useEffect(() => {
         request(page, size);
-    }, [page, request, size]);
+        setError(apiError);
+    }, [apiError, page, request, size]);
 
     useEffect(() => {
         if (data) {
@@ -61,12 +65,8 @@ export const CompanyList = () => {
             <div className="container">
                 <h1>Company List</h1>
                 {loading && <p>Loading...</p>}
-                {error && !companies && (
-                    <p style={{ color: 'red' }}>
-                        {error}: {error}
-                    </p>
-                )}
-                {companies && (
+                {error && <p style={{ color: 'red' }}>{error}</p>}
+                {companies && !error && (
                     <>
                         <table className="table table-hover">
                             <thead>
