@@ -11,6 +11,7 @@ export const usePostApi = <ArgumentType, ResponseDataType>(
             setLoading(true);
             try {
                 const response = await serviceFunction(id, args);
+
                 return { success: true, data: response.data };
             } catch (err) {
                 if (axios.isAxiosError(err)) {

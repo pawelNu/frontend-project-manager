@@ -112,7 +112,6 @@ export const DynamicForm = <ArgumentType extends FormValuesType, ResponseDataTyp
         } else if ('errors' in result) {
             console.log(' errors:', result.errors);
             setErrors(result.errors);
-            console.log(errors);
         } else if ('error' in result) {
             console.log(' error:', result.error);
             setInfo(result.error);
@@ -120,13 +119,6 @@ export const DynamicForm = <ArgumentType extends FormValuesType, ResponseDataTyp
         }
         setSubmitting(false);
     };
-
-    if (loading)
-        return (
-            <Spinner animation="border" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </Spinner>
-        );
 
     return (
         <>
@@ -203,9 +195,15 @@ export const DynamicForm = <ArgumentType extends FormValuesType, ResponseDataTyp
                             ))}
 
                             <div className="col-12">
-                                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-                                    Submit Form
-                                </button>
+                                {loading === true ? (
+                                    <Spinner animation="border" role="status">
+                                        <span className="visually-hidden">Loading...</span>
+                                    </Spinner>
+                                ) : (
+                                    <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                                        Submit Form
+                                    </button>
+                                )}
                             </div>
                         </Form>
                     )}
