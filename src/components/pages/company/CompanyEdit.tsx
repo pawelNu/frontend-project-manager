@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { DynamicForm, FormConfig, FormValuesType } from '../../common/Form';
+import { DynamicForm, FormConfig, FormValuesType } from '../../common/DynamicForm';
 import { createCompany } from '../../../services/company';
 
 const handleDynamicFormSubmit = async (values: FormValuesType) => {

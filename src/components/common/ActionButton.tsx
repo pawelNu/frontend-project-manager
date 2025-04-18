@@ -17,12 +17,12 @@ type Props = {
 
 export const ActionsButton: React.FC<Props> = ({ id, detailsLink, editLink, deleteItem, onDeleteSuccess }) => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [showErrorModal, setShowErrorModal] = useState(false);
-    const [error, setError] = useState<string>('');
+    const [showInfoModal, setShowInfoModal] = useState(false);
+    const [info, setInfo] = useState<string>('');
 
     const handleClose = () => {
         setShowDeleteModal(false);
-        setError('');
+        setInfo('');
     };
 
     const handleShow = () => setShowDeleteModal(true);
@@ -31,13 +31,13 @@ export const ActionsButton: React.FC<Props> = ({ id, detailsLink, editLink, dele
         const result = await deleteItem(id.toString());
         if (!result.success) {
             if (result.error) {
-                setError(result.error);
+                setInfo(result.error);
                 setShowDeleteModal(false);
-                setShowErrorModal(true);
+                setShowInfoModal(true);
             } else {
-                setError('Unknown error: file: ActionsButton.tsx:   confirmDelete   confirmDelete');
+                setInfo('Unknown error: file: ActionsButton.tsx:   confirmDelete   confirmDelete');
                 setShowDeleteModal(false);
-                setShowErrorModal(true);
+                setShowInfoModal(true);
             }
         } else {
             handleClose();
@@ -62,7 +62,7 @@ export const ActionsButton: React.FC<Props> = ({ id, detailsLink, editLink, dele
 
             <ConfirmDeleteModal show={showDeleteModal} handleClose={handleClose} handleConfirmDelete={confirmDelete} />
 
-            {error && <InfoModal message={error} show={showErrorModal} handleClose={handleClose} />}
+            {info && <InfoModal message={info} show={showInfoModal} handleClose={handleClose} />}
         </div>
     );
 };

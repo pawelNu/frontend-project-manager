@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { DynamicForm, FormConfig, FormValuesType } from '../../common/Form';
+import { DynamicForm, FormConfig, FormValuesType } from '../../common/DynamicForm';
 import { CompanyNotFull, createCompany } from '../../../services/company';
 
 export const CompanyCreate = () => {

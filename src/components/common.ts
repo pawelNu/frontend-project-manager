@@ -84,3 +84,11 @@ export type PaginatedResponse<T> = {
 };
 
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms * 1000));
+
+export type HasId<T> = T extends { id: string; message: string } ? T : never;
+
+export const objectToString = (obj: object): string => {
+    return Object.entries(obj)
+        .map(([key, value]) => `${key}: ${value}`)
+        .join(', ');
+};

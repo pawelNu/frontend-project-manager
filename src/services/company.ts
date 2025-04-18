@@ -2,7 +2,7 @@ import { UUIDTypes } from 'uuid';
 import { PaginatedResponse } from '../components/common';
 import axios from 'axios';
 import { api } from '../components/routes';
-import { FormValuesType } from '../components/common/Form';
+import { FormValuesType } from '../components/common/DynamicForm';
 import { v4 as uuidv4 } from 'uuid';
 import { axiosInstance } from '../config/axiosInstance';
 
@@ -58,8 +58,6 @@ export type CompanyContactEmployee = {
     companyId: UUIDTypes;
     contactEmployeeId: UUIDTypes;
 };
-
-// TODO change to https://github.com/riyons/centralized-error-handling-react/blob/main/src/services/productServices.js
 
 export const getCompanies = (pageNumber: number, pageSize: number) => {
     return axiosInstance.get<PaginatedResponse<Company>>(api.company.list(pageNumber, pageSize));

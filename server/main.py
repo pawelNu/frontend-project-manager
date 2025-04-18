@@ -185,7 +185,7 @@ async def create_company(company: Company2):
     if company.name == "t":
         errors["name"] = errors.get("name", []) + ["Name cannot be 't'."]
 
-    if company.nip == "t" or len(company.nip) != 10:
+    if company.nip == "t":
         errors["nip"] = ["Invalid NIP format."]
 
     if company.website == "t" or not company.website.startswith("http"):
@@ -209,9 +209,13 @@ async def create_company(company: Company2):
             response = await client.post(url, json=company.model_dump())
             response.raise_for_status()
 
-            log.success(response.json())
+            data = response.json()
+            data["message"] = (
+                f"Company [name: {data["name"]} nip: {data["nip"]}] created successfully"
+            )
+            log.success(data)
             return JSONResponse(
-                content=response.json(),
+                content=data,
                 status_code=response.status_code,
                 headers={
                     key: value

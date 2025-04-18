@@ -1,12 +1,14 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
-import { SubmitResponse } from '../components/common/Form';
+import { SubmitResponse } from '../components/common/DynamicForm';
 
 export const usePostApi = <ArgumentType, ResponseDataType>(
     serviceFunction: (values: ArgumentType) => Promise<AxiosResponse<ResponseDataType>>,
 ) => {
+    const [loading, setLoading] = useState(false);
     const request = useCallback(
         async (args: ArgumentType): Promise<SubmitResponse<ResponseDataType>> => {
+            setLoading(true);
             try {
                 const response = await serviceFunction(args);
                 return { success: true, data: response.data };
@@ -31,10 +33,12 @@ export const usePostApi = <ArgumentType, ResponseDataType>(
                 }
 
                 return { success: false, error: `Unknown error occurred: ${err}` };
+            } finally {
+                setLoading(false);
             }
         },
         [serviceFunction],
     );
 
-    return { request };
+    return { request, loading };
 };
