@@ -74,8 +74,7 @@ export const createCompany = async (id: string | undefined = uuidv4(), newCompan
 
 export const updateCompany = async (id: string | undefined, updatedCompany: FormValuesType) => {
     if (!id) throw new Error('Missing id');
-    const updatedCompanyWithId = { ...updatedCompany, id: id };
-    return axiosInstance.put<CompanyNotFull>(api.company.edit(id), updatedCompanyWithId);
+    return axiosInstance.put<CompanyNotFull>(api.company.edit(id), updatedCompany);
 };
 
 export const deleteCompany = async (id: string) => {

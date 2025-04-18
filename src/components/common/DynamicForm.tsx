@@ -171,6 +171,9 @@ export const DynamicForm = <ArgumentType extends FormValuesType, ResponseDataTyp
             console.log(objectToString(data));
             console.log(data.id);
             resetForm();
+            if (mode === 'edit' && id) {
+                await fetchData(id);
+            }
             const subInfo = (
                 <p>
                     {data.message} <Link to={routes.company.details(data.id)}>Go to</Link>
