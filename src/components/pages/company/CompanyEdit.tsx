@@ -38,12 +38,7 @@ export const CompanyEdit = () => {
     return (
         <div className="container">
             <h1>Company Edit Form</h1>
-            <DynamicForm
-                fields={formConfig.fields}
-                postPutServiceFunction={formConfig.postPutServiceFunction}
-                mode={formConfig.mode}
-                getServiceFunction={formConfig.getServiceFunction}
-            />
+            <DynamicForm config={formConfig} />
         </div>
     );
 };

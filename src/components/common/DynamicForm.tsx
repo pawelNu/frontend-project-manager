@@ -45,11 +45,11 @@ export type FormValuesType = {
 };
 
 export const DynamicForm = <ArgumentType extends FormValuesType, ResponseDataType>({
-    fields,
-    postPutServiceFunction,
-    mode,
-    getServiceFunction,
-}: FormConfig<ArgumentType, ResponseDataType>) => {
+    config,
+}: {
+    config: FormConfig<ArgumentType, ResponseDataType>;
+}) => {
+    const { fields, postPutServiceFunction, mode, getServiceFunction } = config;
     const { id } = useParams();
     const [formData, setFormData] = useState<FormValuesType | null>(null);
     const { memoizedPostPutServiceFunction, memoizedGetServiceFunction } = useMemoizedServiceFunctions(
@@ -60,9 +60,10 @@ export const DynamicForm = <ArgumentType extends FormValuesType, ResponseDataTyp
     // const { data: apiData, error: apiError, request: fetchData } = useGetApi(getServiceFunction);
     const { request, loading } = usePostApi(memoizedPostPutServiceFunction);
     const { data: apiData, error: apiError, request: fetchData } = useGetApi(memoizedGetServiceFunction);
-    const [info, setInfo] = useState<string | undefined>(undefined);
+    const [info, setInfo] = useState<string>();
     const [extraInfo, setExtraInfo] = useState<ReactNode>(null);
     const [showInfoModal, setShowInfoModal] = useState(false);
+    console.log(`" info:", [${info}] " extraInfo:", [${extraInfo}] " showInfoModal:", [${showInfoModal}]`);
     const initialValues = useMemo(() => {
         return fields.reduce<FormValuesType>((values, field) => {
             values[field.name] = field.type === 'checkbox' ? false : '';
@@ -153,7 +154,8 @@ export const DynamicForm = <ArgumentType extends FormValuesType, ResponseDataTyp
 
     const handleClose = () => {
         setShowInfoModal(false);
-        setInfo(undefined);
+        setInfo('');
+        setExtraInfo(null);
     };
 
     const handleSubmit = async (
@@ -181,7 +183,11 @@ export const DynamicForm = <ArgumentType extends FormValuesType, ResponseDataTyp
             );
             setExtraInfo(subInfo);
             setShowInfoModal(true);
-            toast.success('Created item.');
+            if (mode === 'create') {
+                toast.success('Created item.');
+            } else {
+                toast.success('Updated item.');
+            }
         } else if ('errors' in result) {
             console.log(' errors:', result.errors);
             setErrors(result.errors);
