@@ -101,7 +101,6 @@ export const DynamicForm = <ArgumentType extends FormValuesType, ResponseDataTyp
     );
 
     useEffect(() => {
-        // Tylko wywołaj fetchData, jeśli jesteśmy w trybie edycji i id jest dostępne
         if (mode === 'edit' && id && !apiData && !apiError) {
             fetchData(id);
         }
@@ -162,6 +161,7 @@ export const DynamicForm = <ArgumentType extends FormValuesType, ResponseDataTyp
         { setErrors, resetForm, setSubmitting }: FormikHelpers<FormValuesType>,
     ) => {
         const result = await request(mode === 'edit' ? id : undefined, values as ArgumentType);
+        console.log(' values:', JSON.stringify(values, null, 2));
         console.log(' id:', id);
         console.log(' mode:', mode);
 

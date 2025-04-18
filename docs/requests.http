@@ -28,6 +28,23 @@ Accept: application/json
 }
 
 ###
+PUT {{host}}/companies/641d9adb-71f1-4137-a06b-49f67bf13f2c
+Accept: application/json
+
+{
+  "id": "641d9adb-71f1-4137-a06b-49f67bf13f2c",
+  "name": "Moen - Yundt test 2",
+  "nip": "4449640779",
+  "regon": "482603205",
+  "website": "https://sarcastic-popularity.biz"
+}
+
+###
+
+GET {{host}}/companies/641d9adb-71f1-4137-a06b-49f67bf13f2c
+Accept: application/json
+Content-Type: application/json
+###
 
 DELETE {{host}}/companies/748d286b-47e9-4cd9-a634-10072694e42e
 Accept: application/json

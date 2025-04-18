@@ -49,7 +49,7 @@ export const api = {
             return `${COMPANIES}?_page=${pageNumber}&_per_page=${pageSize}${queryString}`;
         },
         create: () => `${COMPANIES}`,
-        edit: (id: string) => `${COMPANIES}/${id}/edit`,
+        edit: (id: string) => `${COMPANIES}/${id}`,
         id: (id: string) => `${COMPANIES}/${id}`,
         delete: (id: string) => `${COMPANIES}/${id}`,
     },

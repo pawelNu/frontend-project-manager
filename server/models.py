@@ -59,3 +59,9 @@ class Company2(BaseModel):
     nip: str
     regon: str
     website: str
+
+class Company3(BaseModel):
+    name: str
+    nip: str
+    regon: str
+    website: str

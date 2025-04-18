@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 import httpx
 from fastapi.middleware.cors import CORSMiddleware
 
-from models import Address, Company, Company2, Contact, ContactEmployee
+from models import Address, Company, Company2, Company3, Contact, ContactEmployee
 from utils import log_config
 
 log = log_config()
@@ -186,35 +186,6 @@ async def delete_company_by_id(company_id: UUID):
             content={"error": f"Unexpected error"},
             status_code=500,
         )
-    
-@app.put("/companies/{company_id}")
-async def delete_company_by_id(company_id: UUID):
-
-    url = f"{JSON_SERVER_URL}/companies/{company_id}"
-
-    async with httpx.AsyncClient() as client:
-        response = await client.delete(url)
-
-    if response.status_code == 200:
-        return Response(
-            content=response.content,
-            status_code=response.status_code,
-            headers={
-                key: value
-                for key, value in response.headers.items()
-                if key.lower() in {"content-type", "cache-control"}
-            },
-        )
-    elif response.status_code == 404:
-        return JSONResponse(
-            content={"error": f"Not found company with id: {str(company_id)}"},
-            status_code=response.status_code,
-        )
-    else:
-        return JSONResponse(
-            content={"error": f"Unexpected error"},
-            status_code=500,
-        )
 
 
 @app.post("/companies")
@@ -251,6 +222,67 @@ async def create_company(company: Company2):
             data = response.json()
             data["message"] = (
                 f"Company [name: {data["name"]} nip: {data["nip"]}] created successfully"
+            )
+            log.success(data)
+            return JSONResponse(
+                content=data,
+                status_code=response.status_code,
+                headers={
+                    key: value
+                    for key, value in response.headers.items()
+                    if key.lower() in {"content-type", "cache-control"}
+                },
+            )
+        except httpx.HTTPStatusError as e:
+            log.error(e)
+            return JSONResponse(
+                content={"error": f"Upstream error: {str(e)}"},
+                status_code=e.response.status_code,
+            )
+        except Exception as e:
+            log.error(e)
+            return JSONResponse(
+                content={"error": f"Unexpected error: {str(e)}"},
+                status_code=500,
+            )
+
+
+@app.put("/companies/{id}")
+async def edit_company_by_id(id: UUID, company: Company3):
+    log.info(id)
+    log.info(company)
+    url = f"{JSON_SERVER_URL}/companies/{id}"
+    errors = {}
+    if company.name == "t":
+        errors["name"] = errors.get("name", []) + ["Name cannot be 't'."]
+
+    if company.nip == "t":
+        errors["nip"] = ["Invalid NIP format."]
+
+    if company.website == "t" or not company.website.startswith("http"):
+        errors["website"] = ["Website URL is invalid."]
+
+    if errors:
+        error_content = {"success": False, "errors": errors}
+        log.error(error_content)
+        return JSONResponse(content=error_content, status_code=400)
+
+    if company.name == "e":
+        error = {"error": "Unexpected error: testing single error message"}
+        log.error(error)
+        return JSONResponse(
+            content=error,
+            status_code=500,
+        )
+
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.put(url, json=company.model_dump())
+            response.raise_for_status()
+
+            data = response.json()
+            data["message"] = (
+                f"Company [name: {data["name"]} nip: {data["nip"]}] updated successfully"
             )
             log.success(data)
             return JSONResponse(
