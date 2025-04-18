@@ -2,6 +2,8 @@ import { Formik, Field, Form, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { InfoModal } from './InfoModal';
 import { useState } from 'react';
+import { AxiosResponse } from 'axios';
+import { usePostApi } from '../../hooks/usePostApi';
 
 type YupSchemaType = string | boolean | undefined;
 type FieldType = 'text' | 'select' | 'checkbox' | 'email' | 'number';
@@ -14,27 +16,31 @@ type FieldConfig = {
     validation?: Yup.Schema<YupSchemaType>;
 };
 
-export type SubmitResponse =
-    | { success: true }
-    | { success: false; errors: { [key: string]: string } }
+export type SubmitResponse<ResponseDataType> =
+    | { success: true; data: ResponseDataType }
+    | { success: false; errors: Record<string, string> }
     | { success: false; error: string };
 
-export type FormConfig = {
+export type FormConfig<ArgumentType, ResponseDataType> = {
     fields: FieldConfig[];
-    onSubmit: (values: TFormValues) => Promise<SubmitResponse>;
+    serviceFunction: (values: ArgumentType) => Promise<AxiosResponse<ResponseDataType>>;
 };
 
-export type TFormValues = {
+export type FormValuesType = {
     [key: string]: string | boolean;
 };
 
-export const DynamicForm: React.FC<FormConfig> = ({ fields, onSubmit }) => {
-    const [error, setError] = useState<string>('');
+export const DynamicForm = <ArgumentType extends FormValuesType, ResponseDataType>({
+    fields,
+    serviceFunction,
+}: FormConfig<ArgumentType, ResponseDataType>) => {
+    const { request } = usePostApi(serviceFunction);
+    const [error, setError] = useState<string | null>(null);
     const [showInfoModal, setShowInfoModal] = useState(false);
-    const initialValues = fields.reduce<TFormValues>((values, field) => {
+    const initialValues = fields.reduce<FormValuesType>((values, field) => {
         values[field.name] = field.type === 'checkbox' ? false : '';
         return values;
-    }, {} as TFormValues);
+    }, {} as FormValuesType);
 
     const validationSchema = Yup.object(
         fields.reduce<{ [key: string]: Yup.Schema<YupSchemaType> }>((schema, field) => {
@@ -47,37 +53,28 @@ export const DynamicForm: React.FC<FormConfig> = ({ fields, onSubmit }) => {
 
     const handleClose = () => {
         setShowInfoModal(false);
-        setError('');
+        setError(null);
     };
 
     const handleSubmit = async (
-        values: TFormValues,
-        { setErrors, resetForm, setSubmitting }: FormikHelpers<TFormValues>,
+        values: FormValuesType,
+        { setErrors, resetForm, setSubmitting }: FormikHelpers<FormValuesType>,
     ) => {
-        console.log('Sending values to server:', JSON.stringify(values, null, 2));
+        const result = await request(values as ArgumentType);
 
-        try {
-            const response = await onSubmit(values);
-            console.log(' response:', response);
-
-            if (!response.success) {
-                if ('errors' in response) {
-                    console.log(' errors:', response.errors);
-                    setErrors(response.errors);
-                } else if ('error' in response) {
-                    console.log('error ', response.error);
-                    setError(response.error);
-                    setShowInfoModal(true);
-                }
-            } else {
-                resetForm();
-            }
-        } catch (error) {
-            console.error('Unexpected error during submission:', error);
-            alert('Unexpected error during submission');
-        } finally {
-            setSubmitting(false);
+        if (result.success) {
+            console.log(' success:', result.success);
+            resetForm();
+        } else if ('errors' in result) {
+            console.log(' errors:', result.errors);
+            setErrors(result.errors);
+        } else if ('error' in result) {
+            console.log(' error:', result.error);
+            setError(result.error);
+            setShowInfoModal(true);
         }
+
+        setSubmitting(false);
     };
 
     return (

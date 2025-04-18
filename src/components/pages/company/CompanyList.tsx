@@ -4,7 +4,7 @@ import { routes } from '../../routes';
 import { Company, getCompanies, handleDeleteCompany } from '../../../services/company';
 import { Pagination } from '../../common/Pagination';
 import { ActionsButton } from '../../common/ActionButton';
-import { useApi } from '../../../hooks/useApi';
+import { useGetApi } from '../../../hooks/useGetApi';
 import { PaginationType } from '../../common/Pagination';
 
 export const CompanyList = () => {
@@ -23,9 +23,7 @@ export const CompanyList = () => {
         items: 1,
         pageSize: size,
     });
-    // const [loading, setLoading] = useState<boolean>(true);
-    // const [error, setError] = useState<ErrorResponse | null>(null);
-    const { data, loading, error, request } = useApi(getCompanies);
+    const { data, loading, error, request } = useGetApi(getCompanies);
 
     const updatePageState = useCallback(
         (pageNum: number | null, pageSize: number) => {

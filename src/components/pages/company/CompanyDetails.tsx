@@ -2,15 +2,14 @@ import { useEffect, useState } from 'react';
 import { Address, Company, Contact, ContactEmployee, getCompanyById } from '../../../services/company';
 import { useParams } from 'react-router-dom';
 import { ErrorResponse } from '../../common';
-import { useApi } from '../../../hooks/useApi';
+import { useGetApi } from '../../../hooks/useGetApi';
 
 export const CompanyDetails = () => {
     const { id } = useParams();
-    // const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<ErrorResponse[]>([]);
     const [company, setCompany] = useState<Company | null>(null);
 
-    const { data: companyData, loading, error: companyError, request: fetchCompany } = useApi(getCompanyById);
+    const { data: companyData, loading, error: companyError, request: fetchCompany } = useGetApi(getCompanyById);
 
     useEffect(() => {
         if (!id) {

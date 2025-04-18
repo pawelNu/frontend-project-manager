@@ -9,7 +9,6 @@ export const ThemeToggleButton: React.FC = () => {
     });
 
     useEffect(() => {
-        // Zaktualizuj atrybut HTML oraz zapisz do localStorage
         document.documentElement.setAttribute('data-bs-theme', theme);
         localStorage.setItem(THEME_KEY, theme);
     }, [theme]);

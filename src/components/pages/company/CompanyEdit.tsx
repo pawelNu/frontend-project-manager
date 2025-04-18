@@ -1,8 +1,8 @@
 import * as Yup from 'yup';
-import { DynamicForm, FormConfig, TFormValues } from '../../common/Form';
+import { DynamicForm, FormConfig, FormValuesType } from '../../common/Form';
 import { createCompany } from '../../../services/company';
 
-const handleDynamicFormSubmit = async (values: TFormValues) => {
+const handleDynamicFormSubmit = async (values: FormValuesType) => {
     const result = await createCompany(values);
     if (result.success) {
         console.log(' handleDynamicFormSubmit   result:', JSON.stringify(result.data, null, 2));

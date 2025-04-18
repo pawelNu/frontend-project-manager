@@ -116,17 +116,7 @@ const createCompanyContactEmployee = async (contact: CompanyContactEmployee) => 
 };
 
 export const generateData = (numOfCompanies: number): Company[] => {
-    //   const addresses: Address[] = [];
-    //   const contacts: Contact[] = [];
-    //   const contactEmployees: ContactEmployee[] = [];
     const companies: Company[] = [];
-
-    //   for (let i = 0; i < numOfCompanies * 2; i++) {
-    //     addresses.push(generateAddress());
-    //     contacts.push(generateContact());
-    //     contactEmployees.push(generateContactEmployee());
-    //   }
-
     for (let i = 0; i < numOfCompanies; i++) {
         companies.push(generateCompany());
     }

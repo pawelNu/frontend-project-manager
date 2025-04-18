@@ -2,7 +2,7 @@ import { UUIDTypes } from 'uuid';
 import { PaginatedResponse } from '../components/common';
 import axios from 'axios';
 import { api } from '../components/routes';
-import { TFormValues } from '../components/common/Form';
+import { FormValuesType } from '../components/common/Form';
 import { v4 as uuidv4 } from 'uuid';
 import { axiosInstance } from '../config/axiosInstance';
 
@@ -69,7 +69,7 @@ export const getCompanyById = async (id: string) => {
     return axiosInstance.get<Company>(api.company.id(id.toString()));
 };
 
-export const createCompany = async (companyData: TFormValues) => {
+export const createCompany = async (companyData: FormValuesType) => {
     const companyWithId = { ...companyData, id: uuidv4() };
     return axiosInstance.post<CompanyNotFull>(api.company.create(), companyWithId);
 };
