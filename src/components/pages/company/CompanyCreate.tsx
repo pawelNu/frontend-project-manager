@@ -31,6 +31,7 @@ export const CompanyCreate = () => {
             },
         ],
         serviceFunction: createCompany,
+        mode: 'create',
     };
     return (
         <div className="container">
@@ -38,6 +39,7 @@ export const CompanyCreate = () => {
             <DynamicForm<FormValuesType, CompanyNotFull>
                 fields={formConfig.fields}
                 serviceFunction={formConfig.serviceFunction}
+                mode={formConfig.mode}
             />
         </div>
     );

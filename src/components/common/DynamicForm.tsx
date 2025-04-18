@@ -6,7 +6,7 @@ import { AxiosResponse } from 'axios';
 import { usePostApi } from '../../hooks/usePostApi';
 import { toast } from 'react-toastify';
 import { HasId, objectToString } from '../common';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { routes } from '../routes';
 import Spinner from 'react-bootstrap/esm/Spinner';
 
@@ -26,9 +26,15 @@ export type SubmitResponse<ResponseDataType> =
     | { success: false; errors: Record<string, string> }
     | { success: false; error: string };
 
+type ServiceFunction<ArgumentType, ResponseDataType> = (
+    id: string | undefined,
+    values: ArgumentType,
+) => Promise<AxiosResponse<ResponseDataType>>;
+
 export type FormConfig<ArgumentType, ResponseDataType> = {
     fields: FieldConfig[];
-    serviceFunction: (values: ArgumentType) => Promise<AxiosResponse<ResponseDataType>>;
+    mode: 'create' | 'edit';
+    serviceFunction: ServiceFunction<ArgumentType, ResponseDataType>;
 };
 
 export type FormValuesType = {
@@ -38,7 +44,9 @@ export type FormValuesType = {
 export const DynamicForm = <ArgumentType extends FormValuesType, ResponseDataType>({
     fields,
     serviceFunction,
+    mode,
 }: FormConfig<ArgumentType, ResponseDataType>) => {
+    const { id } = useParams();
     const { request, loading } = usePostApi(serviceFunction);
     const [info, setInfo] = useState<string | undefined>(undefined);
     const [extraInfo, setExtraInfo] = useState<ReactNode>(null);
@@ -83,7 +91,9 @@ export const DynamicForm = <ArgumentType extends FormValuesType, ResponseDataTyp
         values: FormValuesType,
         { setErrors, resetForm, setSubmitting }: FormikHelpers<FormValuesType>,
     ) => {
-        const result = await request(values as ArgumentType);
+        const result = await request(mode === 'edit' ? id : undefined, values as ArgumentType);
+        console.log(' id:', id);
+        console.log(' mode:', mode);
 
         if (result.success) {
             console.log(' success:', result);
@@ -102,12 +112,12 @@ export const DynamicForm = <ArgumentType extends FormValuesType, ResponseDataTyp
         } else if ('errors' in result) {
             console.log(' errors:', result.errors);
             setErrors(result.errors);
+            console.log(errors);
         } else if ('error' in result) {
             console.log(' error:', result.error);
             setInfo(result.error);
             setShowInfoModal(true);
         }
-
         setSubmitting(false);
     };
 

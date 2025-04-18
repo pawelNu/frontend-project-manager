@@ -3,14 +3,14 @@ import axios, { AxiosResponse } from 'axios';
 import { SubmitResponse } from '../components/common/DynamicForm';
 
 export const usePostApi = <ArgumentType, ResponseDataType>(
-    serviceFunction: (values: ArgumentType) => Promise<AxiosResponse<ResponseDataType>>,
+    serviceFunction: (id: string | undefined, values: ArgumentType) => Promise<AxiosResponse<ResponseDataType>>,
 ) => {
     const [loading, setLoading] = useState(false);
     const request = useCallback(
-        async (args: ArgumentType): Promise<SubmitResponse<ResponseDataType>> => {
+        async (id: string | undefined, args: ArgumentType): Promise<SubmitResponse<ResponseDataType>> => {
             setLoading(true);
             try {
-                const response = await serviceFunction(args);
+                const response = await serviceFunction(id, args);
                 return { success: true, data: response.data };
             } catch (err) {
                 if (axios.isAxiosError(err)) {

@@ -67,18 +67,15 @@ export const getCompanyById = async (id: string) => {
     return axiosInstance.get<Company>(api.company.id(id.toString()));
 };
 
-export const createCompany = async (companyData: FormValuesType) => {
-    const companyWithId = { ...companyData, id: uuidv4() };
+export const createCompany = async (id: string | undefined = uuidv4(), newCompany: FormValuesType) => {
+    const companyWithId = { ...newCompany, id: id };
     return axiosInstance.post<CompanyNotFull>(api.company.create(), companyWithId);
 };
 
-export const updateCompany = async (id: string, updatedData: unknown) => {
-    try {
-        const response = await axios.put(api.company.edit(id), updatedData);
-        console.log('Zaktualizowano firmę:', response.data);
-    } catch (error) {
-        console.error('Błąd przy aktualizacji firmy:', error);
-    }
+export const updateCompany = async (id: string | undefined, updatedCompany: FormValuesType) => {
+    if (!id) throw new Error('Missing id');
+    const updatedCompanyWithId = { ...updatedCompany, id: id };
+    return axiosInstance.put<CompanyNotFull>(api.company.edit(id), updatedCompanyWithId);
 };
 
 export const deleteCompany = async (id: string) => {

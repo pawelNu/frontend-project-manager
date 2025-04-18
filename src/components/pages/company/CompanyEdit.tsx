@@ -1,20 +1,8 @@
 import * as Yup from 'yup';
 import { DynamicForm, FormConfig, FormValuesType } from '../../common/DynamicForm';
-import { createCompany } from '../../../services/company';
+import { CompanyNotFull, updateCompany } from '../../../services/company';
 
-const handleDynamicFormSubmit = async (values: FormValuesType) => {
-    const result = await createCompany(values);
-    if (result.success) {
-        console.log(' handleDynamicFormSubmit   result:', JSON.stringify(result.data, null, 2));
-    } else {
-        alert(result.error);
-    }
-    // TODO validation form server not tested, json-server does not throw errors
-
-    return { message: 'Form submitted successfully!' };
-};
-
-const formConfig: FormConfig = {
+const formConfig: FormConfig<FormValuesType, CompanyNotFull> = {
     fields: [
         {
             name: 'name',
@@ -41,7 +29,8 @@ const formConfig: FormConfig = {
             validation: Yup.string().required('Website is required'),
         },
     ],
-    onSubmit: handleDynamicFormSubmit,
+    serviceFunction: updateCompany,
+    mode: 'edit',
 };
 
 // TODO fix Edit form
@@ -50,7 +39,11 @@ export const CompanyEdit = () => {
     return (
         <div className="container">
             <h1>Company Edit Form</h1>
-            <DynamicForm fields={formConfig.fields} onSubmit={handleDynamicFormSubmit} />
+            <DynamicForm
+                fields={formConfig.fields}
+                serviceFunction={formConfig.serviceFunction}
+                mode={formConfig.mode}
+            />
         </div>
     );
 };
