@@ -6,11 +6,12 @@ import { AxiosResponse } from 'axios';
 import { usePostApi } from '../../hooks/usePostApi';
 import { toast } from 'react-toastify';
 import { HasId, objectToString } from '../common';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { routes } from '../routes';
 import Spinner from 'react-bootstrap/esm/Spinner';
 import { useGetApi } from '../../hooks/useGetApi';
 import { useMemoizedServiceFunctions } from '../../hooks/useMemoizedServiceFunctions';
+import { Button, Stack } from 'react-bootstrap';
 
 type YupSchemaType = string | boolean | undefined;
 type FieldType = 'text' | 'select' | 'checkbox' | 'email' | 'number';
@@ -49,6 +50,7 @@ export const DynamicForm = <ArgumentType extends FormValuesType, ResponseDataTyp
 }: {
     config: FormConfig<ArgumentType, ResponseDataType>;
 }) => {
+    const navigate = useNavigate();
     const { fields, postPutServiceFunction, mode, getServiceFunction } = config;
     const { id } = useParams();
     const [formData, setFormData] = useState<FormValuesType | null>(null);
@@ -64,12 +66,17 @@ export const DynamicForm = <ArgumentType extends FormValuesType, ResponseDataTyp
     const [extraInfo, setExtraInfo] = useState<ReactNode>(null);
     const [showInfoModal, setShowInfoModal] = useState(false);
     console.log(`" info:", [${info}] " extraInfo:", [${extraInfo}] " showInfoModal:", [${showInfoModal}]`);
+
     const initialValues = useMemo(() => {
         return fields.reduce<FormValuesType>((values, field) => {
             values[field.name] = field.type === 'checkbox' ? false : '';
             return values;
         }, {});
     }, [fields]);
+
+    const handleGoBack = () => {
+        navigate(-1);
+    };
 
     const mapDataToFormValues = useCallback(
         (data: NonNullable<ResponseDataType>, fields: FieldConfig[]): FormValuesType => {
@@ -176,9 +183,10 @@ export const DynamicForm = <ArgumentType extends FormValuesType, ResponseDataTyp
             if (mode === 'edit' && id) {
                 await fetchData(id);
             }
+            const message = mode === 'create' ? 'Item created successfully!' : 'Item updated successfully!';
             const subInfo = (
                 <p>
-                    {data.message} <Link to={routes.company.details(data.id)}>Go to</Link>
+                    {message} <Link to={routes.company.details(data.id)}>See details</Link>
                 </p>
             );
             setExtraInfo(subInfo);
@@ -293,9 +301,16 @@ export const DynamicForm = <ArgumentType extends FormValuesType, ResponseDataTyp
                                             <span className="visually-hidden">Loading...</span>
                                         </Spinner>
                                     ) : (
-                                        <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-                                            Submit Form
-                                        </button>
+                                        <>
+                                            <Stack direction="horizontal" gap={2}>
+                                                <Button type="submit" variant="primary" disabled={isSubmitting}>
+                                                    Save
+                                                </Button>
+                                                <Button variant="danger" onClick={handleGoBack}>
+                                                    Cancel
+                                                </Button>
+                                            </Stack>
+                                        </>
                                     )}
                                 </div>
                             </Form>

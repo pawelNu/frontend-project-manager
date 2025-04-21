@@ -23,7 +23,7 @@ export const routes = {
     },
 };
 
-export const jsonServerApi = 'http://localhost:8000';
+export const jsonServerApi = 'http://localhost:8080';
 
 const COMPANIES = '/companies';
 const COMPANY_ADDRESSES = '/company-addresses';
@@ -36,17 +36,21 @@ const CONTACT_EMPLOYESS = '/contact-employees';
 export const api = {
     company: {
         list: (
-            pageNumber: string | number = 1,
+            pageNumber: string | number = 0,
             pageSize: string | number = 10,
             query: Map<string, string[]> = new Map(),
         ) => {
+            const pageNum = isNaN(Number(pageNumber));
+            if (!pageNum) {
+                pageNumber = Number(pageNumber) - 1;
+            }
             const queryString =
                 query.size > 0
                     ? `&${Array.from(query)
                           .map(([key, values]) => values.map((value) => `${key}=${value}`).join('&'))
                           .join('&')}`
                     : '';
-            return `${COMPANIES}?_page=${pageNumber}&_per_page=${pageSize}${queryString}`;
+            return `${COMPANIES}?pageNumber=${pageNumber}&pageSize=${pageSize}${queryString}`;
         },
         create: () => `${COMPANIES}`,
         edit: (id: string) => `${COMPANIES}/${id}`,
