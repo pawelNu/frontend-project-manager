@@ -14,13 +14,21 @@ export const usePostApi = <ArgumentType, ResponseDataType>(
 
                 return { success: true, data: response.data };
             } catch (err) {
+                console.log(' err:', err);
                 if (axios.isAxiosError(err)) {
-                    if (err.response?.data?.errors) {
-                        const errorData = err.response.data.errors;
+                    if (err.response?.data?.violations) {
+                        const errorData = err.response.data.violations;
+                        console.log(JSON.stringify(errorData, null, 2));
                         const formattedErrors: { [key: string]: string } = {};
 
-                        Object.entries(errorData).forEach(([field, messages]) => {
-                            formattedErrors[field] = (messages as string[]).join(', ');
+                        errorData.forEach((violation: { field: string; message: string }) => {
+                            const { field, message } = violation;
+
+                            if (formattedErrors[field]) {
+                                formattedErrors[field] += `, ${message}`;
+                            } else {
+                                formattedErrors[field] = message;
+                            }
                         });
 
                         return { success: false, errors: formattedErrors };
