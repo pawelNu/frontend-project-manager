@@ -14,21 +14,22 @@ export const CompanyList = () => {
     const page = isNaN(Number(pageNumber)) ? 1 : Number(pageNumber);
     const size = isNaN(Number(pageSize)) ? 10 : Number(pageSize);
     const [companies, setCompanies] = useState<Company[] | undefined>([]);
-    console.log(' CompanyList   companies:', companies);
     const [pagination, setPagination] = useState<PaginationType>({
-        first: 1,
-        prev: null,
-        current: page,
-        next: null,
-        last: 1,
-        pages: 1,
-        items: 1,
+        pageNumber: page,
         pageSize: size,
+        totalPages: 1,
+        totalElements: 0,
+        first: true,
+        last: true,
+        sortingField: null,
+        isAscendingSorting: null,
+        hasPrevious: false,
+        hasNext: false,
     });
     const [error, setError] = useState<string | null>(null);
-    console.log(' CompanyList   error:', error);
     const memoizedGetCompanies = useMemoizedGetServiceFunction(getCompanies);
     const { data, loading, error: apiError, request } = useGetApi(memoizedGetCompanies);
+    console.log(pagination.pageNumber);
 
     const updatePageState = useCallback(
         (pageNum: number | null, pageSize: number) => {
@@ -48,14 +49,16 @@ export const CompanyList = () => {
         if (data) {
             setCompanies(data.data);
             setPagination({
-                first: data.first,
-                prev: data.prev,
-                current: page,
-                next: data.next,
-                last: data.last,
-                pages: data.pages,
-                items: data.items,
-                pageSize: size,
+                pageNumber: data.page.pageNumber + 1,
+                pageSize: data.page.pageSize,
+                totalPages: data.page.totalPages,
+                totalElements: data.page.totalElements,
+                first: data.page.first,
+                last: data.page.last,
+                sortingField: data.page.sortingField,
+                isAscendingSorting: data.page.isAscendingSorting,
+                hasPrevious: data.page.hasPrevious,
+                hasNext: data.page.hasNext,
             });
         }
     }, [data, page, size]);

@@ -3,14 +3,16 @@ import Dropdown from 'react-bootstrap/esm/Dropdown';
 import DropdownButton from 'react-bootstrap/esm/DropdownButton';
 
 export type PaginationType = {
-    first: number;
-    prev: number | null;
-    current: number;
-    next: number | null;
-    last: number;
-    pages: number;
-    items: number;
+    pageNumber: number;
     pageSize: number;
+    totalPages: number;
+    totalElements: number;
+    first: boolean;
+    last: boolean;
+    sortingField: boolean | null;
+    isAscendingSorting: boolean | null;
+    hasPrevious: boolean;
+    hasNext: boolean;
 };
 
 export type PageActions = {
@@ -36,15 +38,15 @@ export const Pagination = ({ pagination, actions }: { pagination: PaginationType
                     <ul className="pagination justify-content-center mb-0">
                         <li className="page-item">
                             <button
-                                className={getDisabledStyle(pagination.current === pagination.first)}
-                                onClick={(e) => changePageNumberAndSize(e, pagination.first, pageSize)}>
+                                className={getDisabledStyle(pagination.first)}
+                                onClick={(e) => changePageNumberAndSize(e, 1, pageSize)}>
                                 {'<<'}
                             </button>
                         </li>
                         <li className="page-item">
                             <button
-                                className={getDisabledStyle(pagination.prev === null)}
-                                onClick={(e) => changePageNumberAndSize(e, pagination.prev, pageSize)}>
+                                className={getDisabledStyle(!pagination.hasPrevious)}
+                                onClick={(e) => changePageNumberAndSize(e, pagination.pageNumber - 1, pageSize)}>
                                 {'<'}
                             </button>
                         </li>
@@ -53,8 +55,8 @@ export const Pagination = ({ pagination, actions }: { pagination: PaginationType
                             .map((_, i) => i + 1)
                             .reverse()
                             .map((num) => {
-                                const pageBefore = pagination.current - num;
-                                if (pageBefore >= pagination.first) {
+                                const pageBefore = pagination.pageNumber - num;
+                                if (pageBefore >= 1) {
                                     return (
                                         <li key={num} className="page-item">
                                             <button
@@ -68,12 +70,14 @@ export const Pagination = ({ pagination, actions }: { pagination: PaginationType
                             })}
 
                         <li className="page-item active">
-                            <button className="page-link">{pagination.current}</button>
+                            <button className="page-link">{pagination.pageNumber}</button>
                         </li>
 
                         {[...Array(pageBuffor)].map((_, i) => {
-                            const pageAfter = pagination.current + (i + 1);
-                            if (pageAfter <= pagination.last) {
+                            const pageAfter = pagination.pageNumber + (i + 1);
+                            console.log(' {[...Array   pageNumber:', pagination.pageNumber);
+                            console.log(' {[...Array   pageAfter:', pageAfter);
+                            if (pageAfter <= pagination.totalPages) {
                                 return (
                                     <li key={i} className="page-item">
                                         <button
@@ -87,16 +91,16 @@ export const Pagination = ({ pagination, actions }: { pagination: PaginationType
                         })}
                         <li className="page-item">
                             <button
-                                className={getDisabledStyle(pagination.next === null)}
-                                onClick={(e) => changePageNumberAndSize(e, pagination.next, pageSize)}>
+                                className={getDisabledStyle(!pagination.hasNext)}
+                                onClick={(e) => changePageNumberAndSize(e, pagination.pageNumber + 1, pageSize)}>
                                 {'>'}
                             </button>
                         </li>
                         <li className="page-item">
                             <button
-                                className={getDisabledStyle(pagination.current === pagination.last)}
-                                onClick={(e) => changePageNumberAndSize(e, pagination.last, pageSize)}>
-                                {'>>'} {pagination.last}
+                                className={getDisabledStyle(pagination.last)}
+                                onClick={(e) => changePageNumberAndSize(e, pagination.totalPages, pageSize)}>
+                                {'>>'} {pagination.totalPages}
                             </button>
                         </li>
                     </ul>
@@ -109,7 +113,7 @@ export const Pagination = ({ pagination, actions }: { pagination: PaginationType
                                 <Dropdown.Item
                                     as="button"
                                     key={index}
-                                    onClick={(e) => changePageNumberAndSize(e, pagination.first, pageSize)}>
+                                    onClick={(e) => changePageNumberAndSize(e, 1, pageSize)}>
                                     {pageSize}
                                 </Dropdown.Item>
                             ))}
