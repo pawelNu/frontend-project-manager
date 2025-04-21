@@ -45,7 +45,7 @@ export function DataTableFilters<F>({ filters, filterState, onChange }: Props<F>
                             }>
                             <option value="">-- Wybierz --</option>
                             {filter.options?.map((opt) => (
-                                <option key={opt.value.toString()} value={opt.value}>
+                                <option key={opt.value.toString()} value={String(opt.value)}>
                                     {opt.label}
                                 </option>
                             ))}

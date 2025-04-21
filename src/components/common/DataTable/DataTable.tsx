@@ -1,4 +1,3 @@
-// DataTable.tsx
 import { useState, useEffect, useCallback } from 'react';
 import { Column, FilterConfig, SortState, PaginationType, TableParams } from './types';
 import { DataTableHeader } from './DataTableHeader';

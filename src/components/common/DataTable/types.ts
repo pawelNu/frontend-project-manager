@@ -11,7 +11,7 @@ export type FilterConfig<F> = {
     accessor: keyof F;
     label?: string;
     type: 'text' | 'checkbox' | 'select';
-    options?: { label: string; value: string | number | boolean }[]; // tylko dla select
+    options?: { label: string; value: string | number | boolean }[];
 };
 
 export type SortState = {
