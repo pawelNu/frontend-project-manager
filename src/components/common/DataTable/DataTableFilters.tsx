@@ -14,8 +14,8 @@ export function DataTableFilters<F>({ filters, filterState, onChange }: Props<F>
     return (
         <div className="row g-2">
             {filters.map((filter) => (
-                <div key={filter.accessor as string} className="col">
-                    <label>{filter.label ?? (filter.accessor as string)}</label>
+                <div key={String(filter.accessor)} className="col">
+                    <label>{filter.label ?? String(filter.accessor)}</label>
 
                     {filter.type === 'text' && (
                         <input
@@ -29,7 +29,7 @@ export function DataTableFilters<F>({ filters, filterState, onChange }: Props<F>
                     {filter.type === 'checkbox' && (
                         <input
                             type="checkbox"
-                            checked={(filterState[filter.accessor] as boolean) || false}
+                            checked={Boolean(filterState[filter.accessor])}
                             onChange={(e) =>
                                 handleChange(filter.accessor, e.target.checked as F[typeof filter.accessor])
                             }
@@ -39,13 +39,13 @@ export function DataTableFilters<F>({ filters, filterState, onChange }: Props<F>
                     {filter.type === 'select' && (
                         <select
                             className="form-select"
-                            value={(filterState[filter.accessor] as string) || ''}
+                            value={String(filterState[filter.accessor] || '')}
                             onChange={(e) =>
                                 handleChange(filter.accessor, e.target.value as F[typeof filter.accessor])
                             }>
                             <option value="">-- Wybierz --</option>
                             {filter.options?.map((opt) => (
-                                <option key={opt.value.toString()} value={String(opt.value)}>
+                                <option key={String(opt.value)} value={String(opt.value)}>
                                     {opt.label}
                                 </option>
                             ))}

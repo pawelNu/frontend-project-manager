@@ -5,7 +5,7 @@ export type Column<T> = {
     render?: (row: T) => React.ReactNode;
 };
 
-export type FilterOption = { label: string; value: string | number | boolean };
+export type FilterOption = { label: string; value: string | number };
 
 export type FilterConfig<F> = {
     accessor: keyof F;
