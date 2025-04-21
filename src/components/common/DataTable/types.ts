@@ -7,12 +7,13 @@ export type Column<T> = {
 
 export type FilterOption = { label: string; value: string | number | boolean };
 
-export type FilterConfig = {
-    accessor: string;
+export type FilterConfig<F> = {
+    accessor: keyof F;
     label?: string;
-    type: 'text' | 'select' | 'checkbox' | 'number';
-    options?: FilterOption[];
-};
+    type: 'text' | 'checkbox' | 'select';
+    options?: { label: string; value: string | number | boolean }[]; // tylko dla select
+  };
+
 
 export type SortState = {
     field: string | null;
