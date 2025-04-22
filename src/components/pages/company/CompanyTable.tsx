@@ -1,8 +1,9 @@
-import { CompanyNotFull, getCompanies } from '../../../services/company';
+import { CompanyNotFull, getCompanies, handleDeleteCompany } from '../../../services/company';
 import { ActionsButton } from '../../common/ActionButton';
 import { Column, DataTable } from '../../common/DataTable/DataTable';
 import { routes } from '../../routes';
 import { FilterConfig } from '../../common/DataTable/DataTableFilters';
+import { OutSideLink } from '../../common/Utils';
 
 // const filters: FilterConfig<CompanyNotFull>[] = [
 //     {
@@ -91,11 +92,6 @@ const filters: FilterConfig<CompanyNotFull>[] = [
         label: 'REGON',
         type: 'text',
     },
-    {
-        accessor: 'website',
-        label: 'Website',
-        type: 'text',
-    },
 ];
 
 export const CompanyTable = () => {
@@ -103,7 +99,11 @@ export const CompanyTable = () => {
         { accessor: 'name', label: 'Name', sortable: true },
         { accessor: 'nip', label: 'NIP' },
         { accessor: 'regon', label: 'REGON' },
-        { accessor: 'website', label: 'Website' },
+        {
+            accessor: 'website',
+            label: 'Website',
+            render: (company) => <OutSideLink href={company.website} />,
+        },
         {
             accessor: 'actions',
             label: 'Actions',

@@ -110,7 +110,7 @@ export function DataTable<T, F = Record<string, unknown>>({ columns, filters = [
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <div>
                 <DataTableFilters<F> filters={filters} filterState={filterState} onChange={handleFilterChange} />
-                <table className="table table-bordered table-hover mt-3">
+                <table className="table table-hover mt-3">
                     <DataTableHeader columns={columns} sort={sort} onSort={handleSort} />
                     <tbody>
                         {loading ? (
