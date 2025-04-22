@@ -1,4 +1,9 @@
-import { Column, SortState } from './types';
+import { Column } from './DataTable';
+
+export type SortState = {
+    field: string | null;
+    direction: 'asc' | 'desc' | null;
+};
 
 type Props<T> = {
     columns: Column<T>[];

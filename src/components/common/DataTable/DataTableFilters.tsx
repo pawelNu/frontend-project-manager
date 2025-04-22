@@ -1,4 +1,11 @@
-import { FilterConfig } from './types';
+export type FilterOption = { label: string; value: string | number };
+
+export type FilterConfig<F> = {
+    accessor: keyof F;
+    label?: string;
+    type: 'text' | 'checkbox' | 'select';
+    options?: FilterOption[];
+};
 
 type Props<F> = {
     filters: FilterConfig<F>[];

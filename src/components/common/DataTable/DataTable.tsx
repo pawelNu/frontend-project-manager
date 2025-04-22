@@ -1,8 +1,16 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Column, FilterConfig, SortState, PaginationType, TableParams } from './types';
-import { DataTableHeader } from './DataTableHeader';
-import { DataTableFilters } from './DataTableFilters';
+import { DataTableHeader, SortState } from './DataTableHeader';
+import { DataTableFilters, FilterConfig } from './DataTableFilters';
 import { DataTablePagination } from './DataTablePagination';
+import { TableParams } from '../../pages/company/CompanyTable';
+import { PaginationType } from '../Pagination';
+
+export type Column<T> = {
+    accessor: keyof T | string;
+    label: string;
+    sortable?: boolean;
+    render?: (row: T) => React.ReactNode;
+};
 
 type Props<T, F = Record<string, unknown>> = {
     columns: Column<T>[];
