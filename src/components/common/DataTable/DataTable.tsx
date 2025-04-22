@@ -1,9 +1,12 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { DataTableHeader, SortState } from './DataTableHeader';
 import { DataTableFilters, FilterConfig } from './DataTableFilters';
 import { DataTablePagination } from './DataTablePagination';
-import { TableParams } from '../../pages/company/CompanyTable';
 import { PaginationType } from '../Pagination';
+import { AxiosResponse } from 'axios';
+import { PaginatedResponse } from '../../common';
+import { useGetApi } from '../../../hooks/useGetApi';
+import { useParams } from 'react-router-dom';
 
 export type Column<T> = {
     accessor: keyof T | string;
@@ -12,52 +15,64 @@ export type Column<T> = {
     render?: (row: T) => React.ReactNode;
 };
 
+export type TableParams<F> = {
+    pageNumber: number;
+    pageSize: number;
+    filters: Partial<F>;
+    sort: SortState;
+};
+
 type Props<T, F = Record<string, unknown>> = {
     columns: Column<T>[];
     filters?: FilterConfig<F>[];
-    fetchData: (params: TableParams<F>) => Promise<{
-        data: T[];
-        pagination: PaginationType;
-    }>;
-    pageSize?: number;
+    getDataFunction: (pageNumber: number, pageSize: number) => Promise<AxiosResponse<PaginatedResponse<T>>>;
 };
 
-export function DataTable<T, F = Record<string, unknown>>({
-    columns,
-    filters = [],
-    fetchData,
-    pageSize = 10,
-}: Props<T, F>) {
-    const [data, setData] = useState<T[]>([]);
+export function DataTable<T, F = Record<string, unknown>>({ columns, filters = [], getDataFunction }: Props<T, F>) {
+    const { pageNumber, pageSize } = useParams();
+    const page = isNaN(Number(pageNumber)) ? 1 : Number(pageNumber);
+    const size = isNaN(Number(pageSize)) ? 10 : Number(pageSize);
+    const [error, setError] = useState<string | null>(null);
+    const [data, setData] = useState<T[] | undefined>(undefined);
     const [pagination, setPagination] = useState<PaginationType>({
         pageNumber: 1,
-        pageSize,
+        pageSize: 10,
         totalPages: 1,
         totalElements: 0,
+        first: true,
+        last: true,
+        sortingField: null,
+        isAscendingSorting: null,
         hasPrevious: false,
         hasNext: false,
     });
 
     const [filterState, setFilterState] = useState<F>({} as F);
     const [sort, setSort] = useState<SortState>({ field: null, direction: null });
-    const [loading, setLoading] = useState(false);
-
-    const loadData = useCallback(async () => {
-        setLoading(true);
-        const res = await fetchData({
-            pageNumber: pagination.pageNumber,
-            pageSize: pagination.pageSize,
-            filters: filterState,
-            sort,
-        });
-        setData(res.data);
-        setPagination(res.pagination);
-        setLoading(false);
-    }, [fetchData, filterState, pagination.pageNumber, pagination.pageSize, sort]);
+    const { data: apiData, loading, error: apiError, request } = useGetApi(getDataFunction);
 
     useEffect(() => {
-        loadData();
-    }, [loadData]);
+        request(page, size);
+        setError(apiError);
+    }, [apiError, page, request, size]);
+
+    useEffect(() => {
+        if (apiData) {
+            setData(apiData.data);
+            setPagination({
+                pageNumber: apiData.page.pageNumber + 1,
+                pageSize: apiData.page.pageSize,
+                totalPages: apiData.page.totalPages,
+                totalElements: apiData.page.totalElements,
+                first: apiData.page.first,
+                last: apiData.page.last,
+                sortingField: apiData.page.sortingField,
+                isAscendingSorting: apiData.page.isAscendingSorting,
+                hasPrevious: apiData.page.hasPrevious,
+                hasNext: apiData.page.hasNext,
+            });
+        }
+    }, [apiData, data]);
 
     const handleSort = (field: string) => {
         setSort((prev) => ({
@@ -90,29 +105,33 @@ export function DataTable<T, F = Record<string, unknown>>({
     };
 
     return (
-        <div>
-            <DataTableFilters<F> filters={filters} filterState={filterState} onChange={handleFilterChange} />
-            <table className="table table-bordered table-hover mt-3">
-                <DataTableHeader columns={columns} sort={sort} onSort={handleSort} />
-                <tbody>
-                    {loading ? (
-                        <tr>
-                            <td colSpan={columns.length}>Loading...</td>
-                        </tr>
-                    ) : (
-                        data.map((row, idx) => (
-                            <tr key={idx}>
-                                {columns.map((col, colIdx) => (
-                                    <td key={colIdx}>
-                                        {col.render ? col.render(row) : getCellValue(row, col.accessor.toString())}
-                                    </td>
-                                ))}
+        <>
+            {loading && <p>Loading...</p>}
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+            <div>
+                <DataTableFilters<F> filters={filters} filterState={filterState} onChange={handleFilterChange} />
+                <table className="table table-bordered table-hover mt-3">
+                    <DataTableHeader columns={columns} sort={sort} onSort={handleSort} />
+                    <tbody>
+                        {loading ? (
+                            <tr>
+                                <td colSpan={columns.length}>Loading...</td>
                             </tr>
-                        ))
-                    )}
-                </tbody>
-            </table>
-            <DataTablePagination pagination={pagination} onPageChange={handlePageChange} />
-        </div>
+                        ) : (
+                            data?.map((row, idx) => (
+                                <tr key={idx}>
+                                    {columns.map((col, colIdx) => (
+                                        <td key={colIdx}>
+                                            {col.render ? col.render(row) : getCellValue(row, col.accessor.toString())}
+                                        </td>
+                                    ))}
+                                </tr>
+                            ))
+                        )}
+                    </tbody>
+                </table>
+                <DataTablePagination pagination={pagination} onPageChange={handlePageChange} />
+            </div>
+        </>
     );
 }

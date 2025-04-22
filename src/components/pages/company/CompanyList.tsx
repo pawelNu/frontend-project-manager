@@ -6,7 +6,6 @@ import { Pagination } from '../../common/Pagination';
 import { ActionsButton } from '../../common/ActionButton';
 import { useGetApi } from '../../../hooks/useGetApi';
 import { PaginationType } from '../../common/Pagination';
-import { useMemoizedGetServiceFunction } from '../../../hooks/useMemoizedServiceFunctions';
 
 export const CompanyList = () => {
     const { pageNumber, pageSize } = useParams();
@@ -27,8 +26,9 @@ export const CompanyList = () => {
         hasNext: false,
     });
     const [error, setError] = useState<string | null>(null);
-    const memoizedGetCompanies = useMemoizedGetServiceFunction(getCompanies);
-    const { data, loading, error: apiError, request } = useGetApi(memoizedGetCompanies);
+    // const memoizedGetCompanies = useMemoizedGetServiceFunction(getCompanies);
+    // const { data, loading, error: apiError, request } = useGetApi(memoizedGetCompanies);
+    const { data, loading, error: apiError, request } = useGetApi(getCompanies);
     console.log(pagination.pageNumber);
 
     const updatePageState = useCallback(

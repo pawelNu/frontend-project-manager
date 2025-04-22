@@ -1,4 +1,4 @@
-import { PaginationType } from './types';
+import { PaginationType } from '../Pagination';
 
 type Props = {
     pagination: PaginationType;
