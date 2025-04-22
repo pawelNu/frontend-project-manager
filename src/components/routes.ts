@@ -21,6 +21,9 @@ export const routes = {
         edit: (id: string) => `/companies/edit/${id}`,
         details: (id: string) => `/companies/details/${id}`,
     },
+    user: {
+        list: () => '/users',
+    },
 };
 
 export const jsonServerApi = 'http://localhost:8080';

@@ -34,6 +34,15 @@ export const sidebarElements: TSidebarItem[] = [
         ],
     },
     {
+        label: 'Users',
+        subMenu: [
+            {
+                label: 'User list',
+                linkTo: routes.user.list(),
+            },
+        ],
+    },
+    {
         label: 'Account',
         subMenu: [
             {
