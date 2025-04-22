@@ -1,4 +1,5 @@
 import { DataTable } from '../../common/DataTable/DataTable';
+import { Column } from '../../common/DataTable/types';
 
 export type User = {
     id: number;
@@ -35,10 +36,10 @@ export type TableParams<F> = {
     sort: SortState;
 };
 
-const columns = [
-    { accessor: 'name', label: 'Name' },
+const columns: Column<User>[] = [
+    { accessor: 'name', label: 'Name', sortable: true },
     { accessor: 'email', label: 'Email' },
-    { accessor: 'age', label: 'Age' },
+    { accessor: 'age', label: 'Age', sortable: true },
 ];
 
 const filters: FilterConfig<User>[] = [
