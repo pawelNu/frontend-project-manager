@@ -27,21 +27,29 @@ export type DataTableRef = {
     removeItem: (id: UUIDTypes) => void;
 };
 
-export type DataTableProps<T, F = Record<string, unknown>> = {
-    columns: Column<T>[];
-    filters?: FilterConfig<F>[];
-    getDataFunction: (pageNumber: number, pageSize: number) => Promise<AxiosResponse<PaginatedResponse<T>>>;
+type GetDataFunctionType<ArgumentsType, ResponseDataType> =
+    | ((pageNumber: number, pageSize: number) => Promise<AxiosResponse<PaginatedResponse<ResponseDataType>>>)
+    | ((filters: ArgumentsType) => Promise<AxiosResponse<PaginatedResponse<ResponseDataType>>>);
+
+export type DataTableProps<ArgumentsType, ResponseDataType, FiltersType = Record<string, unknown>> = {
+    columns: Column<ResponseDataType>[];
+    filters?: FilterConfig<FiltersType>[];
+    getDataFunction: GetDataFunctionType<ArgumentsType, ResponseDataType>;
 };
 
-export const DataTable = <T extends { id: UUIDTypes }, F = Record<string, unknown>>(
-    { columns, filters = [], getDataFunction }: DataTableProps<T, F>,
+export const DataTable = <
+    ArgumentsType,
+    ResponseDataType extends { id: UUIDTypes },
+    FiltersType = Record<string, unknown>,
+>(
+    { columns, filters = [], getDataFunction }: DataTableProps<ArgumentsType, ResponseDataType, FiltersType>,
     ref: React.Ref<DataTableRef>,
 ) => {
     const { pageNumber, pageSize } = useParams();
     const page = isNaN(Number(pageNumber)) ? 1 : Number(pageNumber);
     const size = isNaN(Number(pageSize)) ? 10 : Number(pageSize);
     const [error, setError] = useState<string | null>(null);
-    const [data, setData] = useState<T[] | undefined>(undefined);
+    const [data, setData] = useState<ResponseDataType[] | undefined>(undefined);
     const [pagination, setPagination] = useState<PaginationType>({
         pageNumber: page,
         pageSize: size,
@@ -55,11 +63,17 @@ export const DataTable = <T extends { id: UUIDTypes }, F = Record<string, unknow
         hasNext: false,
     });
 
-    const [filterState, setFilterState] = useState<F>({} as F);
+    const [filterState, setFilterState] = useState<FiltersType>({} as FiltersType);
     const [sort, setSort] = useState<SortState>({ field: null, direction: null });
-    const { data: apiData, loading, error: apiError, request } = useFetchDataApi(getDataFunction);
+    const {
+        data: apiData,
+        loading,
+        error: apiError,
+        request,
+    } = useFetchDataApi<[ArgumentsType], ResponseDataType>(getDataFunction);
 
     useEffect(() => {
+        // TODO refactor to filters object
         request(pagination.pageNumber, pagination.pageSize);
         setError(apiError);
     }, [apiError, pagination.pageNumber, pagination.pageSize, request]);
@@ -89,7 +103,7 @@ export const DataTable = <T extends { id: UUIDTypes }, F = Record<string, unknow
         }));
     };
 
-    const handleFilterChange = (updated: Partial<F>) => {
+    const handleFilterChange = (updated: Partial<FiltersType>) => {
         setFilterState((prev) => ({ ...prev, ...updated }));
         setPagination((prev) => ({ ...prev, pageNumber: 1 }));
     };
@@ -107,7 +121,7 @@ export const DataTable = <T extends { id: UUIDTypes }, F = Record<string, unknow
         }, obj);
     };
 
-    const getCellValue = (row: T, accessor: string): React.ReactNode => {
+    const getCellValue = (row: ResponseDataType, accessor: string): React.ReactNode => {
         const value = getNestedValue(row, accessor);
         return value !== null && value !== undefined ? String(value) : '';
     };
@@ -128,7 +142,11 @@ export const DataTable = <T extends { id: UUIDTypes }, F = Record<string, unknow
             {loading && <p>Loading...</p>}
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <div>
-                <DataTableFilters<F> filters={filters} filterState={filterState} onChange={handleFilterChange} />
+                <DataTableFilters<FiltersType>
+                    filters={filters}
+                    filterState={filterState}
+                    onChange={handleFilterChange}
+                />
                 <table className="table table-hover mt-3">
                     <DataTableHeader columns={columns} sort={sort} onSort={handleSort} />
                     <tbody>

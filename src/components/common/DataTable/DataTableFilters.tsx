@@ -1,7 +1,7 @@
 export type FilterOption = { label: string; value: string | number };
 
-export type FilterConfig<F> = {
-    accessor: keyof F;
+export type FilterConfig<FilterType> = {
+    accessor: keyof FilterType;
     label?: string;
     type: 'text' | 'checkbox' | 'select';
     options?: FilterOption[];

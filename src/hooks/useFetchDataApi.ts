@@ -1,16 +1,16 @@
 import { useCallback, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 
-type UseGetApiReturn<ResponseDataType, ArgumentsType extends readonly unknown[]> = {
+type UseGetApiReturn<ArgumentsType extends readonly unknown[], ResponseDataType> = {
     data: ResponseDataType | null;
     loading: boolean;
     error: string | null;
     request: (...args: ArgumentsType) => Promise<void>;
 };
 
-export const useFetchDataApi = <ResponseDataType, ArgumentsType extends readonly unknown[]>(
+export const useFetchDataApi = <ArgumentsType extends readonly unknown[], ResponseDataType>(
     serviceFunction: (...args: ArgumentsType) => Promise<AxiosResponse<ResponseDataType>>,
-): UseGetApiReturn<ResponseDataType, ArgumentsType> => {
+): UseGetApiReturn<ArgumentsType, ResponseDataType> => {
     const [data, setData] = useState<ResponseDataType | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);

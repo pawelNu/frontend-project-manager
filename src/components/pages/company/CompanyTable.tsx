@@ -129,7 +129,7 @@ export const CompanyTable = () => {
     const CompanyDataTable = createDataTable<CompanyNotFull, CompanyNotFull>();
     return (
         <div className="container">
-            <h1>User Table</h1>
+            <h1>Company Table</h1>
             <CompanyDataTable ref={tableRef} columns={columns} filters={filters} getDataFunction={getCompanies} />
         </div>
     );

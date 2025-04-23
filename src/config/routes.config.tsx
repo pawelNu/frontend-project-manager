@@ -32,7 +32,7 @@ export const routeConfig = [
         element: <CompanyEdit />,
     },
     {
-        path: routes.user.list(),
+        path: routes.company.listFiltered(pageNumber, pageSize),
         element: <CompanyTable />,
     },
 ];

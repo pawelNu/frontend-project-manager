@@ -11,6 +11,10 @@ export const sidebarElements: TSidebarItem[] = [
                 linkTo: routes.company.list(),
             },
             {
+                label: 'All companies with filters',
+                linkTo: routes.company.listFiltered(),
+            },
+            {
                 label: 'Add company',
                 linkTo: routes.company.create(),
             },
@@ -30,15 +34,6 @@ export const sidebarElements: TSidebarItem[] = [
                         // linkTo: routes.company.delete('1'),
                     },
                 ],
-            },
-        ],
-    },
-    {
-        label: 'Users',
-        subMenu: [
-            {
-                label: 'User list',
-                linkTo: routes.user.list(),
             },
         ],
     },

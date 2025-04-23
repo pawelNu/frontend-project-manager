@@ -59,10 +59,6 @@ export type CompanyContactEmployee = {
     contactEmployeeId: UUIDTypes;
 };
 
-export const getCompanies = (pageNumber: number, pageSize: number) => {
-    return axiosInstance.get<PaginatedResponse<Company>>(api.company.list(pageNumber, pageSize));
-};
-
 export type CompanyFilters = {
     name: string | null;
     nip: string | null;
@@ -73,6 +69,12 @@ export type CompanyFilters = {
         sortedBy: string | null;
         direction: string | null;
     };
+};
+
+export const getCompanies = (pageFilters: CompanyFilters) => {
+    return axiosInstance.get<PaginatedResponse<Company>>(
+        api.company.list(pageFilters.page.pageNumber, pageFilters.page.pageSize),
+    );
 };
 
 export const getCompaniesFiltered = (companyFilters: CompanyFilters) => {

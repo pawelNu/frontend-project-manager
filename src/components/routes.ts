@@ -17,12 +17,7 @@ export const routes = {
                     : '';
             return `/companies/page/${pageNumber}/size/${pageSize}${queryString}`;
         },
-        create: () => '/companies/create',
-        edit: (id: string) => `/companies/edit/${id}`,
-        details: (id: string) => `/companies/details/${id}`,
-    },
-    user: {
-        list: (
+        listFiltered: (
             pageNumber: string | number = 1,
             pageSize: string | number = 10,
             query: Map<string, string[]> = new Map(),
@@ -33,8 +28,11 @@ export const routes = {
                           .map(([key, values]) => values.map((value) => `${key}=${value}`).join('&'))
                           .join('&')}`
                     : '';
-            return `/users/page/${pageNumber}/size/${pageSize}${queryString}`;
+            return `/companies/filters/page/${pageNumber}/size/${pageSize}${queryString}`;
         },
+        create: () => '/companies/create',
+        edit: (id: string) => `/companies/edit/${id}`,
+        details: (id: string) => `/companies/details/${id}`,
     },
 };
 
