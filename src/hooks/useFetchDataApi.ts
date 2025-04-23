@@ -8,7 +8,7 @@ type UseGetApiReturn<ResponseDataType, ArgumentsType extends readonly unknown[]>
     request: (...args: ArgumentsType) => Promise<void>;
 };
 
-export const useGetApi = <ResponseDataType, ArgumentsType extends readonly unknown[]>(
+export const useFetchDataApi = <ResponseDataType, ArgumentsType extends readonly unknown[]>(
     serviceFunction: (...args: ArgumentsType) => Promise<AxiosResponse<ResponseDataType>>,
 ): UseGetApiReturn<ResponseDataType, ArgumentsType> => {
     const [data, setData] = useState<ResponseDataType | null>(null);

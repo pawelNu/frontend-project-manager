@@ -5,7 +5,7 @@ import { DataTablePagination } from './DataTablePagination';
 import { PaginationType } from '../Pagination';
 import { AxiosResponse } from 'axios';
 import { PaginatedResponse } from '../../common';
-import { useGetApi } from '../../../hooks/useGetApi';
+import { useFetchDataApi } from '../../../hooks/useFetchDataApi';
 import { useParams } from 'react-router-dom';
 import { UUIDTypes } from 'uuid';
 
@@ -57,7 +57,7 @@ export const DataTable = <T extends { id: UUIDTypes }, F = Record<string, unknow
 
     const [filterState, setFilterState] = useState<F>({} as F);
     const [sort, setSort] = useState<SortState>({ field: null, direction: null });
-    const { data: apiData, loading, error: apiError, request } = useGetApi(getDataFunction);
+    const { data: apiData, loading, error: apiError, request } = useFetchDataApi(getDataFunction);
 
     useEffect(() => {
         request(pagination.pageNumber, pagination.pageSize);

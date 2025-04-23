@@ -4,7 +4,7 @@ import { routes } from '../../routes';
 import { Company, getCompanies, handleDeleteCompany } from '../../../services/company';
 import { Pagination } from '../../common/Pagination';
 import { ActionsButton } from '../../common/ActionButton';
-import { useGetApi } from '../../../hooks/useGetApi';
+import { useFetchDataApi } from '../../../hooks/useFetchDataApi';
 import { PaginationType } from '../../common/Pagination';
 
 export const CompanyList = () => {
@@ -26,7 +26,7 @@ export const CompanyList = () => {
         hasNext: false,
     });
     const [error, setError] = useState<string | null>(null);
-    const { data, loading, error: apiError, request } = useGetApi(getCompanies);
+    const { data, loading, error: apiError, request } = useFetchDataApi(getCompanies);
     console.log(pagination.pageNumber);
 
     const updatePageState = useCallback(

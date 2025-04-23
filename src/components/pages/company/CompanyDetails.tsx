@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Address, Company, Contact, ContactEmployee, getCompanyById } from '../../../services/company';
 import { useParams } from 'react-router-dom';
 import { ErrorResponse } from '../../common';
-import { useGetApi } from '../../../hooks/useGetApi';
+import { useFetchDataApi } from '../../../hooks/useFetchDataApi';
 
 export const CompanyDetails = () => {
     const { id } = useParams();
@@ -10,7 +10,7 @@ export const CompanyDetails = () => {
     console.log(' CompanyDetails   error:', error);
     const [company, setCompany] = useState<Company | null>(null);
 
-    const { data: companyData, loading, error: companyError, request: fetchCompany } = useGetApi(getCompanyById);
+    const { data: companyData, loading, error: companyError, request: fetchCompany } = useFetchDataApi(getCompanyById);
 
     useEffect(() => {
         if (!id) {
