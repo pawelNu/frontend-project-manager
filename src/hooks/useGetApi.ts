@@ -23,7 +23,6 @@ export const useGetApi = <TData, TArgs extends readonly unknown[]>(
                 console.log(' response:', response);
                 setData(response.data);
             } catch (err) {
-                // console.log(' err:', err);
                 if (axios.isAxiosError(err)) {
                     setError(err.response?.data.error);
                 } else if (err instanceof Error) {

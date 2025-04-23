@@ -1,4 +1,4 @@
-import { useState, useEffect, useImperativeHandle, forwardRef } from 'react';
+import { useState, useEffect, useImperativeHandle } from 'react';
 import { DataTableHeader, SortState } from './DataTableHeader';
 import { DataTableFilters, FilterConfig } from './DataTableFilters';
 import { DataTablePagination } from './DataTablePagination';
@@ -27,14 +27,14 @@ export type DataTableRef = {
     removeItem: (id: UUIDTypes) => void;
 };
 
-type Props<T, F = Record<string, unknown>> = {
+export type DataTableProps<T, F = Record<string, unknown>> = {
     columns: Column<T>[];
     filters?: FilterConfig<F>[];
     getDataFunction: (pageNumber: number, pageSize: number) => Promise<AxiosResponse<PaginatedResponse<T>>>;
 };
 
-const DataTable = <T extends { id: UUIDTypes }, F = Record<string, unknown>>(
-    { columns, filters = [], getDataFunction }: Props<T, F>,
+export const DataTable = <T extends { id: UUIDTypes }, F = Record<string, unknown>>(
+    { columns, filters = [], getDataFunction }: DataTableProps<T, F>,
     ref: React.Ref<DataTableRef>,
 ) => {
     const { pageNumber, pageSize } = useParams();
@@ -42,6 +42,14 @@ const DataTable = <T extends { id: UUIDTypes }, F = Record<string, unknown>>(
     const size = isNaN(Number(pageSize)) ? 10 : Number(pageSize);
     const [error, setError] = useState<string | null>(null);
     const [data, setData] = useState<T[] | undefined>(undefined);
+
+    const debug = () => {
+        const items: string[] = [];
+        data?.forEach((item) => items.push(JSON.stringify(item, null, 0)));
+        console.log(items);
+    };
+    debug();
+
     const [pagination, setPagination] = useState<PaginationType>({
         pageNumber: 1,
         pageSize: 10,
@@ -80,7 +88,7 @@ const DataTable = <T extends { id: UUIDTypes }, F = Record<string, unknown>>(
                 hasNext: apiData.page.hasNext,
             });
         }
-    }, [apiData, data]);
+    }, [apiData]);
 
     const handleSort = (field: string) => {
         setSort((prev) => ({
@@ -114,6 +122,7 @@ const DataTable = <T extends { id: UUIDTypes }, F = Record<string, unknown>>(
 
     useImperativeHandle(ref, () => ({
         removeItem: (id: UUIDTypes) => {
+            console.log(' useImperativeHandle   id:', id);
             setData((prev) => prev?.filter((item) => item.id !== id));
             setPagination((prev) => ({
                 ...prev,
@@ -136,8 +145,8 @@ const DataTable = <T extends { id: UUIDTypes }, F = Record<string, unknown>>(
                                 <td colSpan={columns.length}>Loading...</td>
                             </tr>
                         ) : (
-                            data?.map((row, idx) => (
-                                <tr key={idx}>
+                            data?.map((row) => (
+                                <tr key={row.id.toString()}>
                                     {columns.map((col, colIdx) => (
                                         <td key={colIdx}>
                                             {col.render ? col.render(row) : getCellValue(row, col.accessor.toString())}
@@ -153,9 +162,3 @@ const DataTable = <T extends { id: UUIDTypes }, F = Record<string, unknown>>(
         </>
     );
 };
-
-export function createDataTable<T extends { id: UUIDTypes }, F = Record<string, unknown>>() {
-    return forwardRef<DataTableRef, Props<T, F>>(DataTable) as React.ForwardRefExoticComponent<
-        Props<T, F> & React.RefAttributes<DataTableRef>
-    >;
-}

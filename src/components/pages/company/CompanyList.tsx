@@ -26,8 +26,6 @@ export const CompanyList = () => {
         hasNext: false,
     });
     const [error, setError] = useState<string | null>(null);
-    // const memoizedGetCompanies = useMemoizedGetServiceFunction(getCompanies);
-    // const { data, loading, error: apiError, request } = useGetApi(memoizedGetCompanies);
     const { data, loading, error: apiError, request } = useGetApi(getCompanies);
     console.log(pagination.pageNumber);
 

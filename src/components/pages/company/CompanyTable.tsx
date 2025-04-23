@@ -1,10 +1,11 @@
 import { CompanyNotFull, getCompanies, handleDeleteCompany } from '../../../services/company';
 import { ActionsButton } from '../../common/ActionButton';
-import { Column, createDataTable, DataTableRef } from '../../common/DataTable/DataTable';
+import { Column, DataTableRef } from '../../common/DataTable/DataTable';
 import { routes } from '../../routes';
 import { FilterConfig } from '../../common/DataTable/DataTableFilters';
 import { OutSideLink } from '../../common/Utils';
 import { useRef } from 'react';
+import { createDataTable } from '../../common/DataTable/tableUtils';
 
 // const filters: FilterConfig<CompanyNotFull>[] = [
 //     {
@@ -114,12 +115,10 @@ export const CompanyTable = () => {
                     id={company.id}
                     detailsLink={routes.company.details(company.id.toString())}
                     editLink={routes.company.edit(company.id.toString())}
-                    // TODO handle delete after successfully deleting company
-                    // remove company from state without request to server
                     deleteItem={handleDeleteCompany}
                     onDeleteSuccess={() => {
                         if (tableRef.current) {
-                            tableRef.current.removeItem(company.id); // <- usuwa lokalnie
+                            tableRef.current.removeItem(company.id);
                         }
                     }}
                 />
