@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useImperativeHandle, forwardRef } from 'react';
 import { DataTableHeader, SortState } from './DataTableHeader';
 import { DataTableFilters, FilterConfig } from './DataTableFilters';
 import { DataTablePagination } from './DataTablePagination';
@@ -7,6 +7,7 @@ import { AxiosResponse } from 'axios';
 import { PaginatedResponse } from '../../common';
 import { useGetApi } from '../../../hooks/useGetApi';
 import { useParams } from 'react-router-dom';
+import { UUIDTypes } from 'uuid';
 
 export type Column<T> = {
     accessor: keyof T | string;
@@ -22,13 +23,20 @@ export type TableParams<F> = {
     sort: SortState;
 };
 
+export type DataTableRef = {
+    removeItem: (id: UUIDTypes) => void;
+};
+
 type Props<T, F = Record<string, unknown>> = {
     columns: Column<T>[];
     filters?: FilterConfig<F>[];
     getDataFunction: (pageNumber: number, pageSize: number) => Promise<AxiosResponse<PaginatedResponse<T>>>;
 };
 
-export function DataTable<T, F = Record<string, unknown>>({ columns, filters = [], getDataFunction }: Props<T, F>) {
+const DataTable = <T extends { id: UUIDTypes }, F = Record<string, unknown>>(
+    { columns, filters = [], getDataFunction }: Props<T, F>,
+    ref: React.Ref<DataTableRef>,
+) => {
     const { pageNumber, pageSize } = useParams();
     const page = isNaN(Number(pageNumber)) ? 1 : Number(pageNumber);
     const size = isNaN(Number(pageSize)) ? 10 : Number(pageSize);
@@ -104,6 +112,16 @@ export function DataTable<T, F = Record<string, unknown>>({ columns, filters = [
         return value !== null && value !== undefined ? String(value) : '';
     };
 
+    useImperativeHandle(ref, () => ({
+        removeItem: (id: UUIDTypes) => {
+            setData((prev) => prev?.filter((item) => item.id !== id));
+            setPagination((prev) => ({
+                ...prev,
+                totalElements: prev.totalElements - 1,
+            }));
+        },
+    }));
+
     return (
         <>
             {loading && <p>Loading...</p>}
@@ -134,4 +152,10 @@ export function DataTable<T, F = Record<string, unknown>>({ columns, filters = [
             </div>
         </>
     );
+};
+
+export function createDataTable<T extends { id: UUIDTypes }, F = Record<string, unknown>>() {
+    return forwardRef<DataTableRef, Props<T, F>>(DataTable) as React.ForwardRefExoticComponent<
+        Props<T, F> & React.RefAttributes<DataTableRef>
+    >;
 }

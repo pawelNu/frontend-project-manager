@@ -1,9 +1,10 @@
 import { CompanyNotFull, getCompanies, handleDeleteCompany } from '../../../services/company';
 import { ActionsButton } from '../../common/ActionButton';
-import { Column, DataTable } from '../../common/DataTable/DataTable';
+import { Column, createDataTable, DataTableRef } from '../../common/DataTable/DataTable';
 import { routes } from '../../routes';
 import { FilterConfig } from '../../common/DataTable/DataTableFilters';
 import { OutSideLink } from '../../common/Utils';
+import { useRef } from 'react';
 
 // const filters: FilterConfig<CompanyNotFull>[] = [
 //     {
@@ -95,6 +96,7 @@ const filters: FilterConfig<CompanyNotFull>[] = [
 ];
 
 export const CompanyTable = () => {
+    const tableRef = useRef<DataTableRef>(null);
     const columns: Column<CompanyNotFull>[] = [
         { accessor: 'name', label: 'Name', sortable: true },
         { accessor: 'nip', label: 'NIP' },
@@ -115,20 +117,21 @@ export const CompanyTable = () => {
                     // TODO handle delete after successfully deleting company
                     // remove company from state without request to server
                     deleteItem={handleDeleteCompany}
-                    onDeleteSuccess={() => request(page, size)}
+                    onDeleteSuccess={() => {
+                        if (tableRef.current) {
+                            tableRef.current.removeItem(company.id); // <- usuwa lokalnie
+                        }
+                    }}
                 />
             ),
         },
     ];
 
+    const CompanyDataTable = createDataTable<CompanyNotFull, CompanyNotFull>();
     return (
         <div className="container">
             <h1>User Table</h1>
-            <DataTable<CompanyNotFull, CompanyNotFull>
-                columns={columns}
-                filters={filters}
-                getDataFunction={getCompanies}
-            />
+            <CompanyDataTable ref={tableRef} columns={columns} filters={filters} getDataFunction={getCompanies} />
         </div>
     );
 };
