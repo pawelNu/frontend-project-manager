@@ -63,6 +63,22 @@ export const getCompanies = (pageNumber: number, pageSize: number) => {
     return axiosInstance.get<PaginatedResponse<Company>>(api.company.list(pageNumber, pageSize));
 };
 
+export type CompanyFilters = {
+    name: string | null;
+    nip: string | null;
+    regon: string | null;
+    page: {
+        pageNumber: number;
+        pageSize: number;
+        sortedBy: string | null;
+        direction: string | null;
+    };
+};
+
+export const getCompaniesFiltered = (companyFilters: CompanyFilters) => {
+    return axiosInstance.post<PaginatedResponse<Company>>(api.company.listFiltered(), companyFilters);
+};
+
 export const getCompanyById = async (id: string) => {
     return axiosInstance.get<Company>(api.company.id(id.toString()));
 };

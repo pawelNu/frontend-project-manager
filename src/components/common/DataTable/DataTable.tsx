@@ -42,17 +42,9 @@ export const DataTable = <T extends { id: UUIDTypes }, F = Record<string, unknow
     const size = isNaN(Number(pageSize)) ? 10 : Number(pageSize);
     const [error, setError] = useState<string | null>(null);
     const [data, setData] = useState<T[] | undefined>(undefined);
-
-    const debug = () => {
-        const items: string[] = [];
-        data?.forEach((item) => items.push(JSON.stringify(item, null, 0)));
-        console.log(items);
-    };
-    debug();
-
     const [pagination, setPagination] = useState<PaginationType>({
-        pageNumber: 1,
-        pageSize: 10,
+        pageNumber: page,
+        pageSize: size,
         totalPages: 1,
         totalElements: 0,
         first: true,
@@ -68,9 +60,9 @@ export const DataTable = <T extends { id: UUIDTypes }, F = Record<string, unknow
     const { data: apiData, loading, error: apiError, request } = useGetApi(getDataFunction);
 
     useEffect(() => {
-        request(page, size);
+        request(pagination.pageNumber, pagination.pageSize);
         setError(apiError);
-    }, [apiError, page, request, size]);
+    }, [apiError, pagination.pageNumber, pagination.pageSize, request]);
 
     useEffect(() => {
         if (apiData) {

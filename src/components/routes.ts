@@ -22,7 +22,19 @@ export const routes = {
         details: (id: string) => `/companies/details/${id}`,
     },
     user: {
-        list: () => '/users',
+        list: (
+            pageNumber: string | number = 1,
+            pageSize: string | number = 10,
+            query: Map<string, string[]> = new Map(),
+        ) => {
+            const queryString =
+                query.size > 0
+                    ? `?${Array.from(query)
+                          .map(([key, values]) => values.map((value) => `${key}=${value}`).join('&'))
+                          .join('&')}`
+                    : '';
+            return `/users/page/${pageNumber}/size/${pageSize}${queryString}`;
+        },
     },
 };
 
@@ -55,6 +67,7 @@ export const api = {
                     : '';
             return `${COMPANIES}?pageNumber=${pageNumber}&pageSize=${pageSize}${queryString}`;
         },
+        listFiltered: () => `${COMPANIES}/filter`,
         create: () => `${COMPANIES}`,
         edit: (id: string) => `${COMPANIES}/${id}`,
         id: (id: string) => `${COMPANIES}/${id}`,
