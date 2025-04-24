@@ -59,25 +59,31 @@ export type CompanyContactEmployee = {
     contactEmployeeId: UUIDTypes;
 };
 
-export type CompanyFilters = {
-    name: string | null;
-    nip: string | null;
-    regon: string | null;
-    page: {
-        pageNumber: number;
-        pageSize: number;
-        sortedBy: string | null;
-        direction: string | null;
-    };
+type PageFilters = {
+    pageNumber: number;
+    pageSize: number;
+    sortedBy: string | null;
+    direction: string | null;
 };
 
-export const getCompanies = (pageFilters: CompanyFilters) => {
+export type CommonFilters<FiltersType> = {
+    filters: FiltersType;
+    page: PageFilters;
+};
+
+export type CompanyFilters = {
+    name: string[];
+    nip: string[];
+    regon: string[];
+};
+
+export const getCompanies = (pageFilters: CommonFilters<CompanyFilters>) => {
     return axiosInstance.get<PaginatedResponse<Company>>(
         api.company.list(pageFilters.page.pageNumber, pageFilters.page.pageSize),
     );
 };
 
-export const getCompaniesFiltered = (companyFilters: CompanyFilters) => {
+export const getCompaniesFiltered = (companyFilters: CommonFilters<CompanyFilters>) => {
     return axiosInstance.post<PaginatedResponse<Company>>(api.company.listFiltered(), companyFilters);
 };
 

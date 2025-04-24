@@ -4,7 +4,6 @@ import { DataTableFilters, FilterConfig } from './DataTableFilters';
 import { DataTablePagination } from './DataTablePagination';
 import { PaginationType } from '../Pagination';
 import { AxiosResponse } from 'axios';
-import { PaginatedResponse } from '../../common';
 import { useFetchDataApi } from '../../../hooks/useFetchDataApi';
 import { useParams } from 'react-router-dom';
 import { UUIDTypes } from 'uuid';
@@ -27,14 +26,10 @@ export type DataTableRef = {
     removeItem: (id: UUIDTypes) => void;
 };
 
-type GetDataFunctionType<ArgumentsType, ResponseDataType> =
-    | ((pageNumber: number, pageSize: number) => Promise<AxiosResponse<PaginatedResponse<ResponseDataType>>>)
-    | ((filters: ArgumentsType) => Promise<AxiosResponse<PaginatedResponse<ResponseDataType>>>);
-
 export type DataTableProps<ArgumentsType, ResponseDataType, FiltersType = Record<string, unknown>> = {
     columns: Column<ResponseDataType>[];
     filters?: FilterConfig<FiltersType>[];
-    getDataFunction: GetDataFunctionType<ArgumentsType, ResponseDataType>;
+    getDataFunction: (filters: ArgumentsType) => Promise<AxiosResponse<ResponseDataType>>;
 };
 
 export const DataTable = <
