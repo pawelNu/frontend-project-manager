@@ -1,54 +1,52 @@
-# React + TypeScript + Vite
+# React-admin Demo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a demo of the [react-admin](https://github.com/marmelab/react-admin) library for React.js. It creates a working administration for a fake poster shop named Posters Galore. You can test it online at https://marmelab.com/react-admin-demo.
 
-Currently, two official plugins are available:
+[![react-admin-demo](https://marmelab.com/react-admin/img/react-admin-demo-still.png)](https://www.youtube.com/watch?v=bJEo1O1oT6o)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+React-admin usually requires a REST/GraphQL server to provide data. In this demo however, the API is simulated by the browser (using [FakeRest](https://github.com/marmelab/FakeRest)). The source data is generated at runtime by a package called [data-generator](https://github.com/marmelab/react-admin/tree/master/examples/data-generator).
 
-## Expanding the ESLint configuration
+To explore the source code, start with [src/App.tsx](https://github.com/marmelab/react-admin/blob/master/examples/demo/src/App.tsx).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+**Note**: This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-```js
-export default tseslint.config({
-    extends: [
-        // Remove ...tseslint.configs.recommended and replace with this
-        ...tseslint.configs.recommendedTypeChecked,
-        // Alternatively, use this for stricter rules
-        ...tseslint.configs.strictTypeChecked,
-        // Optionally, add this for stylistic rules
-        ...tseslint.configs.stylisticTypeChecked,
-    ],
-    languageOptions: {
-        // other options...
-        parserOptions: {
-            project: ['./tsconfig.node.json', './tsconfig.app.json'],
-            tsconfigRootDir: import.meta.dirname,
-        },
-    },
-});
+## How to run
+
+After having cloned the react-admin repository, run the following commands at the react-admin root:
+
+```sh
+make install
+
+make build
+
+make run-demo
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Available Scripts
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
+In the project directory, you can run:
 
-export default tseslint.config({
-    plugins: {
-        // Add the react-x and react-dom plugins
-        'react-x': reactX,
-        'react-dom': reactDom,
-    },
-    rules: {
-        // other rules...
-        // Enable its recommended typescript rules
-        ...reactX.configs['recommended-typescript'].rules,
-        ...reactDom.configs.recommended.rules,
-    },
-});
-```
+### `npm dev`
+
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](#running-tests) for more information.
+
+### `npm build`
+
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
+
+### `npm run deploy`
+
+Deploy the build to GitHub gh-pages.
