@@ -1,7 +1,6 @@
 import polyglotI18nProvider from 'ra-i18n-polyglot';
 import { Admin, CustomRoutes, Resource, localStorageStore, useStore, StoreContextProvider } from 'react-admin';
 import { Route } from 'react-router';
-
 import authProvider from './authProvider';
 import categories from './pages/categories';
 import { Dashboard } from './pages/dashboard';
@@ -17,7 +16,7 @@ import { CustomLayout } from './layout/Layout';
 import { Login } from './layout/Login';
 import orders from './pages/orders';
 import { CompanyCreate } from './pages/company/CompanyCreate';
-import { customDataProvider, dataProvider } from './dataProvider/dataProviderRestApi';
+import { dataProvider } from './dataProvider/dataProviderRestApi';
 import { CompanyEdit } from './pages/company/CompanyEdit';
 import { CompanyShow } from './pages/company/CompanyShow';
 
