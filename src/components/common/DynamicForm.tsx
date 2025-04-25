@@ -9,7 +9,7 @@ import { HasId, objectToString } from '../common';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { routes } from '../routes';
 import Spinner from 'react-bootstrap/esm/Spinner';
-import { useGetApi } from '../../hooks/useGetApi';
+import { useFetchDataApi } from '../../hooks/useFetchDataApi';
 import { useMemoizedServiceFunctions } from '../../hooks/useMemoizedServiceFunctions';
 import { Button, Stack } from 'react-bootstrap';
 
@@ -61,7 +61,7 @@ export const DynamicForm = <ArgumentType extends FormValuesType, ResponseDataTyp
     // const { request, loading } = usePostApi(postPutServiceFunction);
     // const { data: apiData, error: apiError, request: fetchData } = useGetApi(getServiceFunction);
     const { request, loading } = usePostApi(memoizedPostPutServiceFunction);
-    const { data: apiData, error: apiError, request: fetchData } = useGetApi(memoizedGetServiceFunction);
+    const { data: apiData, error: apiError, request: fetchData } = useFetchDataApi(memoizedGetServiceFunction);
     const [info, setInfo] = useState<string>();
     const [extraInfo, setExtraInfo] = useState<ReactNode>(null);
     const [showInfoModal, setShowInfoModal] = useState(false);

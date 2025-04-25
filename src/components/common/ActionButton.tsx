@@ -29,20 +29,14 @@ export const ActionsButton: React.FC<Props> = ({ id, detailsLink, editLink, dele
 
     const confirmDelete = async () => {
         const result = await deleteItem(id.toString());
-        if (!result.success) {
-            if (result.error) {
-                setInfo(result.error);
-                setShowDeleteModal(false);
-                setShowInfoModal(true);
-            } else {
-                setInfo('Unknown error: file: ActionsButton.tsx:   confirmDelete   confirmDelete');
-                setShowDeleteModal(false);
-                setShowInfoModal(true);
-            }
-        } else {
+        if (result.success) {
             handleClose();
-            if (onDeleteSuccess) onDeleteSuccess();
             toast.success('Successfully deleted item!');
+            onDeleteSuccess?.();
+        } else {
+            setShowDeleteModal(false);
+            setInfo(result.error ?? 'Unknown error: file: ActionsButton.tsx: confirmDelete');
+            setShowInfoModal(true);
         }
     };
 

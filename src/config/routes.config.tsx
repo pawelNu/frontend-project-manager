@@ -2,6 +2,7 @@ import { CompanyCreate } from '../components/pages/company/CompanyCreate';
 import { CompanyDetails } from '../components/pages/company/CompanyDetails';
 import { CompanyEdit } from '../components/pages/company/CompanyEdit';
 import { CompanyList } from '../components/pages/company/CompanyList';
+import { CompanyTable } from '../components/pages/company/CompanyTable';
 import { MainPage } from '../components/pages/MainPage';
 import { routes } from '../components/routes';
 
@@ -29,5 +30,9 @@ export const routeConfig = [
     {
         path: routes.company.edit(id),
         element: <CompanyEdit />,
+    },
+    {
+        path: routes.company.listFiltered(pageNumber, pageSize),
+        element: <CompanyTable />,
     },
 ];

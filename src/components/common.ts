@@ -11,6 +11,10 @@ export const sidebarElements: TSidebarItem[] = [
                 linkTo: routes.company.list(),
             },
             {
+                label: 'All companies with filters',
+                linkTo: routes.company.listFiltered(),
+            },
+            {
                 label: 'Add company',
                 linkTo: routes.company.create(),
             },
