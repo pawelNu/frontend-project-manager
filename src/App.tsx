@@ -1,34 +1,84 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
-import { Link, Route, Routes } from 'react-router-dom';
-import { Footer } from './components/layout/Footer';
-import { Navbar } from './components/layout/Navbar';
-import { routes } from './components/routes';
-import { routeConfig } from './config/routes.config';
-import { ToastContainer } from 'react-toastify';
+import polyglotI18nProvider from 'ra-i18n-polyglot';
+import { Admin, CustomRoutes, Resource, localStorageStore, useStore, StoreContextProvider } from 'react-admin';
+import { Route } from 'react-router';
+import authProvider from './authProvider';
+import categories from './pages/categories';
+import { Dashboard } from './pages/dashboard';
+import englishMessages from './i18n/en';
+import invoices from './pages/invoices';
+import products from './pages/products';
+import reviews from './pages/reviews';
+import Segments from './pages/segments/Segments';
+import visitors from './pages/visitors';
+import { themes, ThemeName } from './themes/themes';
+import { CompanyList } from './pages/company/CompanyList';
+import { CustomLayout } from './layout/Layout';
+import { Login } from './layout/Login';
+import orders from './pages/orders';
+import { CompanyCreate } from './pages/company/CompanyCreate';
+import { dataProvider } from './dataProvider/dataProviderRestApi';
+import { CompanyEdit } from './pages/company/CompanyEdit';
+import { CompanyShow } from './pages/company/CompanyShow';
 
-export const App = () => {
+const i18nProvider = polyglotI18nProvider(
+    (locale) => {
+        if (locale === 'fr') {
+            return import('./i18n/fr').then((messages) => messages.default);
+        }
+
+        // Always fallback on english
+        return englishMessages;
+    },
+    'en',
+    [
+        { locale: 'en', name: 'English' },
+        { locale: 'fr', name: 'Français' },
+    ],
+);
+
+const store = localStorageStore(undefined, 'ProjectManager');
+
+const App = () => {
+    const [themeName] = useStore<ThemeName>('themeName', 'soft');
+    const lightTheme = themes.find((theme) => theme.name === themeName)?.light;
+    const darkTheme = themes.find((theme) => theme.name === themeName)?.dark;
     return (
-        <>
-            <Navbar />
-            <Routes>
-                {routeConfig.map((route, index) => (
-                    <Route key={index} path={route.path} element={route.element} />
-                ))}
-                <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-            <Footer />
-            <ToastContainer />
-        </>
+        <Admin
+            title="Posters Galore Admin"
+            dataProvider={dataProvider}
+            store={store}
+            authProvider={authProvider}
+            dashboard={Dashboard}
+            loginPage={Login}
+            layout={CustomLayout}
+            i18nProvider={i18nProvider}
+            disableTelemetry
+            lightTheme={lightTheme}
+            darkTheme={darkTheme}
+            defaultTheme="light"
+            requireAuth>
+            <CustomRoutes>
+                <Route path="/segments" element={<Segments />} />
+            </CustomRoutes>
+            <Resource name="customers" {...visitors} />
+            <Resource name="orders" {...orders} />
+            <Resource name="invoices" {...invoices} />
+            <Resource name="products" {...products} />
+            <Resource name="categories" {...categories} />
+            <Resource name="reviews" {...reviews} />
+            <Resource
+                name="companies"
+                list={CompanyList}
+                show={CompanyShow}
+                create={CompanyCreate}
+                edit={CompanyEdit}
+            />
+        </Admin>
     );
 };
 
-const NotFoundPage = () => {
-    return (
-        <div className="container m-5">
-            <h1>404 - Page Not Found</h1>
-            <p>Sorry, the page you're looking for does not exist.</p>
-            <Link to={routes.page.main()}>Go to Main Page</Link>
-        </div>
-    );
-};
+export const AppWrapper = () => (
+    <StoreContextProvider value={store}>
+        <App />
+    </StoreContextProvider>
+);

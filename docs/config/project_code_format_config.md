@@ -3,7 +3,7 @@
 In project directory find: `.git/hooks/pre-commit` and add:
 
 ```sh
-pnpm format
+yarn format
 ```
 
 Add to `package.json`
@@ -16,7 +16,7 @@ Add to `package.json`
 
 Now with each commit project code will be automatically formatted.
 
-To manually format project: `pnpm format`.
+To manually format project: `yarn format`.
 
 Add file `.prettierrc.json` in main directory.
 
