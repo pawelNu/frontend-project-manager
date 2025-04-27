@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box/Box';
 import {
     List,
     DatagridConfigurable,
@@ -11,12 +10,9 @@ import {
     TextInput,
     UrlField,
     CreateButton,
-    EditButton,
     FunctionField,
-    DeleteButton,
-    Show,
-    ShowButton,
 } from 'react-admin';
+import { DropdownActions } from '../../components/common/DropdownActions';
 
 const listFilters = [
     <TextInput source="name" label="Company Name" alwaysOn />,
@@ -46,34 +42,24 @@ export const CompanyList = () => (
     <List
         filters={listFilters}
         perPage={25}
-        sort={{ field: 'name', order: 'ASC' }} // Możesz posortować po nazwie firmy
+        sort={{ field: 'name', order: 'ASC' }}
         actions={<ListActions />}
         title={<CompanyTitle />}>
         <DatagridConfigurable
-            rowClick="expand" // Możesz rozwinąć wiersz, aby wyświetlić szczegóły
+            rowClick="expand"
             sx={{
                 '& .column-nip': {
-                    display: { xs: 'none', md: 'table-cell' }, // ukryj kolumnę 'nip' na małych ekranach
+                    display: { xs: 'none', md: 'table-cell' },
                 },
                 '& .column-regon': {
-                    display: { xs: 'none', md: 'table-cell' }, // ukryj kolumnę 'regon' na małych ekranach
+                    display: { xs: 'none', md: 'table-cell' },
                 },
             }}>
-            {/* <TextField source="id" label="Company ID" /> */}
             <TextField source="name" label="Name" />
             <TextField source="nip" label="NIP" />
             <TextField source="regon" label="REGON" />
             <UrlField source="website" label="Website" target="_blank" />
-            <FunctionField
-                label="Actions"
-                render={(record) => (
-                    <Box display="flex" gap={1}>
-                        <ShowButton record={record} />
-                        <EditButton record={record} />
-                        <DeleteButton record={record} />
-                    </Box>
-                )}
-            />
+            <FunctionField label="Actions" render={(record) => <DropdownActions record={record} />} />
         </DatagridConfigurable>
     </List>
 );
