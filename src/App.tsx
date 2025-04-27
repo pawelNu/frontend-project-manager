@@ -77,7 +77,7 @@ const App = () => {
             <Resource
                 name="company-addresses"
                 list={CompanyAddressesList}
-                // TODO show={CompanyAddressesShow} 
+                // TODO show={CompanyAddressesShow}
                 // TODO create={CompanyAddressesCreate}
                 // TODO edit={CompanyAddressesEdit}
             />

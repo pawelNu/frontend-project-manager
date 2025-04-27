@@ -13,11 +13,7 @@ import {
 } from 'react-admin';
 import { DropdownActions } from '../../../components/common/DropdownActions';
 
-const listFilters = [
-    <TextInput source="city" label="City" alwaysOn />,
-    <TextInput source="street" label="Street" />,
-
-];
+const listFilters = [<TextInput source="city" label="City" alwaysOn />, <TextInput source="street" label="Street" />];
 
 const ListActions = () => (
     <TopToolbar>
