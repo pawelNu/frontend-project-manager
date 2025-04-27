@@ -138,6 +138,15 @@ export const Menu = ({ dense = false }: MenuProps) => {
                 leftIcon={<BusinessIcon />}
                 dense={dense}
             />
+            <MenuItemLink
+                to="/company-addresses"
+                state={{ _scrollToTop: true }}
+                primaryText={translate(`Company Addresses`, {
+                    smart_count: 2,
+                })}
+                leftIcon={<BusinessIcon />}
+                dense={dense}
+            />
         </Box>
     );
 };

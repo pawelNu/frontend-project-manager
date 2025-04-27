@@ -19,6 +19,7 @@ import { CompanyCreate } from './pages/company/CompanyCreate';
 import { dataProvider } from './dataProvider/dataProviderRestApi';
 import { CompanyEdit } from './pages/company/CompanyEdit';
 import { CompanyShow } from './pages/company/CompanyShow';
+import { CompanyAddressesList } from './pages/company/address/CompanyAddressesList';
 
 const i18nProvider = polyglotI18nProvider(
     (locale) => {
@@ -72,6 +73,13 @@ const App = () => {
                 show={CompanyShow}
                 create={CompanyCreate}
                 edit={CompanyEdit}
+            />
+            <Resource
+                name="company-addresses"
+                list={CompanyAddressesList}
+                // show={CompanyAddressesShow}
+                // create={CompanyAddressesCreate}
+                // edit={CompanyAddressesEdit}
             />
         </Admin>
     );
