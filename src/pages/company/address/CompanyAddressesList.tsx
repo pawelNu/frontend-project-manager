@@ -8,16 +8,15 @@ import {
     FilterButton,
     useListContext,
     TextInput,
-    UrlField,
     CreateButton,
     FunctionField,
 } from 'react-admin';
 import { DropdownActions } from '../../../components/common/DropdownActions';
 
 const listFilters = [
-    <TextInput source="name" label="Company Name" alwaysOn />,
-    <TextInput source="nip" label="NIP" />,
-    <TextInput source="regon" label="REGON" />,
+    <TextInput source="city" label="City" alwaysOn />,
+    <TextInput source="street" label="Street" />,
+
 ];
 
 const ListActions = () => (
@@ -42,7 +41,7 @@ export const CompanyAddressesList = () => (
     <List
         filters={listFilters}
         perPage={25}
-        sort={{ field: 'name', order: 'ASC' }}
+        sort={{ field: 'city', order: 'ASC' }}
         actions={<ListActions />}
         title={<CompanyTitle />}>
         <DatagridConfigurable
@@ -55,10 +54,14 @@ export const CompanyAddressesList = () => (
                     display: { xs: 'none', md: 'table-cell' },
                 },
             }}>
-            <TextField source="name" label="Name" />
-            <TextField source="nip" label="NIP" />
-            <TextField source="regon" label="REGON" />
-            <UrlField source="website" label="Website" target="_blank" />
+            <TextField source="street" />
+            <TextField source="streetNumber" />
+            <TextField source="city" />
+            <TextField source="zipCode" />
+            <TextField source="country" />
+            <TextField source="phoneNumber" />
+            <TextField source="emailAddress" />
+            <TextField source="addressType" />
             <FunctionField label="Actions" render={(record) => <DropdownActions record={record} />} />
         </DatagridConfigurable>
     </List>
