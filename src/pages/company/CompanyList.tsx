@@ -11,8 +11,10 @@ import {
     UrlField,
     CreateButton,
     FunctionField,
+    Link,
 } from 'react-admin';
 import { DropdownActions } from '../../components/common/DropdownActions';
+import { routes } from '../../config/routes';
 
 const listFilters = [
     <TextInput source="name" label="Company Name" alwaysOn />,
@@ -46,7 +48,7 @@ export const CompanyList = () => (
         actions={<ListActions />}
         title={<CompanyTitle />}>
         <DatagridConfigurable
-            rowClick="expand"
+            rowClick={false}
             sx={{
                 '& .column-nip': {
                     display: { xs: 'none', md: 'table-cell' },
@@ -55,7 +57,14 @@ export const CompanyList = () => (
                     display: { xs: 'none', md: 'table-cell' },
                 },
             }}>
-            <TextField source="name" label="Name" />
+            <FunctionField
+                label="Name"
+                render={(record) => (
+                    <Link to={routes.company.show(record.id)} /*style={{ textDecoration: 'none', color: 'inherit' }}*/>
+                        {record.name}
+                    </Link>
+                )}
+            />
             <TextField source="nip" label="NIP" />
             <TextField source="regon" label="REGON" />
             <UrlField source="website" label="Website" target="_blank" />

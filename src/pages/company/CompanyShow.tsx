@@ -1,7 +1,6 @@
 import Card from '@mui/material/Card/Card';
 import CardContent from '@mui/material/CardContent/CardContent';
 import Typography from '@mui/material/Typography/Typography';
-import { useEffect } from 'react';
 import {
     ArrayField,
     Datagrid,
@@ -14,6 +13,8 @@ import {
     UrlField,
     useRecordContext,
 } from 'react-admin';
+import resource from '../visitors';
+import { routes } from '../../config/routes';
 
 const CompanyShowTitle = () => {
     const record = useRecordContext();
@@ -64,7 +65,9 @@ export const CompanyShow = () => {
                 <UrlField source="website" label="Website" target="_blank" />
                 {/* <AddressCard /> */}
                 <ArrayField source="addresses">
-                    <Datagrid bulkActionButtons={false}>
+                    <Datagrid
+                        bulkActionButtons={false}
+                        rowClick={(_id, _resource, record) => routes.companyAddress.show(record.id)}>
                         <TextField source="street" />
                         <TextField source="streetNumber" />
                         <TextField source="city" />

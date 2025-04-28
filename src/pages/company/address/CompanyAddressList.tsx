@@ -24,7 +24,7 @@ const ListActions = () => (
     </TopToolbar>
 );
 
-const CompanyTitle = () => {
+const CompanyAddressTitle = () => {
     const { defaultTitle } = useListContext();
     return (
         <>
@@ -33,13 +33,13 @@ const CompanyTitle = () => {
     );
 };
 
-export const CompanyAddressesList = () => (
+export const CompanyAddressList = () => (
     <List
         filters={listFilters}
         perPage={25}
         sort={{ field: 'city', order: 'ASC' }}
         actions={<ListActions />}
-        title={<CompanyTitle />}>
+        title={<CompanyAddressTitle />}>
         <DatagridConfigurable
             rowClick="expand"
             sx={{
