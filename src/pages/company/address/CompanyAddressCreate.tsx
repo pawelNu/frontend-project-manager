@@ -1,7 +1,6 @@
 import {
     AutocompleteInput,
     Create,
-    ReferenceInput,
     SimpleForm,
     TextInput,
     required,
@@ -23,24 +22,14 @@ const CompanyAddressTitle = () => {
 
 export const CompanyAddressCreate = () => {
     const { data: companies, isLoading } = useGetList('companies', {
-        pagination: { page: 1, perPage: 9999 }, // Get all companies (or adjust perPage based on your use case)
-        sort: { field: 'name', order: 'ASC' }, // Sort by company name
+        pagination: { page: 1, perPage: 9999 }, 
+        sort: { field: 'name', order: 'ASC' }, 
     });
-    // const handleSubmit = (values: any) => {
-    //     const transformedValues = {
-    //         ...values,
-    //         companyId: values.id,
-    //         id: undefined,
-    //     };
-
-    //     console.log(JSON.stringify(transformedValues, null, 2));
-    // };
-    // TODO change id in request body to companyId
     return (
         <Create title={<CompanyAddressTitle />} mutationMode="pessimistic">
-            <SimpleForm sx={{ maxWidth: 500 }} /*onSubmit={handleSubmit}*/>
+            <SimpleForm sx={{ maxWidth: 500 }} >
                 <AutocompleteInput
-                    source="id"
+                    source="companyId"
                     label="Company"
                     choices={companies ?? []}
                     optionText="name"
