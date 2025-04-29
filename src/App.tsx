@@ -15,6 +15,7 @@ import { CompanyAddressShow } from './pages/company/address/CompanyAddressShow';
 import { CompanyAddressCreate } from './pages/company/address/CompanyAddressCreate';
 import { CompanyAddressEdit } from './pages/company/address/CompanyAddressEdit';
 import { Dashboard } from './pages/dashboard/Dashboard';
+import { routes } from './config/routes';
 
 const i18nProvider = polyglotI18nProvider(
     (locale) => {
@@ -54,14 +55,14 @@ const App = () => {
             defaultTheme="light"
             requireAuth>
             <Resource
-                name="companies"
+                name={routes.company.name()}
                 list={CompanyList}
                 show={CompanyShow}
                 create={CompanyCreate}
                 edit={CompanyEdit}
             />
             <Resource
-                name="company-addresses"
+                name={routes.companyAddress.name()}
                 list={CompanyAddressList}
                 show={CompanyAddressShow}
                 create={CompanyAddressCreate}
