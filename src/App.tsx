@@ -1,20 +1,11 @@
 import polyglotI18nProvider from 'ra-i18n-polyglot';
-import { Admin, CustomRoutes, Resource, localStorageStore, useStore, StoreContextProvider } from 'react-admin';
-import { Route } from 'react-router';
+import { Admin, Resource, localStorageStore, useStore, StoreContextProvider } from 'react-admin';
 import authProvider from './authProvider';
-import categories from './pages/categories';
-import { Dashboard } from './pages/dashboard';
 import englishMessages from './i18n/en';
-import invoices from './pages/invoices';
-import products from './pages/products';
-import reviews from './pages/reviews';
-import Segments from './pages/segments/Segments';
-import visitors from './pages/visitors';
 import { themes, ThemeName } from './themes/themes';
 import { CompanyList } from './pages/company/CompanyList';
 import { CustomLayout } from './layout/Layout';
 import { Login } from './layout/Login';
-import orders from './pages/orders';
 import { CompanyCreate } from './pages/company/CompanyCreate';
 import { dataProvider } from './dataProvider/dataProviderRestApi';
 import { CompanyEdit } from './pages/company/CompanyEdit';
@@ -23,6 +14,7 @@ import { CompanyAddressList } from './pages/company/address/CompanyAddressList';
 import { CompanyAddressShow } from './pages/company/address/CompanyAddressShow';
 import { CompanyAddressCreate } from './pages/company/address/CompanyAddressCreate';
 import { CompanyAddressEdit } from './pages/company/address/CompanyAddressEdit';
+import { Dashboard } from './pages/dashboard/Dashboard';
 
 const i18nProvider = polyglotI18nProvider(
     (locale) => {
@@ -61,15 +53,6 @@ const App = () => {
             darkTheme={darkTheme}
             defaultTheme="light"
             requireAuth>
-            <CustomRoutes>
-                <Route path="/segments" element={<Segments />} />
-            </CustomRoutes>
-            <Resource name="customers" {...visitors} />
-            <Resource name="orders" {...orders} />
-            <Resource name="invoices" {...invoices} />
-            <Resource name="products" {...products} />
-            <Resource name="categories" {...categories} />
-            <Resource name="reviews" {...reviews} />
             <Resource
                 name="companies"
                 list={CompanyList}
