@@ -12,12 +12,12 @@ export const routes = {
         placeholder: () => '/placeholder',
     },
     company: {
-        name: () => `${COMPANIES}`.replace("/", ""),
+        name: () => `${COMPANIES}`.replace('/', ''),
         list: () => `${COMPANIES}`,
         show: (id: string | number) => `${COMPANIES}/${id}/show`,
     },
     companyAddress: {
-        name: () => `${COMPANIES}`.replace("/", ""),
+        name: () => `${COMPANIES}`.replace('/', ''),
         list: () => `${COMPANY_ADDRESSES}`,
         show: (id: string | number) => `${COMPANY_ADDRESSES}/${id}/show`,
     },
