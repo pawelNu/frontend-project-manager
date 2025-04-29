@@ -1,17 +1,6 @@
-import Card from '@mui/material/Card/Card';
-import CardContent from '@mui/material/CardContent/CardContent';
-import Typography from '@mui/material/Typography/Typography';
-import {
-    ArrayField,
-    Datagrid,
-    EditButton,
-    ListButton,
-    Show,
-    SimpleShowLayout,
-    TextField,
-    TopToolbar,
-    useRecordContext,
-} from 'react-admin';
+import { EditButton, ListButton, Show, SimpleShowLayout, TextField, TopToolbar, useRecordContext } from 'react-admin';
+import { routes } from '../../../config/routes';
+import { useNotFoundErrorHandler } from '../../../hook/useStandardErrorHandler';
 
 const CompanyAddressShowTitle = () => {
     const record = useRecordContext();
@@ -26,8 +15,13 @@ const ShowActions = () => (
 );
 
 export const CompanyAddressShow = () => {
+    const onError = useNotFoundErrorHandler(routes.companyAddress.list());
     return (
-        <Show title={<CompanyAddressShowTitle />} actions={<ShowActions />}>
+        <Show
+            title={<CompanyAddressShowTitle />}
+            actions={<ShowActions />}
+            queryOptions={{ onError }}
+            emptyWhileLoading>
             <SimpleShowLayout>
                 <TextField source="companyName" />
                 <TextField source="street" />

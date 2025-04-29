@@ -44,6 +44,7 @@ export const routes = {
         show: (id: string | number) => `${COMPANIES}/${id}/show`,
     },
     companyAddress: {
+        list: () => `${COMPANY_ADDRESSES}`,
         show: (id: string | number) => `${COMPANY_ADDRESSES}/${id}/show`,
     },
 };

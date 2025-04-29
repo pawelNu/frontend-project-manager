@@ -13,8 +13,8 @@ import {
     UrlField,
     useRecordContext,
 } from 'react-admin';
-import resource from '../visitors';
 import { routes } from '../../config/routes';
+import { useNotFoundErrorHandler } from '../../hook/useStandardErrorHandler';
 
 const CompanyShowTitle = () => {
     const record = useRecordContext();
@@ -56,8 +56,9 @@ const AddressCard = () => {
 };
 
 export const CompanyShow = () => {
+    const onError = useNotFoundErrorHandler(routes.company.list());
     return (
-        <Show title={<CompanyShowTitle />} actions={<ShowActions />}>
+        <Show title={<CompanyShowTitle />} actions={<ShowActions />} queryOptions={{ onError }}>
             <SimpleShowLayout>
                 <TextField source="name" label="Company Name" />
                 <TextField source="nip" label="NIP" />
