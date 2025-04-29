@@ -13,7 +13,11 @@ import {
 } from 'react-admin';
 import { DropdownActions } from '../../../components/common/DropdownActions';
 
-const listFilters = [<TextInput source="city" label="City" alwaysOn />, <TextInput source="street" label="Street" />];
+const listFilters = [
+    <TextInput source="companyName" label="Company Name" alwaysOn />,
+    <TextInput source="city" label="City" />,
+    <TextInput source="street" label="Street" />,
+];
 
 const ListActions = () => (
     <TopToolbar>
@@ -37,7 +41,7 @@ export const CompanyAddressList = () => (
     <List
         filters={listFilters}
         perPage={25}
-        sort={{ field: 'city', order: 'ASC' }}
+        sort={{ field: 'companyName', order: 'ASC' }}
         actions={<ListActions />}
         title={<CompanyAddressTitle />}>
         <DatagridConfigurable
@@ -50,6 +54,7 @@ export const CompanyAddressList = () => (
                     display: { xs: 'none', md: 'table-cell' },
                 },
             }}>
+            <TextField source="companyName" />
             <TextField source="street" />
             <TextField source="streetNumber" />
             <TextField source="city" />

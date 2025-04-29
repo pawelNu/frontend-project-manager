@@ -22,6 +22,7 @@ import { CompanyShow } from './pages/company/CompanyShow';
 import { CompanyAddressList } from './pages/company/address/CompanyAddressList';
 import { CompanyAddressShow } from './pages/company/address/CompanyAddressShow';
 import { CompanyAddressCreate } from './pages/company/address/CompanyAddressCreate';
+import { CompanyAddressEdit } from './pages/company/address/CompanyAddressEdit';
 
 const i18nProvider = polyglotI18nProvider(
     (locale) => {
@@ -81,7 +82,7 @@ const App = () => {
                 list={CompanyAddressList}
                 show={CompanyAddressShow}
                 create={CompanyAddressCreate}
-                // TODO edit={CompanyAddressEdit}
+                edit={CompanyAddressEdit}
             />
         </Admin>
     );

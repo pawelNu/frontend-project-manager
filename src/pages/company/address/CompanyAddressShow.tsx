@@ -10,7 +10,6 @@ import {
     SimpleShowLayout,
     TextField,
     TopToolbar,
-    UrlField,
     useRecordContext,
 } from 'react-admin';
 
@@ -30,6 +29,7 @@ export const CompanyAddressShow = () => {
     return (
         <Show title={<CompanyAddressShowTitle />} actions={<ShowActions />}>
             <SimpleShowLayout>
+                <TextField source="companyName" />
                 <TextField source="street" />
                 <TextField source="streetNumber" />
                 <TextField source="city" />

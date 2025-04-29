@@ -22,12 +22,12 @@ const CompanyAddressTitle = () => {
 
 export const CompanyAddressCreate = () => {
     const { data: companies, isLoading } = useGetList('companies', {
-        pagination: { page: 1, perPage: 9999 }, 
-        sort: { field: 'name', order: 'ASC' }, 
+        pagination: { page: 1, perPage: 9999 },
+        sort: { field: 'name', order: 'ASC' },
     });
     return (
         <Create title={<CompanyAddressTitle />} mutationMode="pessimistic">
-            <SimpleForm sx={{ maxWidth: 500 }} >
+            <SimpleForm sx={{ maxWidth: 500 }}>
                 <AutocompleteInput
                     source="companyId"
                     label="Company"

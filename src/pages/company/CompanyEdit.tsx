@@ -2,7 +2,7 @@ import { Edit, SimpleForm, TextInput, required, useEditContext, useDefaultTitle 
 
 const CompanyTitle = () => {
     const appTitle = useDefaultTitle();
-    const { record } = useEditContext(); // używamy `useEditContext` do dostępu do rekordu
+    const { record } = useEditContext();
     return (
         <>
             <title>{`${appTitle} - ${record ? record.name : ''}`}</title>
