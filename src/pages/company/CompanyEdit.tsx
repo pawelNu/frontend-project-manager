@@ -1,8 +1,10 @@
 import { Edit, SimpleForm, TextInput, required, useEditContext, useDefaultTitle } from 'react-admin';
+import { routes } from '../../config/routes';
+import { useNotFoundErrorHandler } from '../../hook/useStandardErrorHandler';
 
 const CompanyTitle = () => {
     const appTitle = useDefaultTitle();
-    const { record } = useEditContext(); // używamy `useEditContext` do dostępu do rekordu
+    const { record } = useEditContext();
     return (
         <>
             <title>{`${appTitle} - ${record ? record.name : ''}`}</title>
@@ -11,13 +13,16 @@ const CompanyTitle = () => {
     );
 };
 
-export const CompanyEdit = () => (
-    <Edit title={<CompanyTitle />} mutationMode="pessimistic">
-        <SimpleForm sx={{ maxWidth: 500 }}>
-            <TextInput source="name" label="Company Name" validate={required()} fullWidth />
-            <TextInput source="nip" label="NIP" validate={required()} fullWidth />
-            <TextInput source="regon" label="REGON" validate={required()} fullWidth />
-            <TextInput source="website" label="Website" validate={required()} fullWidth />
-        </SimpleForm>
-    </Edit>
-);
+export const CompanyEdit = () => {
+    const onError = useNotFoundErrorHandler(routes.company.list());
+    return (
+        <Edit title={<CompanyTitle />} mutationMode="pessimistic" queryOptions={{ onError }}>
+            <SimpleForm sx={{ maxWidth: 500 }}>
+                <TextInput source="name" label="Company Name" validate={required()} fullWidth />
+                <TextInput source="nip" label="NIP" validate={required()} fullWidth />
+                <TextInput source="regon" label="REGON" validate={required()} fullWidth />
+                <TextInput source="website" label="Website" validate={required()} fullWidth />
+            </SimpleForm>
+        </Edit>
+    );
+};

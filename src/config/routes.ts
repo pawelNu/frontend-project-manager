@@ -1,3 +1,11 @@
+const COMPANIES = '/companies';
+const COMPANY_ADDRESSES = '/company-addresses';
+const ADDRESSES = '/addresses';
+const COMPANY_CONTACTS = '/company-contacts';
+const COMPANY_CONTACT_EMPLOYEES = '/company-contact-employees';
+const CONTACTS = '/contacts';
+const CONTACT_EMPLOYESS = '/contact-employees';
+
 export const routes = {
     page: {
         main: () => '/',
@@ -33,18 +41,15 @@ export const routes = {
         create: () => '/companies/create',
         edit: (id: string) => `/companies/edit/${id}`,
         details: (id: string) => `/companies/details/${id}`,
+        show: (id: string | number) => `${COMPANIES}/${id}/show`,
+    },
+    companyAddress: {
+        list: () => `${COMPANY_ADDRESSES}`,
+        show: (id: string | number) => `${COMPANY_ADDRESSES}/${id}/show`,
     },
 };
 
 export const jsonServerApi = 'http://localhost:8080';
-
-const COMPANIES = '/companies';
-const COMPANY_ADDRESSES = '/company-addresses';
-const ADDRESSES = '/addresses';
-const COMPANY_CONTACTS = '/company-contacts';
-const COMPANY_CONTACT_EMPLOYEES = '/company-contact-employees';
-const CONTACTS = '/contacts';
-const CONTACT_EMPLOYESS = '/contact-employees';
 
 export const api = {
     company: {

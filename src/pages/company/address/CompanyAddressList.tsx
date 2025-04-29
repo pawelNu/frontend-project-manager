@@ -8,18 +8,15 @@ import {
     FilterButton,
     useListContext,
     TextInput,
-    UrlField,
     CreateButton,
     FunctionField,
-    Link,
 } from 'react-admin';
-import { DropdownActions } from '../../components/common/DropdownActions';
-import { routes } from '../../config/routes';
+import { DropdownActions } from '../../../components/common/DropdownActions';
 
 const listFilters = [
-    <TextInput source="name" label="Company Name" alwaysOn />,
-    <TextInput source="nip" label="NIP" />,
-    <TextInput source="regon" label="REGON" />,
+    <TextInput source="companyName" label="Company Name" alwaysOn />,
+    <TextInput source="city" label="City" />,
+    <TextInput source="street" label="Street" />,
 ];
 
 const ListActions = () => (
@@ -31,7 +28,7 @@ const ListActions = () => (
     </TopToolbar>
 );
 
-const CompanyTitle = () => {
+const CompanyAddressTitle = () => {
     const { defaultTitle } = useListContext();
     return (
         <>
@@ -40,15 +37,15 @@ const CompanyTitle = () => {
     );
 };
 
-export const CompanyList = () => (
+export const CompanyAddressList = () => (
     <List
         filters={listFilters}
         perPage={25}
-        sort={{ field: 'name', order: 'ASC' }}
+        sort={{ field: 'companyName', order: 'ASC' }}
         actions={<ListActions />}
-        title={<CompanyTitle />}>
+        title={<CompanyAddressTitle />}>
         <DatagridConfigurable
-            rowClick={false}
+            rowClick="expand"
             sx={{
                 '& .column-nip': {
                     display: { xs: 'none', md: 'table-cell' },
@@ -57,17 +54,15 @@ export const CompanyList = () => (
                     display: { xs: 'none', md: 'table-cell' },
                 },
             }}>
-            <FunctionField
-                label="Name"
-                render={(record) => (
-                    <Link to={routes.company.show(record.id)} /*style={{ textDecoration: 'none', color: 'inherit' }}*/>
-                        {record.name}
-                    </Link>
-                )}
-            />
-            <TextField source="nip" label="NIP" />
-            <TextField source="regon" label="REGON" />
-            <UrlField source="website" label="Website" target="_blank" />
+            <TextField source="companyName" />
+            <TextField source="street" />
+            <TextField source="streetNumber" />
+            <TextField source="city" />
+            <TextField source="zipCode" />
+            <TextField source="country" />
+            <TextField source="phoneNumber" />
+            <TextField source="emailAddress" />
+            <TextField source="addressType" />
             <FunctionField label="Actions" render={(record) => <DropdownActions record={record} />} />
         </DatagridConfigurable>
     </List>
