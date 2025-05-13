@@ -4,12 +4,6 @@ import LabelIcon from '@mui/icons-material/Label';
 import { useTranslate, DashboardMenuItem, MenuItemLink, MenuProps, useSidebarState } from 'react-admin';
 import clsx from 'clsx';
 
-import visitors from '../pages/visitors';
-import orders from '../pages/orders';
-import invoices from '../pages/invoices';
-import products from '../pages/products';
-import categories from '../pages/categories';
-import reviews from '../pages/reviews';
 import { SubMenu } from './SubMenu';
 import BusinessIcon from '@mui/icons-material/Business';
 
@@ -49,7 +43,7 @@ export const Menu = ({ dense = false }: MenuProps) => {
                 handleToggle={() => handleToggle('menuSales')}
                 isOpen={state.menuSales}
                 name="pos.menu.sales"
-                icon={<orders.icon />}
+                icon={<LabelIcon />}
                 dense={dense}>
                 <MenuItemLink
                     to="/orders"
@@ -57,7 +51,7 @@ export const Menu = ({ dense = false }: MenuProps) => {
                     primaryText={translate(`resources.orders.name`, {
                         smart_count: 2,
                     })}
-                    leftIcon={<orders.icon />}
+                    leftIcon={<LabelIcon />}
                     dense={dense}
                 />
                 <MenuItemLink
@@ -66,7 +60,7 @@ export const Menu = ({ dense = false }: MenuProps) => {
                     primaryText={translate(`resources.invoices.name`, {
                         smart_count: 2,
                     })}
-                    leftIcon={<invoices.icon />}
+                    leftIcon={<LabelIcon />}
                     dense={dense}
                 />
             </SubMenu>
@@ -74,7 +68,7 @@ export const Menu = ({ dense = false }: MenuProps) => {
                 handleToggle={() => handleToggle('menuCatalog')}
                 isOpen={state.menuCatalog}
                 name="pos.menu.catalog"
-                icon={<products.icon />}
+                icon={<LabelIcon />}
                 dense={dense}>
                 <MenuItemLink
                     to="/products"
@@ -82,7 +76,7 @@ export const Menu = ({ dense = false }: MenuProps) => {
                     primaryText={translate(`resources.products.name`, {
                         smart_count: 2,
                     })}
-                    leftIcon={<products.icon />}
+                    leftIcon={<LabelIcon />}
                     dense={dense}
                 />
                 <MenuItemLink
@@ -91,7 +85,7 @@ export const Menu = ({ dense = false }: MenuProps) => {
                     primaryText={translate(`resources.categories.name`, {
                         smart_count: 2,
                     })}
-                    leftIcon={<categories.icon />}
+                    leftIcon={<LabelIcon />}
                     dense={dense}
                 />
             </SubMenu>
@@ -99,7 +93,7 @@ export const Menu = ({ dense = false }: MenuProps) => {
                 handleToggle={() => handleToggle('menuCustomers')}
                 isOpen={state.menuCustomers}
                 name="pos.menu.customers"
-                icon={<visitors.icon />}
+                icon={<LabelIcon />}
                 dense={dense}>
                 <MenuItemLink
                     to="/customers"
@@ -107,7 +101,7 @@ export const Menu = ({ dense = false }: MenuProps) => {
                     primaryText={translate(`resources.customers.name`, {
                         smart_count: 2,
                     })}
-                    leftIcon={<visitors.icon />}
+                    leftIcon={<LabelIcon />}
                     dense={dense}
                 />
                 <MenuItemLink
@@ -126,7 +120,7 @@ export const Menu = ({ dense = false }: MenuProps) => {
                 primaryText={translate(`resources.reviews.name`, {
                     smart_count: 2,
                 })}
-                leftIcon={<reviews.icon />}
+                leftIcon={<LabelIcon />}
                 dense={dense}
             />
             <MenuItemLink
