@@ -1,6 +1,5 @@
 import polyglotI18nProvider from 'ra-i18n-polyglot';
 import { Admin, Resource, localStorageStore, useStore, StoreContextProvider } from 'react-admin';
-import authProvider from './authProvider';
 import englishMessages from './i18n/en';
 import { themes, ThemeName } from './themes/themes';
 import { CompanyList } from './pages/company/CompanyList';
@@ -14,8 +13,9 @@ import { CompanyAddressList } from './pages/company/address/CompanyAddressList';
 import { CompanyAddressShow } from './pages/company/address/CompanyAddressShow';
 import { CompanyAddressCreate } from './pages/company/address/CompanyAddressCreate';
 import { CompanyAddressEdit } from './pages/company/address/CompanyAddressEdit';
-import { Dashboard } from './pages/dashboard/Dashboard';
 import { routes } from './config/routes';
+import { Dashboard } from './pages/dashboard/Dashboard';
+import { authProvider } from './authProvider';
 
 const i18nProvider = polyglotI18nProvider(
     (locale) => {
