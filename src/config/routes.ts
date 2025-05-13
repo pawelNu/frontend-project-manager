@@ -17,7 +17,7 @@ export const routes = {
         show: (id: string | number) => `${COMPANIES}/${id}/show`,
     },
     companyAddress: {
-        name: () => `${COMPANIES}`.replace('/', ''),
+        name: () => `${COMPANY_ADDRESSES}`.replace('/', ''),
         list: () => `${COMPANY_ADDRESSES}`,
         show: (id: string | number) => `${COMPANY_ADDRESSES}/${id}/show`,
     },

@@ -52,7 +52,7 @@ export const Menu = ({ dense = false }: MenuProps) => {
             <SubMenu
                 handleToggle={() => handleToggle('menuCompanies')}
                 isOpen={state.menuCompanies}
-                name="pos.menu.customers"
+                name="Companies"
                 icon={<BusinessIcon />}
                 dense={dense}>
                 <MenuItemLink

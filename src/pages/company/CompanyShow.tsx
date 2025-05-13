@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography/Typography';
 import {
     ArrayField,
     Datagrid,
+    DeleteButton,
     EditButton,
     ListButton,
     Show,
@@ -25,6 +26,7 @@ const ShowActions = () => (
     <TopToolbar>
         <ListButton />
         <EditButton />
+        <DeleteButton />
     </TopToolbar>
 );
 

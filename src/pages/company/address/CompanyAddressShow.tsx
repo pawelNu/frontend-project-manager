@@ -1,4 +1,13 @@
-import { EditButton, ListButton, Show, SimpleShowLayout, TextField, TopToolbar, useRecordContext } from 'react-admin';
+import {
+    DeleteButton,
+    EditButton,
+    ListButton,
+    Show,
+    SimpleShowLayout,
+    TextField,
+    TopToolbar,
+    useRecordContext,
+} from 'react-admin';
 import { routes } from '../../../config/routes';
 import { useNotFoundErrorHandler } from '../../../hook/useStandardErrorHandler';
 
@@ -11,6 +20,7 @@ const ShowActions = () => (
     <TopToolbar>
         <ListButton />
         <EditButton />
+        <DeleteButton />
     </TopToolbar>
 );
 
