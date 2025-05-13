@@ -12,7 +12,8 @@ export const routes = {
         placeholder: () => '/placeholder',
     },
     company: {
-        list: (
+        list: () => `${COMPANIES}`,
+        listWithFilters: (
             pageNumber: string | number = 1,
             pageSize: string | number = 10,
             query: Map<string, string[]> = new Map(),
