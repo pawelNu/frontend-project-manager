@@ -45,7 +45,7 @@ const App = () => {
     const darkTheme = themes.find((theme) => theme.name === themeName)?.dark;
     return (
         <Admin
-            title="Posters Galore Admin"
+            title="Project Manager"
             dataProvider={dataProvider}
             store={store}
             authProvider={authProvider}

@@ -27,11 +27,7 @@ const ShowActions = () => (
 export const EmployeeShow = () => {
     const onError = useNotFoundErrorHandler(routes.companyAddress.list());
     return (
-        <Show
-            title={<EmployeeTitle />}
-            actions={<ShowActions />}
-            queryOptions={{ onError }}
-            emptyWhileLoading>
+        <Show title={<EmployeeTitle />} actions={<ShowActions />} queryOptions={{ onError }} emptyWhileLoading>
             <SimpleShowLayout>
                 <TextField source="companyName" />
                 <TextField source="street" />

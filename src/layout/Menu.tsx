@@ -76,7 +76,7 @@ export const Menu = ({ dense = false }: MenuProps) => {
                     dense={dense}
                 />
                 <MenuItemLink
-                    to={routes.companyAddress.list()}
+                    to={routes.employee.list()}
                     state={{ _scrollToTop: true }}
                     primaryText={translate(`Employee`, {
                         smart_count: 2,
