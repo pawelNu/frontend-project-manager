@@ -5,6 +5,8 @@ import clsx from 'clsx';
 import { SubMenu } from './SubMenu';
 import BusinessIcon from '@mui/icons-material/Business';
 import { routes } from '../config/routes';
+import PersonIcon from '@mui/icons-material/Person';
+import LocationCityIcon from '@mui/icons-material/LocationCity';
 
 type MenuName = 'menuCatalog' | 'menuSales' | 'menuCustomers' | 'menuCompanies';
 
@@ -70,7 +72,16 @@ export const Menu = ({ dense = false }: MenuProps) => {
                     primaryText={translate(`Company Addresses`, {
                         smart_count: 2,
                     })}
-                    leftIcon={<BusinessIcon />}
+                    leftIcon={<LocationCityIcon />}
+                    dense={dense}
+                />
+                <MenuItemLink
+                    to={routes.companyAddress.list()}
+                    state={{ _scrollToTop: true }}
+                    primaryText={translate(`Employee`, {
+                        smart_count: 2,
+                    })}
+                    leftIcon={<PersonIcon />}
                     dense={dense}
                 />
             </SubMenu>

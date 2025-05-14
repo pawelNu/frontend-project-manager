@@ -2,6 +2,7 @@ const COMPANIES = '/companies';
 const COMPANY_ADDRESSES = '/company-addresses';
 const ADDRESSES = '/addresses';
 const COMPANY_CONTACTS = '/company-contacts';
+const EMPLOYEES = '/employees';
 const COMPANY_CONTACT_EMPLOYEES = '/company-contact-employees';
 const CONTACTS = '/contacts';
 const CONTACT_EMPLOYESS = '/contact-employees';
@@ -20,6 +21,11 @@ export const routes = {
         name: () => `${COMPANY_ADDRESSES}`.replace('/', ''),
         list: () => `${COMPANY_ADDRESSES}`,
         show: (id: string | number) => `${COMPANY_ADDRESSES}/${id}/show`,
+    },
+    employee: {
+        name: () => `${EMPLOYEES}`.replace('/', ''),
+        list: () => `${EMPLOYEES}`,
+        show: (id: string | number) => `${EMPLOYEES}/${id}/show`,
     },
 };
 

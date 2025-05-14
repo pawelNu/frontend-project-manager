@@ -16,6 +16,10 @@ import { CompanyAddressEdit } from './pages/company/address/CompanyAddressEdit';
 import { routes } from './config/routes';
 import { Dashboard } from './pages/dashboard/Dashboard';
 import { authProvider } from './authProvider';
+import { EmployeeList } from './pages/company/employee/EmployeeList';
+import { EmployeeShow } from './pages/company/employee/EmployeeShow';
+import { EmployeeCreate } from './pages/company/employee/EmployeeCreate';
+import { EmployeeEdit } from './pages/company/employee/EmployeeEdit';
 
 const i18nProvider = polyglotI18nProvider(
     (locale) => {
@@ -68,9 +72,21 @@ const App = () => {
                 create={CompanyAddressCreate}
                 edit={CompanyAddressEdit}
             />
+            <Resource
+                name={routes.employee.name()}
+                list={EmployeeList}
+                show={EmployeeShow}
+                create={EmployeeCreate}
+                edit={EmployeeEdit}
+            />
         </Admin>
     );
 };
+
+// FIXME
+// GET http://localhost:8080/api/orders?filter={"date_gte":"2025-04-13T22:00:00.000Z"}&range=[0,49]&sort=["date","DESC"]
+// [HTTP/1.1 500  40ms]
+// HttpError2: No static resource api/orders.
 
 export const AppWrapper = () => (
     <StoreContextProvider value={store}>
