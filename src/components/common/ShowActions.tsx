@@ -1,4 +1,4 @@
-import { DeleteButton, EditButton, ListButton, TopToolbar } from "react-admin";
+import { DeleteButton, EditButton, ListButton, TopToolbar } from 'react-admin';
 
 export const ShowActions = () => (
     <TopToolbar>

@@ -1,9 +1,4 @@
-import {
-    Show,
-    SimpleShowLayout,
-    TextField,
-    useRecordContext,
-} from 'react-admin';
+import { Show, SimpleShowLayout, TextField, useRecordContext } from 'react-admin';
 import { routes } from '../../../config/routes';
 import { useNotFoundErrorHandler } from '../../../hook/useStandardErrorHandler';
 import { ShowActions } from '../../../components/common/ShowActions';
