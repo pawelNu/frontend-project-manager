@@ -12,21 +12,13 @@ import {
     FunctionField,
 } from 'react-admin';
 import { DropdownActions } from '../../../components/common/DropdownActions';
+import { ListActions } from '../../../components/common/ListActions';
 
 const listFilters = [
     <TextInput source="companyName" label="Company Name" alwaysOn />,
     <TextInput source="city" label="City" />,
     <TextInput source="street" label="Street" />,
 ];
-
-const ListActions = () => (
-    <TopToolbar>
-        <FilterButton />
-        <CreateButton />
-        <SelectColumnsButton />
-        <ExportButton />
-    </TopToolbar>
-);
 
 const CompanyAddressTitle = () => {
     const { defaultTitle } = useListContext();
