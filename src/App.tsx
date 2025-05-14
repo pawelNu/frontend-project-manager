@@ -56,7 +56,7 @@ const App = () => {
             disableTelemetry
             lightTheme={lightTheme}
             darkTheme={darkTheme}
-            defaultTheme="light"
+            defaultTheme="dark"
             requireAuth>
             <Resource
                 name={routes.company.name()}

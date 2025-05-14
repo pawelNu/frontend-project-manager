@@ -1,6 +1,7 @@
 import {
     AutocompleteInput,
     Create,
+    PasswordInput,
     SimpleForm,
     TextInput,
     required,
@@ -38,14 +39,12 @@ export const EmployeeCreate = () => {
                     fullWidth
                     isLoading={isLoading}
                 />
-                <TextInput source="street" label="Street" validate={required()} fullWidth />
-                <TextInput source="streetNumber" label="Street Number" validate={required()} fullWidth />
-                <TextInput source="city" label="City" validate={required()} fullWidth />
-                <TextInput source="zipCode" label="Zip Code" validate={required()} fullWidth />
-                <TextInput source="country" label="Country" validate={required()} fullWidth />
+                <TextInput source="firstName" label="First name" validate={required()} fullWidth />
+                <TextInput source="lastName" label="Last name" validate={required()} fullWidth />
+                <TextInput source="email" label="Email" validate={required()} fullWidth />
                 <TextInput source="phoneNumber" label="Phone Number" validate={required()} fullWidth />
-                <TextInput source="emailAddress" label="Email Address" validate={required()} fullWidth />
-                <TextInput source="addressType" label="Address Type" validate={required()} fullWidth />
+                <TextInput source="username" label="Username" validate={required()} fullWidth />
+                <PasswordInput source="password" label="Password" validate={required()} fullWidth />
             </SimpleForm>
         </Create>
     );
