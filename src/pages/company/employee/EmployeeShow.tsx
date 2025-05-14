@@ -5,7 +5,7 @@ import { ShowActions } from '../../../components/common/ShowActions';
 
 const EmployeeTitle = () => {
     const record = useRecordContext();
-    return <span>Company: {record?.name}</span>;
+    return <span>Employee: {`${record?.firstName} ${record?.lastName}`}</span>;
 };
 
 export const EmployeeShow = () => {

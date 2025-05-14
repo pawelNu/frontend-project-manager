@@ -1,9 +1,21 @@
-import { List, DatagridConfigurable, TextField, useListContext, TextInput, FunctionField, Link } from 'react-admin';
+import {
+    List,
+    DatagridConfigurable,
+    TextField,
+    useListContext,
+    TextInput,
+    FunctionField,
+    Filter,
+    CreateButton,
+    ExportButton,
+    FilterButton,
+    SelectColumnsButton,
+    TopToolbar,
+} from 'react-admin';
 import { DropdownActions } from '../../../components/common/DropdownActions';
 import { ListActions } from '../../../components/common/ListActions';
-import { routes } from '../../../config/routes';
 
-const listFilters = [
+const filters = [
     <TextInput source="lastName" label="Last Name" alwaysOn />,
     <TextInput source="firstName" label="First Name" />,
     <TextInput source="companyName" label="Company Name" />,
@@ -20,7 +32,7 @@ const EmployeeTitle = () => {
 
 export const EmployeeList = () => (
     <List
-        filters={listFilters}
+        filters={filters}
         perPage={25}
         sort={{ field: 'username', order: 'ASC' }}
         actions={<ListActions />}

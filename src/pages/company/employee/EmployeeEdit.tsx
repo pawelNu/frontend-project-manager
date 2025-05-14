@@ -8,7 +8,7 @@ const EmployeeTitle = () => {
     return (
         <>
             <title>{`${appTitle} - ${record ? record.name : ''}`}</title>
-            <span>{record ? record.name : 'Edit Company Address'}</span>
+            <span>{record ? record.name : 'Edit Employee'}</span>
         </>
     );
 };
@@ -19,14 +19,11 @@ export const EmployeeEdit = () => {
         <Edit title={<EmployeeTitle />} mutationMode="pessimistic" queryOptions={{ onError }}>
             <SimpleForm sx={{ maxWidth: 500 }}>
                 <TextInput source="companyName" label="Company Name" fullWidth readOnly />
-                <TextInput source="street" label="Street" validate={required()} fullWidth />
-                <TextInput source="streetNumber" label="Street Number" validate={required()} fullWidth />
-                <TextInput source="city" label="City" validate={required()} fullWidth />
-                <TextInput source="zipCode" label="Zip Code" validate={required()} fullWidth />
-                <TextInput source="country" label="Country" validate={required()} fullWidth />
+                <TextInput source="firstName" label="First name" validate={required()} fullWidth />
+                <TextInput source="lastName" label="Last name" validate={required()} fullWidth />
+                <TextInput source="email" label="Email" validate={required()} fullWidth />
                 <TextInput source="phoneNumber" label="Phone Number" validate={required()} fullWidth />
-                <TextInput source="emailAddress" label="Email Address" validate={required()} fullWidth />
-                <TextInput source="addressType" label="Address Type" validate={required()} fullWidth />
+                <TextInput source="username" label="Username" validate={required()} fullWidth />
             </SimpleForm>
         </Edit>
     );
