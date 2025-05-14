@@ -13,8 +13,13 @@ import { CompanyAddressList } from './pages/company/address/CompanyAddressList';
 import { CompanyAddressShow } from './pages/company/address/CompanyAddressShow';
 import { CompanyAddressCreate } from './pages/company/address/CompanyAddressCreate';
 import { CompanyAddressEdit } from './pages/company/address/CompanyAddressEdit';
-import { authProvider } from './authProvider';
+import { routes } from './config/routes';
 import { Dashboard } from './pages/dashboard/Dashboard';
+import { authProvider } from './authProvider';
+import { EmployeeList } from './pages/company/employee/EmployeeList';
+import { EmployeeShow } from './pages/company/employee/EmployeeShow';
+import { EmployeeCreate } from './pages/company/employee/EmployeeCreate';
+import { EmployeeEdit } from './pages/company/employee/EmployeeEdit';
 
 const i18nProvider = polyglotI18nProvider(
     (locale) => {
@@ -40,7 +45,7 @@ const App = () => {
     const darkTheme = themes.find((theme) => theme.name === themeName)?.dark;
     return (
         <Admin
-            title="Posters Galore Admin"
+            title="Project Manager"
             dataProvider={dataProvider}
             store={store}
             authProvider={authProvider}
@@ -51,34 +56,37 @@ const App = () => {
             disableTelemetry
             lightTheme={lightTheme}
             darkTheme={darkTheme}
-            defaultTheme="light"
+            defaultTheme="dark"
             requireAuth>
-            {/* <CustomRoutes>
-                <Route path="/segments" element={<Segments />} />
-            </CustomRoutes>
-            <Resource name="customers" {...visitors} />
-            <Resource name="orders" {...orders} />
-            <Resource name="invoices" {...invoices} />
-            <Resource name="products" {...products} />
-            <Resource name="categories" {...categories} />
-            <Resource name="reviews" {...reviews} /> */}
             <Resource
-                name="companies"
+                name={routes.company.name()}
                 list={CompanyList}
                 show={CompanyShow}
                 create={CompanyCreate}
                 edit={CompanyEdit}
             />
             <Resource
-                name="company-addresses"
+                name={routes.companyAddress.name()}
                 list={CompanyAddressList}
                 show={CompanyAddressShow}
                 create={CompanyAddressCreate}
                 edit={CompanyAddressEdit}
             />
+            <Resource
+                name={routes.employee.name()}
+                list={EmployeeList}
+                show={EmployeeShow}
+                create={EmployeeCreate}
+                edit={EmployeeEdit}
+            />
         </Admin>
     );
 };
+
+// FIXME
+// GET http://localhost:8080/api/orders?filter={"date_gte":"2025-04-13T22:00:00.000Z"}&range=[0,49]&sort=["date","DESC"]
+// [HTTP/1.1 500  40ms]
+// HttpError2: No static resource api/orders.
 
 export const AppWrapper = () => (
     <StoreContextProvider value={store}>

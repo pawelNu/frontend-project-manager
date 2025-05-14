@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography/Typography';
 import {
     ArrayField,
     Datagrid,
+    DeleteButton,
     EditButton,
     ListButton,
     Show,
@@ -15,18 +16,12 @@ import {
 } from 'react-admin';
 import { routes } from '../../config/routes';
 import { useNotFoundErrorHandler } from '../../hook/useStandardErrorHandler';
+import { ShowActions } from '../../components/common/ShowActions';
 
 const CompanyShowTitle = () => {
     const record = useRecordContext();
     return <span>Company: {record?.name}</span>;
 };
-
-const ShowActions = () => (
-    <TopToolbar>
-        <ListButton />
-        <EditButton />
-    </TopToolbar>
-);
 
 const AddressCard = () => {
     const record = useRecordContext();

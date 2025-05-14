@@ -2,34 +2,21 @@ import {
     List,
     DatagridConfigurable,
     TextField,
-    TopToolbar,
-    ExportButton,
-    SelectColumnsButton,
-    FilterButton,
     useListContext,
     TextInput,
     UrlField,
-    CreateButton,
     FunctionField,
     Link,
 } from 'react-admin';
 import { DropdownActions } from '../../components/common/DropdownActions';
 import { routes } from '../../config/routes';
+import { ListActions } from '../../components/common/ListActions';
 
 const listFilters = [
     <TextInput source="name" label="Company Name" alwaysOn />,
     <TextInput source="nip" label="NIP" />,
     <TextInput source="regon" label="REGON" />,
 ];
-
-const ListActions = () => (
-    <TopToolbar>
-        <FilterButton />
-        <CreateButton />
-        <SelectColumnsButton />
-        <ExportButton />
-    </TopToolbar>
-);
 
 const CompanyTitle = () => {
     const { defaultTitle } = useListContext();

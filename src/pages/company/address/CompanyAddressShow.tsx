@@ -1,18 +1,12 @@
-import { EditButton, ListButton, Show, SimpleShowLayout, TextField, TopToolbar, useRecordContext } from 'react-admin';
+import { Show, SimpleShowLayout, TextField, useRecordContext } from 'react-admin';
 import { routes } from '../../../config/routes';
 import { useNotFoundErrorHandler } from '../../../hook/useStandardErrorHandler';
+import { ShowActions } from '../../../components/common/ShowActions';
 
 const CompanyAddressShowTitle = () => {
     const record = useRecordContext();
     return <span>Company: {record?.name}</span>;
 };
-
-const ShowActions = () => (
-    <TopToolbar>
-        <ListButton />
-        <EditButton />
-    </TopToolbar>
-);
 
 export const CompanyAddressShow = () => {
     const onError = useNotFoundErrorHandler(routes.companyAddress.list());
