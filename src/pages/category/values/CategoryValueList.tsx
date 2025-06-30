@@ -34,7 +34,11 @@ export const CategoryValueList = () => (
             <FunctionField
                 label="CategoryValue Name"
                 render={(record) => (
-                    <Link to={routes.categoryValue.show(record.id)} /*style={{ textDecoration: 'none', color: 'inherit' }}*/>
+                    <Link
+                        to={routes.categoryValue.show(
+                            record.id,
+                        )} /*style={{ textDecoration: 'none', color: 'inherit' }}*/
+                    >
                         {record.name}
                     </Link>
                 )}
