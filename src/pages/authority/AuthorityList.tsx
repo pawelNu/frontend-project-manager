@@ -1,10 +1,8 @@
 import {
     List,
     DatagridConfigurable,
-    TextField,
     useListContext,
     TextInput,
-    UrlField,
     FunctionField,
     Link,
 } from 'react-admin';
@@ -13,9 +11,7 @@ import { routes } from '../../config/routes';
 import { ListActions } from '../../components/common/ListActions';
 
 const listFilters = [
-    <TextInput source="name" label="Company Name" alwaysOn />,
-    <TextInput source="nip" label="NIP" />,
-    <TextInput source="regon" label="REGON" />,
+    <TextInput source="name" label="Authority" alwaysOn />,
 ];
 
 const AuthorityTitle = () => {
@@ -45,7 +41,7 @@ export const AuthorityList = () => (
                 },
             }}>
             <FunctionField
-                label="Name"
+                label="name"
                 render={(record) => (
                     <Link
                         to={routes.authority.show(record.id)} /*style={{ textDecoration: 'none', color: 'inherit' }}*/
@@ -54,9 +50,6 @@ export const AuthorityList = () => (
                     </Link>
                 )}
             />
-            <TextField source="nip" label="NIP" />
-            <TextField source="regon" label="REGON" />
-            <UrlField source="website" label="Website" target="_blank" />
             <FunctionField label="Actions" render={(record) => <DropdownActions record={record} />} />
         </DatagridConfigurable>
     </List>
