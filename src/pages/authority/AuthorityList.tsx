@@ -1,18 +1,9 @@
-import {
-    List,
-    DatagridConfigurable,
-    useListContext,
-    TextInput,
-    FunctionField,
-    Link,
-} from 'react-admin';
+import { List, DatagridConfigurable, useListContext, TextInput, FunctionField, Link } from 'react-admin';
 import { DropdownActions } from '../../components/common/DropdownActions';
 import { routes } from '../../config/routes';
 import { ListActions } from '../../components/common/ListActions';
 
-const listFilters = [
-    <TextInput source="name" label="Authority" alwaysOn />,
-];
+const listFilters = [<TextInput source="name" label="Authority" alwaysOn />];
 
 const AuthorityTitle = () => {
     const { defaultTitle } = useListContext();
