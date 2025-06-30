@@ -18,10 +18,7 @@ export const AuthorityEdit = () => {
     return (
         <Edit title={<AuthorityTitle />} mutationMode="pessimistic" queryOptions={{ onError }}>
             <SimpleForm sx={{ maxWidth: 500 }}>
-                <TextInput source="name" label="Company Name" validate={required()} fullWidth />
-                <TextInput source="nip" label="NIP" validate={required()} fullWidth />
-                <TextInput source="regon" label="REGON" validate={required()} fullWidth />
-                <TextInput source="website" label="Website" validate={required()} fullWidth />
+                <TextInput source="name" label="Authority Name" validate={required()} fullWidth />
             </SimpleForm>
         </Edit>
     );

@@ -1,4 +1,5 @@
 import { Create, SimpleForm, TextInput, required, useCreateContext, useDefaultTitle } from 'react-admin';
+import { ShowActions } from '../../components/common/ShowActions';
 
 const CompanyTitle = () => {
     const appTitle = useDefaultTitle();
@@ -12,7 +13,7 @@ const CompanyTitle = () => {
 };
 
 export const CompanyCreate = () => (
-    <Create title={<CompanyTitle />} mutationMode="pessimistic">
+    <Create title={<CompanyTitle />} actions={<ShowActions />} mutationMode="pessimistic">
         <SimpleForm sx={{ maxWidth: 500 }}>
             <TextInput source="name" label="Company Name" validate={required()} fullWidth />
             <TextInput source="nip" label="NIP" validate={required()} fullWidth />

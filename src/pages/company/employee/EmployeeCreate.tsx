@@ -9,6 +9,7 @@ import {
     useDefaultTitle,
     useGetList,
 } from 'react-admin';
+import { ShowActions } from '../../../components/common/ShowActions';
 
 const EmployeeTitle = () => {
     const appTitle = useDefaultTitle();
@@ -27,7 +28,7 @@ export const EmployeeCreate = () => {
         sort: { field: 'name', order: 'ASC' },
     });
     return (
-        <Create title={<EmployeeTitle />} mutationMode="pessimistic">
+        <Create title={<EmployeeTitle />} actions={<ShowActions />} mutationMode="pessimistic">
             <SimpleForm sx={{ maxWidth: 500 }}>
                 <AutocompleteInput
                     source="companyId"
