@@ -69,6 +69,11 @@ const menuConfig: MenuEntry[] = [
                 label: 'Categories',
                 icon: <CategoryIcon />,
             },
+            {
+                to: routes.categoryValue.list(),
+                label: 'Category values',
+                icon: <CategoryIcon />,
+            },
         ],
     },
     {
