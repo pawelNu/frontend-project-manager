@@ -47,7 +47,9 @@ export const AuthorityList = () => (
             <FunctionField
                 label="Name"
                 render={(record) => (
-                    <Link to={routes.authority.show(record.id)} /*style={{ textDecoration: 'none', color: 'inherit' }}*/>
+                    <Link
+                        to={routes.authority.show(record.id)} /*style={{ textDecoration: 'none', color: 'inherit' }}*/
+                    >
                         {record.name}
                     </Link>
                 )}
