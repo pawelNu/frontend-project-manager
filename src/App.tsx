@@ -24,6 +24,10 @@ import { AuthorityList } from './pages/authority/AuthorityList';
 import { AuthorityShow } from './pages/authority/AuthorityShow';
 import { AuthorityCreate } from './pages/authority/AuthorityCreate';
 import { AuthorityEdit } from './pages/authority/AuthorityEdit';
+import { CategoryCreate } from './pages/category/CategoryCreate';
+import { CategoryEdit } from './pages/category/CategoryEdit';
+import { CategoryList } from './pages/category/CategoryList';
+import { CategoryShow } from './pages/category/CategoryShow';
 
 const i18nProvider = polyglotI18nProvider(
     (locale) => {
@@ -67,6 +71,13 @@ const App = () => {
                 show={AuthorityShow}
                 create={AuthorityCreate}
                 edit={AuthorityEdit}
+            />
+            <Resource
+                name={routes.category.name()}
+                list={CategoryList}
+                show={CategoryShow}
+                create={CategoryCreate}
+                edit={CategoryEdit}
             />
             <Resource
                 name={routes.company.name()}

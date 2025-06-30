@@ -9,7 +9,7 @@ const CategoryShowTitle = () => {
 };
 
 export const CategoryShow = () => {
-    const onError = useNotFoundErrorHandler(routes.Category.list());
+    const onError = useNotFoundErrorHandler(routes.category.list());
     return (
         <Show title={<CategoryShowTitle />} actions={<ShowActions />} queryOptions={{ onError }}>
             <SimpleShowLayout>

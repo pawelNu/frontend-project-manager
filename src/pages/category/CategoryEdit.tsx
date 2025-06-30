@@ -14,7 +14,7 @@ const CategoryTitle = () => {
 };
 
 export const CategoryEdit = () => {
-    const onError = useNotFoundErrorHandler(routes.Category.list());
+    const onError = useNotFoundErrorHandler(routes.category.list());
     return (
         <Edit title={<CategoryTitle />} mutationMode="pessimistic" queryOptions={{ onError }}>
             <SimpleForm sx={{ maxWidth: 500 }}>

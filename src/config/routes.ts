@@ -1,4 +1,5 @@
 const AUTHORITIES = '/authorities';
+const CATEGORIES = '/categories';
 const COMPANIES = '/companies';
 const COMPANY_ADDRESSES = '/company-addresses';
 const EMPLOYEES = '/employees';
@@ -12,6 +13,11 @@ export const routes = {
         name: () => `${AUTHORITIES}`.replace('/', ''),
         list: () => `${AUTHORITIES}`,
         show: (id: string | number) => `${AUTHORITIES}/${id}/show`,
+    },
+    category: {
+        name: () => `${CATEGORIES}`.replace('/', ''),
+        list: () => `${CATEGORIES}`,
+        show: (id: string | number) => `${CATEGORIES}/${id}/show`,
     },
     company: {
         name: () => `${COMPANIES}`.replace('/', ''),
