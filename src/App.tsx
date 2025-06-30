@@ -20,6 +20,10 @@ import { EmployeeList } from './pages/company/employee/EmployeeList';
 import { EmployeeShow } from './pages/company/employee/EmployeeShow';
 import { EmployeeCreate } from './pages/company/employee/EmployeeCreate';
 import { EmployeeEdit } from './pages/company/employee/EmployeeEdit';
+import { AuthorityList } from './pages/authority/AuthorityList';
+import { AuthorityShow } from './pages/authority/AuthorityShow';
+import { AuthorityCreate } from './pages/authority/AuthorityCreate';
+import { AuthorityEdit } from './pages/authority/AuthorityEdit';
 
 const i18nProvider = polyglotI18nProvider(
     (locale) => {
@@ -57,6 +61,13 @@ const App = () => {
             darkTheme={darkTheme}
             defaultTheme="dark"
             requireAuth>
+            <Resource
+                name={routes.authority.name()}
+                list={AuthorityList}
+                show={AuthorityShow}
+                create={AuthorityCreate}
+                edit={AuthorityEdit}
+            />
             <Resource
                 name={routes.company.name()}
                 list={CompanyList}

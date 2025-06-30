@@ -8,6 +8,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import { SubMenu } from './SubMenu';
 import { routes } from '../config/routes';
+import KeyIcon from '@mui/icons-material/Key';
 
 type MenuItem = {
     type: 'item';
@@ -63,6 +64,19 @@ const menuConfig: MenuEntry[] = [
                 to: routes.employee.list(),
                 label: 'Employee',
                 icon: <PersonIcon />,
+            },
+        ],
+    },
+    {
+        type: 'submenu',
+        name: 'menuAuthority',
+        label: 'Authority',
+        icon: <KeyIcon />,
+        children: [
+            {
+                to: routes.authority.list(),
+                label: 'Authority',
+                icon: <KeyIcon />,
             },
         ],
     },
