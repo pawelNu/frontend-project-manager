@@ -1,4 +1,4 @@
-import { Show, SimpleShowLayout, TextField, UrlField, useRecordContext } from 'react-admin';
+import { Show, SimpleShowLayout, TextField, useRecordContext } from 'react-admin';
 import { routes } from '../../config/routes';
 import { useNotFoundErrorHandler } from '../../hook/useStandardErrorHandler';
 import { ShowActions } from '../../components/common/ShowActions';
@@ -14,9 +14,7 @@ export const AuthorityShow = () => {
         <Show title={<AuthorityShowTitle />} actions={<ShowActions />} queryOptions={{ onError }}>
             <SimpleShowLayout>
                 <TextField source="name" label="Company Name" />
-                <TextField source="nip" label="NIP" />
-                <TextField source="regon" label="REGON" />
-                <UrlField source="website" label="Website" target="_blank" />
+                {/* TODO add list of employees who have this authority */}
             </SimpleShowLayout>
         </Show>
     );
