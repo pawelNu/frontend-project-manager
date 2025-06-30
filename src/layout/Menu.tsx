@@ -1,11 +1,6 @@
 import { useState, ReactElement } from 'react';
 import { Box } from '@mui/material';
-import {
-    useTranslate,
-    MenuItemLink,
-    MenuProps,
-    useSidebarState,
-} from 'react-admin';
+import { useTranslate, MenuItemLink, MenuProps, useSidebarState } from 'react-admin';
 import clsx from 'clsx';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import BusinessIcon from '@mui/icons-material/Business';
@@ -78,9 +73,7 @@ export const Menu = ({ dense = false }: MenuProps) => {
     const [open] = useSidebarState();
 
     const initialOpenState = Object.fromEntries(
-        menuConfig
-            .filter((entry): entry is MenuGroup => entry.type === 'submenu')
-            .map((entry) => [entry.name, true])
+        menuConfig.filter((entry): entry is MenuGroup => entry.type === 'submenu').map((entry) => [entry.name, true]),
     );
 
     const [state, setState] = useState<Record<string, boolean>>(initialOpenState);
@@ -107,8 +100,7 @@ export const Menu = ({ dense = false }: MenuProps) => {
             className={clsx({
                 'RaMenu-open': open,
                 'RaMenu-closed': !open,
-            })}
-        >
+            })}>
             {menuConfig.map((entry) => {
                 if (entry.type === 'item') {
                     return (
@@ -130,8 +122,7 @@ export const Menu = ({ dense = false }: MenuProps) => {
                         isOpen={state[entry.name]}
                         name={entry.label}
                         icon={entry.icon}
-                        dense={dense}
-                    >
+                        dense={dense}>
                         {entry.children.map((child) => (
                             <MenuItemLink
                                 key={child.to}
