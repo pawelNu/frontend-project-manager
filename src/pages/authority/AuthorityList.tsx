@@ -3,7 +3,7 @@ import { DropdownActions } from '../../components/common/DropdownActions';
 import { routes } from '../../config/routes';
 import { ListActions } from '../../components/common/ListActions';
 
-const listFilters = [<TextInput source="name" label="Authority" alwaysOn />];
+const listFilters = [<TextInput source="name" label="Authority Name" alwaysOn />];
 
 const AuthorityTitle = () => {
     const { defaultTitle } = useListContext();
@@ -32,7 +32,7 @@ export const AuthorityList = () => (
                 },
             }}>
             <FunctionField
-                label="name"
+                label="Authority Name"
                 render={(record) => (
                     <Link
                         to={routes.authority.show(record.id)} /*style={{ textDecoration: 'none', color: 'inherit' }}*/
