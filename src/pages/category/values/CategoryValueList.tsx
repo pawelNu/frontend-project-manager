@@ -1,4 +1,4 @@
-import { List, DatagridConfigurable, useListContext, TextInput, FunctionField, Link } from 'react-admin';
+import { List, DatagridConfigurable, useListContext, TextInput, FunctionField, Link, TextField } from 'react-admin';
 import { DropdownActions } from '../../../components/common/DropdownActions';
 import { routes } from '../../../config/routes';
 import { ListActions } from '../../../components/common/ListActions';
@@ -32,17 +32,20 @@ export const CategoryValueList = () => (
                 },
             }}>
             <FunctionField
-                label="CategoryValue Name"
+                label="Category Name"
                 render={(record) => (
                     <Link
                         to={routes.categoryValue.show(
                             record.id,
                         )} /*style={{ textDecoration: 'none', color: 'inherit' }}*/
                     >
-                        {record.name}
+                        {record.categoryName}
                     </Link>
                 )}
             />
+            <TextField source="numericValue" label="Numeric Value" />
+            <TextField source="stringValue" label="String Value" />
+            <TextField source="dateValue" label="Date Value" />
             <FunctionField label="Actions" render={(record) => <DropdownActions record={record} />} />
         </DatagridConfigurable>
     </List>
