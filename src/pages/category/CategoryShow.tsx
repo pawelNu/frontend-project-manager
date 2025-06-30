@@ -14,6 +14,7 @@ export const CategoryShow = () => {
         <Show title={<CategoryShowTitle />} actions={<ShowActions />} queryOptions={{ onError }}>
             <SimpleShowLayout>
                 <TextField source="name" label="Category Name" />
+                {/* TODO add view for all values for this category */}
             </SimpleShowLayout>
         </Show>
     );
