@@ -1,35 +1,103 @@
-import { useState } from 'react';
+import { useState, ReactElement } from 'react';
 import { Box } from '@mui/material';
-import { useTranslate, DashboardMenuItem, MenuItemLink, MenuProps, useSidebarState } from 'react-admin';
+import {
+    useTranslate,
+    MenuItemLink,
+    MenuProps,
+    useSidebarState,
+} from 'react-admin';
 import clsx from 'clsx';
-import { SubMenu } from './SubMenu';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import BusinessIcon from '@mui/icons-material/Business';
-import { routes } from '../config/routes';
 import PersonIcon from '@mui/icons-material/Person';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
+import { SubMenu } from './SubMenu';
+import { routes } from '../config/routes';
 
-type MenuName = 'menuCatalog' | 'menuSales' | 'menuCustomers' | 'menuCompanies';
+type MenuItem = {
+    type: 'item';
+    to: string;
+    label: string;
+    icon: ReactElement;
+};
+
+type MenuGroup = {
+    type: 'submenu';
+    name: string;
+    label: string;
+    icon: ReactElement;
+    children: {
+        to: string;
+        label: string;
+        icon: ReactElement;
+    }[];
+};
+
+type MenuEntry = MenuItem | MenuGroup;
+
+const menuConfig: MenuEntry[] = [
+    {
+        type: 'item',
+        to: '/',
+        label: 'ra.page.dashboard',
+        icon: <DashboardIcon />,
+    },
+    {
+        type: 'item',
+        to: '/reviews',
+        label: 'resources.reviews.name',
+        icon: <BusinessIcon />,
+    },
+    {
+        type: 'submenu',
+        name: 'menuCompanies',
+        label: 'Companies',
+        icon: <BusinessIcon />,
+        children: [
+            {
+                to: routes.company.list(),
+                label: 'Companies',
+                icon: <BusinessIcon />,
+            },
+            {
+                to: routes.companyAddress.list(),
+                label: 'Company Addresses',
+                icon: <LocationCityIcon />,
+            },
+            {
+                to: routes.employee.list(),
+                label: 'Employee',
+                icon: <PersonIcon />,
+            },
+        ],
+    },
+];
 
 export const Menu = ({ dense = false }: MenuProps) => {
-    const [state, setState] = useState({
-        menuCatalog: true,
-        menuSales: true,
-        menuCustomers: true,
-        menuCompanies: true,
-    });
     const translate = useTranslate();
     const [open] = useSidebarState();
 
-    const handleToggle = (menu: MenuName) => {
-        setState((state) => ({ ...state, [menu]: !state[menu] }));
+    const initialOpenState = Object.fromEntries(
+        menuConfig
+            .filter((entry): entry is MenuGroup => entry.type === 'submenu')
+            .map((entry) => [entry.name, true])
+    );
+
+    const [state, setState] = useState<Record<string, boolean>>(initialOpenState);
+
+    const handleToggle = (menuName: string) => {
+        setState((prev) => ({
+            ...prev,
+            [menuName]: !prev[menuName],
+        }));
     };
 
     return (
         <Box
             sx={{
                 width: open ? 200 : 50,
-                marginTop: 1,
-                marginBottom: 1,
+                mt: 1,
+                mb: 1,
                 transition: (theme) =>
                     theme.transitions.create('width', {
                         easing: theme.transitions.easing.sharp,
@@ -39,52 +107,44 @@ export const Menu = ({ dense = false }: MenuProps) => {
             className={clsx({
                 'RaMenu-open': open,
                 'RaMenu-closed': !open,
-            })}>
-            <DashboardMenuItem />
-            <MenuItemLink
-                to="/reviews"
-                state={{ _scrollToTop: true }}
-                primaryText={translate(`resources.reviews.name`, {
-                    smart_count: 2,
-                })}
-                leftIcon={<BusinessIcon />}
-                dense={dense}
-            />
+            })}
+        >
+            {menuConfig.map((entry) => {
+                if (entry.type === 'item') {
+                    return (
+                        <MenuItemLink
+                            key={entry.to}
+                            to={entry.to}
+                            state={{ _scrollToTop: true }}
+                            primaryText={translate(entry.label, { smart_count: 2 })}
+                            leftIcon={entry.icon}
+                            dense={dense}
+                        />
+                    );
+                }
 
-            <SubMenu
-                handleToggle={() => handleToggle('menuCompanies')}
-                isOpen={state.menuCompanies}
-                name="Companies"
-                icon={<BusinessIcon />}
-                dense={dense}>
-                <MenuItemLink
-                    to={routes.company.list()}
-                    state={{ _scrollToTop: true }}
-                    primaryText={translate(`Companies`, {
-                        smart_count: 2,
-                    })}
-                    leftIcon={<BusinessIcon />}
-                    dense={dense}
-                />
-                <MenuItemLink
-                    to={routes.companyAddress.list()}
-                    state={{ _scrollToTop: true }}
-                    primaryText={translate(`Company Addresses`, {
-                        smart_count: 2,
-                    })}
-                    leftIcon={<LocationCityIcon />}
-                    dense={dense}
-                />
-                <MenuItemLink
-                    to={routes.employee.list()}
-                    state={{ _scrollToTop: true }}
-                    primaryText={translate(`Employee`, {
-                        smart_count: 2,
-                    })}
-                    leftIcon={<PersonIcon />}
-                    dense={dense}
-                />
-            </SubMenu>
+                return (
+                    <SubMenu
+                        key={entry.name}
+                        handleToggle={() => handleToggle(entry.name)}
+                        isOpen={state[entry.name]}
+                        name={entry.label}
+                        icon={entry.icon}
+                        dense={dense}
+                    >
+                        {entry.children.map((child) => (
+                            <MenuItemLink
+                                key={child.to}
+                                to={child.to}
+                                state={{ _scrollToTop: true }}
+                                primaryText={translate(child.label, { smart_count: 2 })}
+                                leftIcon={child.icon}
+                                dense={dense}
+                            />
+                        ))}
+                    </SubMenu>
+                );
+            })}
         </Box>
     );
 };
