@@ -93,3 +93,17 @@ export const AppWrapper = () => (
         <App />
     </StoreContextProvider>
 );
+
+// TODO feat ui for api authority
+// TODO feat ui for api category
+// TODO feat ui for api category_values
+// TODO feat ui for api companies
+// TODO feat ui for api company_addresses
+// TODO feat ui for api employees
+// TODO feat ui for api employee_authorities
+// TODO feat ui for api projects
+// TODO feat ui for api project_steps
+// TODO feat ui for api project_step_comments
+// TODO feat ui for api tickets
+// TODO feat ui for api attachments
+// TODO feat ui for api ticket_histories
