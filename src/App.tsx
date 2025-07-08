@@ -63,7 +63,7 @@ const App = () => {
             dashboard={Dashboard}
             loginPage={Login}
             layout={CustomLayout}
-            i18nProvider={i18nProvider}
+            // i18nProvider={i18nProvider}
             disableTelemetry
             lightTheme={lightTheme}
             darkTheme={darkTheme}
