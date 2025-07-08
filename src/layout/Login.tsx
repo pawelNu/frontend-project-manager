@@ -5,7 +5,7 @@ import { Login as RaLogin, LoginForm } from 'react-admin';
 export const Login = () => (
     <RaLogin sx={{ background: 'none' }}>
         <Typography color="text.disabled" textAlign="center">
-            Hint: demo / demo
+            Hint: test / test
         </Typography>
         <LoginForm />
     </RaLogin>

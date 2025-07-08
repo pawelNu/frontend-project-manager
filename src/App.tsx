@@ -28,6 +28,10 @@ import { CategoryCreate } from './pages/category/CategoryCreate';
 import { CategoryEdit } from './pages/category/CategoryEdit';
 import { CategoryList } from './pages/category/CategoryList';
 import { CategoryShow } from './pages/category/CategoryShow';
+import { CategoryValueCreate } from './pages/category/values/CategoryValueCreate';
+import { CategoryValueEdit } from './pages/category/values/CategoryValueEdit';
+import { CategoryValueList } from './pages/category/values/CategoryValueList';
+import { CategoryValueShow } from './pages/category/values/CategoryValueShow';
 
 const i18nProvider = polyglotI18nProvider(
     (locale) => {
@@ -59,7 +63,7 @@ const App = () => {
             dashboard={Dashboard}
             loginPage={Login}
             layout={CustomLayout}
-            i18nProvider={i18nProvider}
+            // i18nProvider={i18nProvider}
             disableTelemetry
             lightTheme={lightTheme}
             darkTheme={darkTheme}
@@ -78,6 +82,13 @@ const App = () => {
                 show={CategoryShow}
                 create={CategoryCreate}
                 edit={CategoryEdit}
+            />
+            <Resource
+                name={routes.categoryValue.name()}
+                list={CategoryValueList}
+                show={CategoryValueShow}
+                create={CategoryValueCreate}
+                edit={CategoryValueEdit}
             />
             <Resource
                 name={routes.company.name()}
@@ -115,7 +126,6 @@ export const AppWrapper = () => (
     </StoreContextProvider>
 );
 
-// TODO feat ui for api category_values
 // TODO feat ui for api companies
 // TODO feat ui for api company_addresses
 // TODO feat ui for api employees

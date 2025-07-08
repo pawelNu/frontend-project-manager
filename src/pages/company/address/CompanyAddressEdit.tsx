@@ -1,6 +1,7 @@
 import { Edit, SimpleForm, TextInput, required, useDefaultTitle, useEditContext } from 'react-admin';
 import { routes } from '../../../config/routes';
 import { useNotFoundErrorHandler } from '../../../hook/useStandardErrorHandler';
+import { ShowActions } from '../../../components/common/ShowActions';
 
 const CompanyAddressTitle = () => {
     const appTitle = useDefaultTitle();
@@ -16,7 +17,11 @@ const CompanyAddressTitle = () => {
 export const CompanyAddressEdit = () => {
     const onError = useNotFoundErrorHandler(routes.companyAddress.list());
     return (
-        <Edit title={<CompanyAddressTitle />} mutationMode="pessimistic" queryOptions={{ onError }}>
+        <Edit
+            title={<CompanyAddressTitle />}
+            actions={<ShowActions />}
+            mutationMode="pessimistic"
+            queryOptions={{ onError }}>
             <SimpleForm sx={{ maxWidth: 500 }}>
                 <TextInput source="companyName" label="Company Name" fullWidth readOnly />
                 <TextInput source="street" label="Street" validate={required()} fullWidth />

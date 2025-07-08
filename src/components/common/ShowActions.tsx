@@ -1,9 +1,25 @@
-import { DeleteButton, EditButton, ListButton, TopToolbar } from 'react-admin';
+import { useContext } from 'react';
+import { DeleteButton, EditButton, EditContext, ListButton, ShowButton, ShowContext, TopToolbar } from 'react-admin';
 
-export const ShowActions = () => (
-    <TopToolbar>
-        <ListButton />
-        <EditButton />
-        <DeleteButton />
-    </TopToolbar>
-);
+export const ShowActions = () => {
+    const showContext = useContext(ShowContext);
+    const editContext = useContext(EditContext);
+
+    return (
+        <TopToolbar>
+            <ListButton />
+            {showContext && (
+                <>
+                    <EditButton />
+                    <DeleteButton />
+                </>
+            )}
+            {editContext && (
+                <>
+                    <ShowButton />
+                    <DeleteButton />
+                </>
+            )}
+        </TopToolbar>
+    );
+};
