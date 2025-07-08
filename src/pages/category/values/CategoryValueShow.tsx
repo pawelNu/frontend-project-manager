@@ -1,18 +1,13 @@
-import { Show, SimpleShowLayout, TextField, useRecordContext, useShowContext } from 'react-admin';
+import { Show, SimpleShowLayout, TextField, useShowContext } from 'react-admin';
 import { routes } from '../../../config/routes';
 import { useNotFoundErrorHandler } from '../../../hook/useStandardErrorHandler';
 import { ShowActions } from '../../../components/common/ShowActions';
+import { fields } from './CategoryValueShared';
 
 const CategoryValueShowTitle = () => {
     const { record } = useShowContext();
     return <span>CategoryValue: {record?.name}</span>;
 };
-
-const fields = [
-    { source: 'numericValue', label: 'Numeric Value' },
-    { source: 'stringValue', label: 'String Value' },
-    { source: 'dateValue', label: 'Date Value' },
-];
 
 const CategoryValueShowContent = () => {
     const { record } = useShowContext();
