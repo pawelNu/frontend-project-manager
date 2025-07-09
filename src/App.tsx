@@ -1,5 +1,5 @@
 import polyglotI18nProvider from 'ra-i18n-polyglot';
-import { Admin, Resource, localStorageStore, useStore, StoreContextProvider } from 'react-admin';
+import { Admin, Resource, localStorageStore, useStore, StoreContextProvider, CustomRoutes } from 'react-admin';
 import englishMessages from './i18n/en';
 import { themes, ThemeName } from './themes/themes';
 import { CompanyList } from './pages/company/CompanyList';
@@ -126,7 +126,6 @@ export const AppWrapper = () => (
     </StoreContextProvider>
 );
 
-// TODO feat ui for api companies
 // TODO feat ui for api company_addresses
 // TODO feat ui for api employees
 // TODO feat ui for api employee_authorities

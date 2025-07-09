@@ -27,6 +27,7 @@ export const authProvider: AuthProvider = {
     },
 
     logout: () => {
+        localStorage.removeItem('username');
         localStorage.removeItem('jwt');
         localStorage.removeItem('roles');
         localStorage.removeItem('userId');
@@ -34,17 +35,24 @@ export const authProvider: AuthProvider = {
         return Promise.resolve();
     },
 
+    // FIXME when you go to /login,
+    // it checks if there is a token and if there is not,
+    // it returns to the /login and so on.
     checkAuth: () => {
         const token = localStorage.getItem('jwt');
         const expireAt = localStorage.getItem('expireAt');
 
-        if (!token || !expireAt) return Promise.reject();
+        if (!token || !expireAt) {
+            return Promise.reject();
+        }
 
         const now = new Date();
         const expiry = new Date(expireAt);
 
         if (now > expiry) {
-            return Promise.reject(); // token wygasł
+            {
+                return Promise.reject();
+            }
         }
 
         return Promise.resolve();
@@ -52,8 +60,13 @@ export const authProvider: AuthProvider = {
 
     checkError: (error) => {
         const status = error.status;
-        if (status === 401) {
+        if (status === 401 || status === 403) {
             localStorage.removeItem('jwt');
+            localStorage.removeItem('roles');
+            localStorage.removeItem('userId');
+            localStorage.removeItem('expireAt');
+            // WAŻNE: Zwróć Promise.reject() aby React Admin wiedział, że ma przekierować
+            return Promise.reject();
         }
         return Promise.resolve();
     },
@@ -63,14 +76,17 @@ export const authProvider: AuthProvider = {
         return roles ? Promise.resolve(JSON.parse(roles)) : Promise.resolve([]);
     },
 
-    // FIXME wrong type
     getIdentity: () => {
-        try {
-            const id = localStorage.getItem('userId');
-            const username = localStorage.getItem('username'); // jeśli chcesz przechowywać
-            return Promise.resolve({ id, fullName: username });
-        } catch (error) {
-            return Promise.reject(error);
+        const id = localStorage.getItem('userId');
+        const username = localStorage.getItem('username');
+
+        if (!id) {
+            return Promise.resolve({ id: undefined, fullName: undefined });
         }
+
+        return Promise.resolve({
+            id,
+            fullName: username || 'User',
+        });
     },
 };
