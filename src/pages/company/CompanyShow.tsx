@@ -1,15 +1,7 @@
 import Card from '@mui/material//Card';
 import CardContent from '@mui/material//CardContent';
 import Typography from '@mui/material//Typography';
-import {
-    ArrayField,
-    Datagrid,
-    Show,
-    SimpleShowLayout,
-    TextField,
-    UrlField,
-    useRecordContext,
-} from 'react-admin';
+import { ArrayField, Datagrid, Show, SimpleShowLayout, TextField, UrlField, useRecordContext } from 'react-admin';
 import { routes } from '../../config/routes';
 import { useNotFoundErrorHandler } from '../../hook/useStandardErrorHandler';
 import { ShowActions } from '../../components/common/ShowActions';
