@@ -115,11 +115,6 @@ const App = () => {
     );
 };
 
-// FIXME
-// GET http://localhost:8080/api/orders?filter={"date_gte":"2025-04-13T22:00:00.000Z"}&range=[0,49]&sort=["date","DESC"]
-// [HTTP/1.1 500  40ms]
-// HttpError2: No static resource api/orders.
-
 export const AppWrapper = () => (
     <StoreContextProvider value={store}>
         <App />

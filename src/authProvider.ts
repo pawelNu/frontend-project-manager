@@ -2,8 +2,20 @@ import { AuthProvider } from 'react-admin';
 import { apiUrl } from './dataProvider/dataProviderRestApi';
 import { jwtDecode } from 'jwt-decode';
 
-export const authProvider: AuthProvider = {
-    login: async ({ username, password }) => {
+const PREFIX = 'authProvider:';
+
+function clearAuthStorage() {
+    localStorage.removeItem('username');
+    localStorage.removeItem('jwt');
+    // jwtManager.eraseToken()
+    localStorage.removeItem('roles');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('expireAt');
+}
+// TODO move code method by method and check when login go to infinite loop
+export const authProvider2: AuthProvider = {
+    async login({ username, password }) {
+        console.log(PREFIX + ' login:');
         const request = new Request(`${apiUrl}/auth/login`, {
             method: 'POST',
             body: JSON.stringify({ username, password }),
@@ -20,6 +32,7 @@ export const authProvider: AuthProvider = {
 
         // Zapisz dane do localStorage
         const payload = jwtDecode(jwtToken);
+        // jwtManager.setToken(jwtToken);
         localStorage.setItem('jwt', jwtToken);
         if (payload.sub) {
             localStorage.setItem('username', payload.sub);
@@ -30,63 +43,41 @@ export const authProvider: AuthProvider = {
 
         return Promise.resolve();
     },
-
-    logout: () => {
+    async checkError(error) {
+        console.log(PREFIX + ' checkError:');
+        const status = error.status;
+        if (status === 401) {
+            clearAuthStorage();
+            throw new Error('Session expired');
+        }
+        if (status === 403) {
+            throw new Error('Session expired');
+        }
+        // return Promise.resolve();
+    },
+    async checkAuth() {
+        console.log(PREFIX + ' checkAuth:');
+        if (!localStorage.getItem('username')) {
+            throw new Error('Not authenticated');
+        }
+    },
+    async logout() {
+        console.log(PREFIX + ' logout:');
         clearAuthStorage();
         return Promise.resolve();
     },
-
-    // FIXME when you go to /login,
-    // it checks if there is a token and if there is not,
-    // it returns to the /login and so on.
-    checkAuth: () => {
-        // if (window.location.hash.startsWith('#/login')) {
-        //     return Promise.resolve();
-        // }
-
-        const token = localStorage.getItem('jwt');
-        const expireAt = localStorage.getItem('expireAt');
-
-        if (!token || !expireAt) {
-            return Promise.reject();
-        }
-
-        const now = new Date();
-        const expiry = new Date(expireAt);
-
-        if (now > expiry) {
-            {
-                return Promise.reject();
-            }
-        }
-
-        return Promise.resolve();
-    },
-    // checkAuth: () => {
-    //     return Promise.resolve();
-    // },
-
-    checkError: (error) => {
-        const status = error.status;
-        if (status === 401 || status === 403) {
-            clearAuthStorage();
-            // WAŻNE: Zwróć Promise.reject() aby React Admin wiedział, że ma przekierować
-            return Promise.reject();
-        }
-        return Promise.resolve();
-    },
-
-    getPermissions: () => {
+    async getPermissions() {
+        console.log(PREFIX + ' getPermissions:');
         const roles = localStorage.getItem('roles');
         return roles ? Promise.resolve(JSON.parse(roles)) : Promise.resolve([]);
     },
-
-    getIdentity: () => {
+    async getIdentity() {
+        console.log(PREFIX + ' getIdentity:');
         const id = localStorage.getItem('userId');
         const username = localStorage.getItem('username');
 
         if (!id || !username) {
-            return Promise.reject();
+            throw new Error('Not authenticated');
         }
 
         return Promise.resolve({
@@ -96,10 +87,31 @@ export const authProvider: AuthProvider = {
     },
 };
 
-function clearAuthStorage() {
-    localStorage.removeItem('username');
-    localStorage.removeItem('jwt');
-    localStorage.removeItem('roles');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('expireAt');
-}
+const authProvider = {
+    async login({ username, password }) {
+        if (username !== 'john' || password !== '123') {
+            throw new Error('Login failed');
+        }
+        localStorage.setItem('username', username);
+    },
+    async checkError(error) {
+        const status = error.status;
+        if (status === 401 || status === 403) {
+            localStorage.removeItem('username');
+            throw new Error('Session expired');
+        }
+        // other error codes (404, 500, etc): no need to log out
+    },
+    async checkAuth() {
+        if (!localStorage.getItem('username')) {
+            throw new Error('Not authenticated');
+        }
+    },
+    async logout() {
+        localStorage.removeItem('username');
+    },
+    async getIdentity() {
+        const username = localStorage.getItem('username');
+        return { id: username, fullName: username };
+    },
+};
