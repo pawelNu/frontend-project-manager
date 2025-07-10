@@ -1,16 +1,12 @@
-import Card from '@mui/material/Card/Card';
-import CardContent from '@mui/material/CardContent/CardContent';
-import Typography from '@mui/material/Typography/Typography';
+import Card from '@mui/material//Card';
+import CardContent from '@mui/material//CardContent';
+import Typography from '@mui/material//Typography';
 import {
     ArrayField,
     Datagrid,
-    DeleteButton,
-    EditButton,
-    ListButton,
     Show,
     SimpleShowLayout,
     TextField,
-    TopToolbar,
     UrlField,
     useRecordContext,
 } from 'react-admin';
