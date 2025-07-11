@@ -121,8 +121,6 @@ export const AppWrapper = () => (
     </StoreContextProvider>
 );
 
-// TODO feat ui for api company_addresses
-// TODO feat ui for api employees
 // TODO feat ui for api employee_authorities
 // TODO feat ui for api projects
 // TODO feat ui for api project_steps

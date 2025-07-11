@@ -2,6 +2,11 @@ import { AuthProvider } from 'react-admin';
 import { apiUrl } from './dataProvider/dataProviderRestApi';
 import { jwtDecode } from 'jwt-decode';
 
+class AuthError extends Error {
+    logoutUser?: boolean;
+    redirectTo?: string | false;
+}
+
 const PREFIX = 'authProvider:';
 
 function clearAuthStorage() {
@@ -12,8 +17,8 @@ function clearAuthStorage() {
     localStorage.removeItem('userId');
     localStorage.removeItem('expireAt');
 }
-// TODO move code method by method and check when login go to infinite loop
-export const authProvider2: AuthProvider = {
+
+export const authProvider: AuthProvider = {
     async login({ username, password }) {
         console.log(PREFIX + ' login:');
         const request = new Request(`${apiUrl}/auth/login`, {
@@ -51,15 +56,19 @@ export const authProvider2: AuthProvider = {
             throw new Error('Session expired');
         }
         if (status === 403) {
-            throw new Error('Session expired');
+            const err = new AuthError('Brak uprawnień do wykonania tej operacji.');
+            err.logoutUser = false;
+            err.redirectTo = false;
+            throw err;
         }
-        // return Promise.resolve();
+        return Promise.resolve();
     },
     async checkAuth() {
         console.log(PREFIX + ' checkAuth:');
         if (!localStorage.getItem('username')) {
             throw new Error('Not authenticated');
         }
+        return Promise.resolve();
     },
     async logout() {
         console.log(PREFIX + ' logout:');
@@ -84,34 +93,5 @@ export const authProvider2: AuthProvider = {
             id,
             fullName: username,
         });
-    },
-};
-
-const authProvider = {
-    async login({ username, password }) {
-        if (username !== 'john' || password !== '123') {
-            throw new Error('Login failed');
-        }
-        localStorage.setItem('username', username);
-    },
-    async checkError(error) {
-        const status = error.status;
-        if (status === 401 || status === 403) {
-            localStorage.removeItem('username');
-            throw new Error('Session expired');
-        }
-        // other error codes (404, 500, etc): no need to log out
-    },
-    async checkAuth() {
-        if (!localStorage.getItem('username')) {
-            throw new Error('Not authenticated');
-        }
-    },
-    async logout() {
-        localStorage.removeItem('username');
-    },
-    async getIdentity() {
-        const username = localStorage.getItem('username');
-        return { id: username, fullName: username };
     },
 };
