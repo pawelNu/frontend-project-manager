@@ -1,5 +1,5 @@
 import polyglotI18nProvider from 'ra-i18n-polyglot';
-import { Admin, Resource, localStorageStore, useStore, StoreContextProvider } from 'react-admin';
+import { Admin, Resource, localStorageStore, useStore, StoreContextProvider, CustomRoutes } from 'react-admin';
 import englishMessages from './i18n/en';
 import { themes, ThemeName } from './themes/themes';
 import { CompanyList } from './pages/company/CompanyList';
@@ -115,20 +115,12 @@ const App = () => {
     );
 };
 
-// FIXME
-// GET http://localhost:8080/api/orders?filter={"date_gte":"2025-04-13T22:00:00.000Z"}&range=[0,49]&sort=["date","DESC"]
-// [HTTP/1.1 500  40ms]
-// HttpError2: No static resource api/orders.
-
 export const AppWrapper = () => (
     <StoreContextProvider value={store}>
         <App />
     </StoreContextProvider>
 );
 
-// TODO feat ui for api companies
-// TODO feat ui for api company_addresses
-// TODO feat ui for api employees
 // TODO feat ui for api employee_authorities
 // TODO feat ui for api projects
 // TODO feat ui for api project_steps

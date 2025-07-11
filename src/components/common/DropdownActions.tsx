@@ -1,7 +1,7 @@
-import Box from '@mui/material/Box/Box';
-import Button from '@mui/material/Button/Button';
-import Menu from '@mui/material/Menu/Menu';
-import MenuItem from '@mui/material/MenuItem/MenuItem';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 import { DeleteButton, EditButton, ShowButton } from 'react-admin';
 
