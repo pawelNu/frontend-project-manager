@@ -24,6 +24,10 @@ import { CompanyAddressCreate } from './pages/company/address/CompanyAddressCrea
 import { CompanyAddressEdit } from './pages/company/address/CompanyAddressEdit';
 import { CompanyCreate } from './pages/company/CompanyCreate';
 import { CompanyList } from './pages/company/CompanyList';
+import { EmployeeAuthorityList } from './pages/company/employee/authority/EmployeeAuthorityList';
+import { EmployeeAuthorityShow } from './pages/company/employee/authority/EmployeeAuthorityShow';
+import { EmployeeAuthorityCreate } from './pages/company/employee/authority/EmployeeAuthorityCreate';
+import { EmployeeAuthorityEdit } from './pages/company/employee/authority/EmployeeAuthorityEdit';
 
 export const AdminResources = [
     <Resource

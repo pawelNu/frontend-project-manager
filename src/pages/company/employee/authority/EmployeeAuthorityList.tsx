@@ -1,24 +1,12 @@
-import {
-    List,
-    DatagridConfigurable,
-    TextField,
-    useListContext,
-    TextInput,
-    FunctionField,
-    Filter,
-    CreateButton,
-    ExportButton,
-    FilterButton,
-    SelectColumnsButton,
-    TopToolbar,
-} from 'react-admin';
+import { List, DatagridConfigurable, TextField, useListContext, TextInput, FunctionField } from 'react-admin';
 import { DropdownActions } from '../../../../components/common/DropdownActions';
 import { ListActions } from '../../../../components/common/ListActions';
 
 const filters = [
-    <TextInput source="lastName" label="Last Name" alwaysOn />,
-    <TextInput source="firstName" label="First Name" />,
-    <TextInput source="companyName" label="Company Name" />,
+    <TextInput source="username" label="Username" alwaysOn />,
+    <TextInput source="authorityName" label="Authority Name" alwaysOn />,
+    <TextInput source="employeeFirstName" label="First Name" />,
+    <TextInput source="employeeLastName" label="Last Name" />,
 ];
 
 const EmployeeAuthorityTitle = () => {
@@ -38,12 +26,10 @@ export const EmployeeAuthorityList = () => (
         actions={<ListActions />}
         title={<EmployeeAuthorityTitle />}>
         <DatagridConfigurable rowClick="expand">
-            <TextField source="firstName" />
-            <TextField source="lastName" />
             <TextField source="username" />
-            <TextField source="email" />
-            <TextField source="phoneNumber" />
-            <TextField source="companyName" />
+            <TextField source="employeeFirstName" />
+            <TextField source="employeeLastName" />
+            <TextField source="authorityName" />
             <FunctionField label="Actions" render={(record) => <DropdownActions record={record} />} />
         </DatagridConfigurable>
     </List>
