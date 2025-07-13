@@ -1,9 +1,8 @@
 import {
+    AutocompleteArrayInput,
     AutocompleteInput,
     Create,
-    PasswordInput,
     SimpleForm,
-    TextInput,
     required,
     useCreateContext,
     useDefaultTitle,
@@ -23,29 +22,38 @@ const EmployeeAuthorityTitle = () => {
 };
 
 export const EmployeeAuthorityCreate = () => {
-    const { data: companies, isLoading } = useGetList('companies', {
+    const employees = useGetList('employees', {
         pagination: { page: 1, perPage: 9999 },
-        sort: { field: 'name', order: 'ASC' },
+        sort: { field: 'id', order: 'ASC' },
+    });
+
+    const authorities = useGetList('authorities', {
+        pagination: { page: 1, perPage: 9999 },
+        sort: { field: 'id', order: 'ASC' },
     });
     return (
         <Create title={<EmployeeAuthorityTitle />} actions={<ShowActions />} mutationMode="pessimistic">
             <SimpleForm sx={{ maxWidth: 500 }}>
                 <AutocompleteInput
-                    source="companyId"
-                    label="Company"
-                    choices={companies ?? []}
+                    source="employeeId"
+                    label="Employee"
+                    choices={employees.data ?? []}
+                    optionText={(record) => `${record.firstName} ${record.lastName} - ${record.username}`}
+                    optionValue="id"
+                    validate={required()}
+                    fullWidth
+                    isLoading={employees.isLoading}
+                />
+                <AutocompleteArrayInput
+                    source="authorityIds"
+                    label="Authority"
+                    choices={authorities.data ?? []}
                     optionText="name"
                     optionValue="id"
                     validate={required()}
                     fullWidth
-                    isLoading={isLoading}
+                    isLoading={authorities.isLoading}
                 />
-                <TextInput source="firstName" label="First name" validate={required()} fullWidth />
-                <TextInput source="lastName" label="Last name" validate={required()} fullWidth />
-                <TextInput source="email" label="Email" validate={required()} fullWidth />
-                <TextInput source="phoneNumber" label="Phone Number" validate={required()} fullWidth />
-                <TextInput source="username" label="Username" validate={required()} fullWidth />
-                <PasswordInput source="password" label="Password" validate={required()} fullWidth />
             </SimpleForm>
         </Create>
     );

@@ -3,10 +3,11 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
-import { DeleteButton, EditButton, ShowButton } from 'react-admin';
+import { DeleteButton, EditButton, ShowButton, useNotify } from 'react-admin';
 
 export const DropdownActions = ({ record }: any) => {
     const [anchorEl, setAnchorEl] = useState(null);
+    const notify = useNotify();
 
     const handleClick = (event: any) => {
         setAnchorEl(event.currentTarget);
@@ -29,7 +30,15 @@ export const DropdownActions = ({ record }: any) => {
                     <EditButton record={record} />
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
-                    <DeleteButton record={record} />
+                    <DeleteButton
+                        record={record}
+                        redirect={false}
+                        mutationOptions={{
+                            onError: (error) => {
+                                notify('Błąd usuwania: brak uprawnień', { type: 'error' });
+                            },
+                        }}
+                    />
                 </MenuItem>
             </Menu>
         </Box>

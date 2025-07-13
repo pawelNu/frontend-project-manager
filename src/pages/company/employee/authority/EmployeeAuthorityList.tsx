@@ -17,7 +17,8 @@ const EmployeeAuthorityTitle = () => {
         </>
     );
 };
-
+// FIXME when delete item and 403 then item get back to list
+// without any notification, add notification
 export const EmployeeAuthorityList = () => (
     <List
         filters={filters}
