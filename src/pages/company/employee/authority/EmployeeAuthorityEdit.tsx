@@ -17,7 +17,11 @@ const EmployeeAuthorityTitle = () => {
 export const EmployeeAuthorityEdit = () => {
     const onError = useNotFoundErrorHandler(routes.employeeAuthority.list());
     return (
-        <Edit title={<EmployeeAuthorityTitle />} actions={<ShowActions />} mutationMode="pessimistic" queryOptions={{ onError }}>
+        <Edit
+            title={<EmployeeAuthorityTitle />}
+            actions={<ShowActions />}
+            mutationMode="pessimistic"
+            queryOptions={{ onError }}>
             <SimpleForm sx={{ maxWidth: 500 }}>
                 <TextInput source="companyName" label="Company Name" fullWidth readOnly />
                 <TextInput source="firstName" label="First name" validate={required()} fullWidth />
