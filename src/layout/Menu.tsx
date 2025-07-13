@@ -56,6 +56,11 @@ const menuConfig: MenuEntry[] = [
                 label: 'Authority',
                 icon: <KeyIcon />,
             },
+            {
+                to: routes.employeeAuthority.list(),
+                label: 'Employee Authorities',
+                icon: <KeyIcon />,
+            },
         ],
     },
     {

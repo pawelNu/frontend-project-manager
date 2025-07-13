@@ -1,9 +1,9 @@
 import { Edit, SimpleForm, TextInput, required, useDefaultTitle, useEditContext } from 'react-admin';
-import { routes } from '../../../config/routes';
-import { useNotFoundErrorHandler } from '../../../hook/useStandardErrorHandler';
-import { ShowActions } from '../../../components/common/ShowActions';
+import { routes } from '../../../../config/routes';
+import { useNotFoundErrorHandler } from '../../../../hook/useStandardErrorHandler';
+import { ShowActions } from '../../../../components/common/ShowActions';
 
-const EmployeeTitle = () => {
+const EmployeeAuthorityTitle = () => {
     const appTitle = useDefaultTitle();
     const { record } = useEditContext();
     return (
@@ -14,10 +14,10 @@ const EmployeeTitle = () => {
     );
 };
 
-export const EmployeeEdit = () => {
+export const EmployeeAuthorityEdit = () => {
     const onError = useNotFoundErrorHandler(routes.employeeAuthority.list());
     return (
-        <Edit title={<EmployeeTitle />} actions={<ShowActions />} mutationMode="pessimistic" queryOptions={{ onError }}>
+        <Edit title={<EmployeeAuthorityTitle />} actions={<ShowActions />} mutationMode="pessimistic" queryOptions={{ onError }}>
             <SimpleForm sx={{ maxWidth: 500 }}>
                 <TextInput source="companyName" label="Company Name" fullWidth readOnly />
                 <TextInput source="firstName" label="First name" validate={required()} fullWidth />
