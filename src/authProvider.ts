@@ -2,7 +2,6 @@ import { AuthProvider } from 'react-admin';
 import { apiUrl } from './dataProvider/dataProviderRestApi';
 import { jwtDecode } from 'jwt-decode';
 
-
 const PREFIX = 'authProvider:';
 
 function clearAuthStorage() {
