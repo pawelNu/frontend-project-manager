@@ -30,15 +30,7 @@ export const DropdownActions = ({ record }: any) => {
                     <EditButton record={record} />
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
-                    <DeleteButton
-                        record={record}
-                        redirect={false}
-                        mutationOptions={{
-                            onError: (error) => {
-                                notify('Błąd usuwania: brak uprawnień', { type: 'error' });
-                            },
-                        }}
-                    />
+                    <DeleteButton record={record} redirect={false} />
                 </MenuItem>
             </Menu>
         </Box>

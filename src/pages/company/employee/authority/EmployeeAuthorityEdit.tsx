@@ -23,12 +23,7 @@ export const EmployeeAuthorityEdit = () => {
             mutationMode="pessimistic"
             queryOptions={{ onError }}>
             <SimpleForm sx={{ maxWidth: 500 }}>
-                <TextInput source="companyName" label="Company Name" fullWidth readOnly />
-                <TextInput source="firstName" label="First name" validate={required()} fullWidth />
-                <TextInput source="lastName" label="Last name" validate={required()} fullWidth />
-                <TextInput source="email" label="Email" validate={required()} fullWidth />
-                <TextInput source="phoneNumber" label="Phone Number" validate={required()} fullWidth />
-                <TextInput source="username" label="Username" validate={required()} fullWidth />
+                <TextInput source="authorityName" label="Authority Name" validate={required()} fullWidth />
             </SimpleForm>
         </Edit>
     );

@@ -14,12 +14,7 @@ export const EmployeeAuthorityShow = () => {
     return (
         <Show title={<EmployeeAuthorityTitle />} actions={<ShowActions />} queryOptions={{ onError }} emptyWhileLoading>
             <SimpleShowLayout>
-                <TextField source="firstName" />
-                <TextField source="lastName" />
-                <TextField source="username" />
-                <TextField source="email" />
-                <TextField source="phoneNumber" />
-                <TextField source="companyName" />
+                <TextField source="authorityName" />
             </SimpleShowLayout>
         </Show>
     );
