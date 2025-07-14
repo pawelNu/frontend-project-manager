@@ -4,11 +4,17 @@ import { jwtDecode } from 'jwt-decode';
 
 const PREFIX = 'authProvider:';
 
+type Permission = {
+    resource: string;
+    action: string;
+};
+
 function clearAuthStorage() {
     localStorage.removeItem('username');
     localStorage.removeItem('jwt');
     // jwtManager.eraseToken()
     localStorage.removeItem('roles');
+    localStorage.removeItem('permissions');
     localStorage.removeItem('userId');
     localStorage.removeItem('expireAt');
 }
@@ -28,7 +34,7 @@ export const authProvider: AuthProvider = {
             throw new Error('Login failed');
         }
 
-        const { jwtToken, roles, expireAt, id } = await response.json();
+        const { jwtToken, roles, expireAt, id, frontendAuthorities } = await response.json();
 
         // Zapisz dane do localStorage
         const payload = jwtDecode(jwtToken);
@@ -38,6 +44,7 @@ export const authProvider: AuthProvider = {
             localStorage.setItem('username', payload.sub);
         }
         localStorage.setItem('roles', JSON.stringify(roles));
+        localStorage.setItem('permissions', JSON.stringify(frontendAuthorities));
         localStorage.setItem('userId', id);
         localStorage.setItem('expireAt', expireAt);
 
@@ -52,8 +59,8 @@ export const authProvider: AuthProvider = {
         }
         if (status === 403) {
             const err = new Error('Brak uprawnień do wykonania tej operacji.');
-            err.logoutUser = false;
-            err.redirectTo = false;
+            // err.logoutUser = false;
+            // err.redirectTo = false;
             throw err;
         }
         return Promise.resolve();
@@ -74,6 +81,21 @@ export const authProvider: AuthProvider = {
         console.log(PREFIX + ' getPermissions:');
         const roles = localStorage.getItem('roles');
         return roles ? Promise.resolve(JSON.parse(roles)) : Promise.resolve([]);
+    },
+    async canAccess({ resource, action }) {
+        console.log(PREFIX + ' canAccess:');
+        const permissionsString = localStorage.getItem('permissions');
+        if (!permissionsString) return false;
+
+        let permissions: Permission[];
+        try {
+            permissions = JSON.parse(permissionsString);
+        } catch (e) {
+            console.error('Invalid permissions in localStorage', e);
+            return false;
+        }
+
+        return permissions.some((p) => p.resource === resource && p.action === action);
     },
     async getIdentity() {
         console.log(PREFIX + ' getIdentity:');
