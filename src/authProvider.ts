@@ -2,11 +2,6 @@ import { AuthProvider } from 'react-admin';
 import { apiUrl } from './dataProvider/dataProviderRestApi';
 import { jwtDecode } from 'jwt-decode';
 
-class AuthError extends Error {
-    logoutUser?: boolean;
-    redirectTo?: string | false;
-}
-
 const PREFIX = 'authProvider:';
 
 function clearAuthStorage() {
@@ -56,7 +51,7 @@ export const authProvider: AuthProvider = {
             throw new Error('Session expired');
         }
         if (status === 403) {
-            const err = new AuthError('Brak uprawnień do wykonania tej operacji.');
+            const err = new Error('Brak uprawnień do wykonania tej operacji.');
             err.logoutUser = false;
             err.redirectTo = false;
             throw err;

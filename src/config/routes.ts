@@ -1,4 +1,5 @@
 const AUTHORITIES = '/authorities';
+const EMPLOYEE_AUTHORITIES = '/employee-authorities';
 const CATEGORIES = '/categories';
 const CATEGORY_VALUES = '/category-values';
 const COMPANIES = '/companies';
@@ -39,5 +40,10 @@ export const routes = {
         name: () => `${EMPLOYEES}`.replace('/', ''),
         list: () => `${EMPLOYEES}`,
         show: (id: string | number) => `${EMPLOYEES}/${id}/show`,
+    },
+    employeeAuthority: {
+        name: () => `${EMPLOYEE_AUTHORITIES}`.replace('/', ''),
+        list: () => `${EMPLOYEE_AUTHORITIES}`,
+        show: (id: string | number) => `${EMPLOYEE_AUTHORITIES}/${id}/show`,
     },
 };

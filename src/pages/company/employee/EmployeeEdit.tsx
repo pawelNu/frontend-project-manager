@@ -15,7 +15,7 @@ const EmployeeTitle = () => {
 };
 
 export const EmployeeEdit = () => {
-    const onError = useNotFoundErrorHandler(routes.companyAddress.list());
+    const onError = useNotFoundErrorHandler(routes.employeeAuthority.list());
     return (
         <Edit title={<EmployeeTitle />} actions={<ShowActions />} mutationMode="pessimistic" queryOptions={{ onError }}>
             <SimpleForm sx={{ maxWidth: 500 }}>
