@@ -3,17 +3,17 @@ import { routes } from '../../config/routes';
 import { useNotFoundErrorHandler } from '../../hook/useStandardErrorHandler';
 import { ShowActions } from '../../components/common/ShowActions';
 
-const AuthorityShowTitle = () => {
+const ProjectShowTitle = () => {
     const record = useRecordContext();
-    return <span>Authority: {record?.name}</span>;
+    return <span>Project: {record?.name}</span>;
 };
 
-export const AuthorityShow = () => {
-    const onError = useNotFoundErrorHandler(routes.authority.list());
+export const ProjectShow = () => {
+    const onError = useNotFoundErrorHandler(routes.project.list());
     return (
-        <Show title={<AuthorityShowTitle />} actions={<ShowActions />} queryOptions={{ onError }}>
+        <Show title={<ProjectShowTitle />} actions={<ShowActions />} queryOptions={{ onError }}>
             <SimpleShowLayout>
-                <TextField source="name" label="Authority Name" />
+                <TextField source="name" label="Project Name" />
                 {/* TODO add list of employees who have this authority */}
             </SimpleShowLayout>
         </Show>

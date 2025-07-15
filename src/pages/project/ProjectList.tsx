@@ -1,7 +1,17 @@
-import { List, DatagridConfigurable, useListContext, TextInput, FunctionField, Link } from 'react-admin';
+import {
+    List,
+    DatagridConfigurable,
+    useListContext,
+    TextInput,
+    FunctionField,
+    Link,
+    TextField,
+    useRecordContext,
+} from 'react-admin';
 import { DropdownActions } from '../../components/common/DropdownActions';
 import { routes } from '../../config/routes';
 import { ListActions } from '../../components/common/ListActions';
+import { NameLinkField } from '../../components/common/NameLinkField';
 
 const listFilters = [<TextInput source="name" label="Project Name" alwaysOn />];
 
@@ -31,14 +41,11 @@ export const ProjectList = () => (
                     display: { xs: 'none', md: 'table-cell' },
                 },
             }}>
-            <FunctionField
-                label="Project Name"
-                render={(record) => (
-                    <Link to={routes.project.show(record.id)} /*style={{ textDecoration: 'none', color: 'inherit' }}*/>
-                        {record.name}
-                    </Link>
-                )}
-            />
+            <NameLinkField source="name" label="Project Name" resource="project" />
+            <TextField source="categoryValue" label="Category" />
+            <TextField source="companyName" label="Company" />
+            <TextField source="assignedEmployee" label="Employee" />
+            <TextField source="priorityValue" label="Priority" />
             <FunctionField label="Actions" render={(record) => <DropdownActions record={record} />} />
         </DatagridConfigurable>
     </List>
