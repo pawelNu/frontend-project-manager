@@ -34,9 +34,7 @@ export const ProjectList = () => (
             <FunctionField
                 label="Project Name"
                 render={(record) => (
-                    <Link
-                        to={routes.project.show(record.id)} /*style={{ textDecoration: 'none', color: 'inherit' }}*/
-                    >
+                    <Link to={routes.project.show(record.id)} /*style={{ textDecoration: 'none', color: 'inherit' }}*/>
                         {record.name}
                     </Link>
                 )}

@@ -17,11 +17,7 @@ const ProjectTitle = () => {
 export const ProjectEdit = () => {
     const onError = useNotFoundErrorHandler(routes.Project.list());
     return (
-        <Edit
-            title={<ProjectTitle />}
-            actions={<ShowActions />}
-            mutationMode="pessimistic"
-            queryOptions={{ onError }}>
+        <Edit title={<ProjectTitle />} actions={<ShowActions />} mutationMode="pessimistic" queryOptions={{ onError }}>
             <SimpleForm sx={{ maxWidth: 500 }}>
                 <TextInput source="name" label="Project Name" validate={required()} fullWidth />
             </SimpleForm>
