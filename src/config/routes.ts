@@ -5,6 +5,7 @@ const CATEGORY_VALUES = '/category-values';
 const COMPANIES = '/companies';
 const COMPANY_ADDRESSES = '/company-addresses';
 const EMPLOYEES = '/employees';
+const PROJECTS = '/projects';
 
 export const routes = {
     page: {
@@ -45,5 +46,10 @@ export const routes = {
         name: () => `${EMPLOYEE_AUTHORITIES}`.replace('/', ''),
         list: () => `${EMPLOYEE_AUTHORITIES}`,
         show: (id: string | number) => `${EMPLOYEE_AUTHORITIES}/${id}/show`,
+    },
+    project: {
+        name: () => `${PROJECTS}`.replace('/', ''),
+        list: () => `${PROJECTS}`,
+        show: (id: string | number) => `${PROJECTS}/${id}/show`,
     },
 };
