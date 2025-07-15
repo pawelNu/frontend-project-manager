@@ -11,6 +11,7 @@ import {
 import { DropdownActions } from '../../components/common/DropdownActions';
 import { routes } from '../../config/routes';
 import { ListActions } from '../../components/common/ListActions';
+import { NameLinkField } from '../../components/common/NameLinkField';
 
 const listFilters = [
     <TextInput source="name" label="Company Name" alwaysOn />,
@@ -44,14 +45,7 @@ export const CompanyList = () => (
                     display: { xs: 'none', md: 'table-cell' },
                 },
             }}>
-            <FunctionField
-                label="Name"
-                render={(record) => (
-                    <Link to={routes.company.show(record.id)} /*style={{ textDecoration: 'none', color: 'inherit' }}*/>
-                        {record.name}
-                    </Link>
-                )}
-            />
+            <NameLinkField source="name" resource="company" />
             <TextField source="nip" label="NIP" />
             <TextField source="regon" label="REGON" />
             <UrlField source="website" label="Website" target="_blank" />

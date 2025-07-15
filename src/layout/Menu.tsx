@@ -112,7 +112,7 @@ const menuConfig: MenuEntry[] = [
         icon: <AppRegistrationIcon />,
         children: [
             {
-                to: routes.company.list(),
+                to: routes.project.list(),
                 label: 'Projects',
                 icon: <AppRegistrationIcon />,
             },

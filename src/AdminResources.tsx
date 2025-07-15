@@ -28,6 +28,10 @@ import { EmployeeAuthorityList } from './pages/company/employee/authority/Employ
 import { EmployeeAuthorityShow } from './pages/company/employee/authority/EmployeeAuthorityShow';
 import { EmployeeAuthorityCreate } from './pages/company/employee/authority/EmployeeAuthorityCreate';
 import { EmployeeAuthorityEdit } from './pages/company/employee/authority/EmployeeAuthorityEdit';
+import { ProjectList } from './pages/project/ProjectList';
+import { ProjectCreate } from './pages/project/ProjectCreate';
+import { ProjectEdit } from './pages/project/ProjectEdit';
+import { ProjectShow } from './pages/project/ProjectShow';
 
 export const AdminResources = [
     <Resource
@@ -78,6 +82,13 @@ export const AdminResources = [
         show={EmployeeShow}
         create={EmployeeCreate}
         edit={EmployeeEdit}
+    />,
+    <Resource
+        name={routes.project.name()}
+        list={ProjectList}
+        show={ProjectShow}
+        create={ProjectCreate}
+        edit={ProjectEdit}
     />,
 ];
 

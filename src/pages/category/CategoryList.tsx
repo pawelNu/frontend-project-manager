@@ -2,6 +2,7 @@ import { List, DatagridConfigurable, useListContext, TextInput, FunctionField, L
 import { DropdownActions } from '../../components/common/DropdownActions';
 import { routes } from '../../config/routes';
 import { ListActions } from '../../components/common/ListActions';
+import { NameLinkField } from '../../components/common/NameLinkField';
 
 const listFilters = [<TextInput source="name" label="Category Name" alwaysOn />];
 
@@ -31,14 +32,7 @@ export const CategoryList = () => (
                     display: { xs: 'none', md: 'table-cell' },
                 },
             }}>
-            <FunctionField
-                label="Category Name"
-                render={(record) => (
-                    <Link to={routes.category.show(record.id)} /*style={{ textDecoration: 'none', color: 'inherit' }}*/>
-                        {record.name}
-                    </Link>
-                )}
-            />
+            <NameLinkField source='name' resource='category' />
             <FunctionField label="Actions" render={(record) => <DropdownActions record={record} />} />
         </DatagridConfigurable>
     </List>

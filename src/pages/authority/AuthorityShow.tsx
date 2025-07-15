@@ -13,7 +13,8 @@ export const AuthorityShow = () => {
     return (
         <Show title={<AuthorityShowTitle />} actions={<ShowActions />} queryOptions={{ onError }}>
             <SimpleShowLayout>
-                <TextField source="name" label="Authority Name" />
+                <TextField source="nameBackend" label="Authority backend" />
+                <TextField source="nameFrontend" label="Authority frontend" />
                 {/* TODO add list of employees who have this authority */}
             </SimpleShowLayout>
         </Show>
