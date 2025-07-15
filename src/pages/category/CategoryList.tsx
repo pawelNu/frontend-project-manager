@@ -32,7 +32,7 @@ export const CategoryList = () => (
                     display: { xs: 'none', md: 'table-cell' },
                 },
             }}>
-            <NameLinkField source='name' resource='category' />
+            <NameLinkField source="name" resource="category" />
             <FunctionField label="Actions" render={(record) => <DropdownActions record={record} />} />
         </DatagridConfigurable>
     </List>
