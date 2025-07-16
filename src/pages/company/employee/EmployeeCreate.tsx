@@ -10,6 +10,7 @@ import {
     useGetList,
 } from 'react-admin';
 import { ShowActions } from '../../../components/common/ShowActions';
+import { routes } from '../../../config/routes';
 
 const EmployeeTitle = () => {
     const appTitle = useDefaultTitle();
@@ -23,7 +24,7 @@ const EmployeeTitle = () => {
 };
 
 export const EmployeeCreate = () => {
-    const { data: companies, isLoading } = useGetList('companies', {
+    const companies = useGetList(routes.company.name(), {
         pagination: { page: 1, perPage: 9999 },
         sort: { field: 'name', order: 'ASC' },
     });
@@ -33,12 +34,12 @@ export const EmployeeCreate = () => {
                 <AutocompleteInput
                     source="companyId"
                     label="Company"
-                    choices={companies ?? []}
+                    choices={companies.data ?? []}
                     optionText="name"
                     optionValue="id"
                     validate={required()}
                     fullWidth
-                    isLoading={isLoading}
+                    isLoading={companies.isLoading}
                 />
                 <TextInput source="firstName" label="First name" validate={required()} fullWidth />
                 <TextInput source="lastName" label="Last name" validate={required()} fullWidth />

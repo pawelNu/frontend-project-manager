@@ -9,6 +9,7 @@ import {
     useGetList,
 } from 'react-admin';
 import { ShowActions } from '../../../components/common/ShowActions';
+import { routes } from '../../../config/routes';
 
 const CompanyAddressTitle = () => {
     const appTitle = useDefaultTitle();
@@ -22,7 +23,7 @@ const CompanyAddressTitle = () => {
 };
 
 export const CompanyAddressCreate = () => {
-    const { data: companies, isLoading } = useGetList('companies', {
+    const companies = useGetList(routes.company.name(), {
         pagination: { page: 1, perPage: 9999 },
         sort: { field: 'name', order: 'ASC' },
     });
@@ -32,12 +33,12 @@ export const CompanyAddressCreate = () => {
                 <AutocompleteInput
                     source="companyId"
                     label="Company"
-                    choices={companies ?? []}
+                    choices={companies.data ?? []}
                     optionText="name"
                     optionValue="id"
                     validate={required()}
                     fullWidth
-                    isLoading={isLoading}
+                    isLoading={companies.isLoading}
                 />
                 <TextInput source="street" label="Street" validate={required()} fullWidth />
                 <TextInput source="streetNumber" label="Street Number" validate={required()} fullWidth />
