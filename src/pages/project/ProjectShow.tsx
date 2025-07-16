@@ -14,7 +14,10 @@ export const ProjectShow = () => {
         <Show title={<ProjectShowTitle />} actions={<ShowActions />} queryOptions={{ onError }}>
             <SimpleShowLayout>
                 <TextField source="name" label="Project Name" />
-                {/* TODO add list of employees who have this authority */}
+                <TextField source="categoryValue" label="Category" />
+                <TextField source="companyName" label="Company" />
+                <TextField source="assignedEmployee" label="Employee" />
+                <TextField source="priorityValue" label="Priority" />
             </SimpleShowLayout>
         </Show>
     );
