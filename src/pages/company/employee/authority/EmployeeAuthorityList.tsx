@@ -1,6 +1,7 @@
 import { List, DatagridConfigurable, TextField, useListContext, TextInput, FunctionField } from 'react-admin';
 import { DropdownActions } from '../../../../components/common/DropdownActions';
 import { ListActions } from '../../../../components/common/ListActions';
+import { NameLinkField } from '../../../../components/common/NameLinkField';
 
 const filters = [
     <TextInput source="username" label="Username" alwaysOn />,
@@ -30,7 +31,7 @@ export const EmployeeAuthorityList = () => (
             <TextField source="username" />
             <TextField source="employeeFirstName" />
             <TextField source="employeeLastName" />
-            <TextField source="authorityName" />
+            <NameLinkField source="authorityNameBackend" resource="employeeAuthority" />
             <FunctionField label="Actions" render={(record) => <DropdownActions record={record} />} />
         </DatagridConfigurable>
     </List>
