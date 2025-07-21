@@ -3,7 +3,6 @@ import { routes } from '../../../../config/routes';
 import { useNotFoundErrorHandler } from '../../../../hook/useStandardErrorHandler';
 import { ShowActions } from '../../../../components/common/ShowActions';
 
-// TODO do wiew with users and their authorities
 const EmployeeAuthorityTitle = () => {
     const record = useRecordContext();
     return <span>Employee: {`${record?.firstName} ${record?.lastName}`}</span>;
