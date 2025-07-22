@@ -27,7 +27,6 @@ import { CompanyList } from './pages/company/CompanyList';
 import { EmployeeAuthorityList } from './pages/company/employee/authority/EmployeeAuthorityList';
 import { EmployeeAuthorityShow } from './pages/company/employee/authority/EmployeeAuthorityShow';
 import { EmployeeAuthorityCreate } from './pages/company/employee/authority/EmployeeAuthorityCreate';
-import { EmployeeAuthorityEdit } from './pages/company/employee/authority/EmployeeAuthorityEdit';
 import { ProjectList } from './pages/project/ProjectList';
 import { ProjectCreate } from './pages/project/ProjectCreate';
 import { ProjectEdit } from './pages/project/ProjectEdit';
@@ -46,7 +45,6 @@ export const AdminResources = [
         list={EmployeeAuthorityList}
         show={EmployeeAuthorityShow}
         create={EmployeeAuthorityCreate}
-        edit={EmployeeAuthorityEdit}
     />,
     <Resource
         name={routes.category.name()}
