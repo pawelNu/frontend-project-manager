@@ -4,12 +4,9 @@ import {
     useListContext,
     TextInput,
     FunctionField,
-    Link,
     TextField,
-    useRecordContext,
 } from 'react-admin';
 import { DropdownActions } from '../../components/common/DropdownActions';
-import { routes } from '../../config/routes';
 import { ListActions } from '../../components/common/ListActions';
 import { NameLinkField } from '../../components/common/NameLinkField';
 
