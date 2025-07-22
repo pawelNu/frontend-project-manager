@@ -1,11 +1,4 @@
-import {
-    List,
-    DatagridConfigurable,
-    useListContext,
-    TextInput,
-    FunctionField,
-    TextField,
-} from 'react-admin';
+import { List, DatagridConfigurable, useListContext, TextInput, FunctionField, TextField } from 'react-admin';
 import { DropdownActions } from '../../components/common/DropdownActions';
 import { ListActions } from '../../components/common/ListActions';
 import { NameLinkField } from '../../components/common/NameLinkField';
