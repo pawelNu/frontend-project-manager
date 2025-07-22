@@ -21,12 +21,6 @@ const ProjectTitle = () => {
         </>
     );
 };
-// TODO add project create
-//   "name": "string",
-//   "categoryId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-//   "companyId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-//   "assignedEmployeeId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-//   "priorityId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
 
 export const ProjectCreate = () => {
     const categories = useGetList(routes.categoryValue.name(), {
