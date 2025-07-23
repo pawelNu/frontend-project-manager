@@ -10,6 +10,7 @@ import { SubMenu } from './SubMenu';
 import { routes } from '../config/routes';
 import KeyIcon from '@mui/icons-material/Key';
 import CategoryIcon from '@mui/icons-material/Category';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 
 type MenuItem = {
     type: 'item';
@@ -101,6 +102,19 @@ const menuConfig: MenuEntry[] = [
                 to: routes.employee.list(),
                 label: 'Employee',
                 icon: <PersonIcon />,
+            },
+        ],
+    },
+    {
+        type: 'submenu',
+        name: 'menuProjects',
+        label: 'Projects',
+        icon: <AppRegistrationIcon />,
+        children: [
+            {
+                to: routes.project.list(),
+                label: 'Projects',
+                icon: <AppRegistrationIcon />,
             },
         ],
     },

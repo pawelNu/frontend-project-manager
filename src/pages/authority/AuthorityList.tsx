@@ -1,7 +1,8 @@
-import { List, DatagridConfigurable, useListContext, TextInput, FunctionField, Link } from 'react-admin';
+import { List, DatagridConfigurable, useListContext, TextInput, FunctionField, Link, TextField } from 'react-admin';
 import { DropdownActions } from '../../components/common/DropdownActions';
 import { routes } from '../../config/routes';
 import { ListActions } from '../../components/common/ListActions';
+import { NameLinkField } from '../../components/common/NameLinkField';
 
 const listFilters = [<TextInput source="name" label="Authority Name" alwaysOn />];
 
@@ -31,16 +32,8 @@ export const AuthorityList = () => (
                     display: { xs: 'none', md: 'table-cell' },
                 },
             }}>
-            <FunctionField
-                label="Authority Name"
-                render={(record) => (
-                    <Link
-                        to={routes.authority.show(record.id)} /*style={{ textDecoration: 'none', color: 'inherit' }}*/
-                    >
-                        {record.name}
-                    </Link>
-                )}
-            />
+            <NameLinkField source="nameBackend" label="Name" resource="authority" />
+            <TextField source="nameFrontend" label="Frontend" />
             <FunctionField label="Actions" render={(record) => <DropdownActions record={record} />} />
         </DatagridConfigurable>
     </List>

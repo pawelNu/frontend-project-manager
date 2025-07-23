@@ -15,7 +15,8 @@ const AuthorityTitle = () => {
 export const AuthorityCreate = () => (
     <Create title={<AuthorityTitle />} actions={<ShowActions />} mutationMode="pessimistic">
         <SimpleForm sx={{ maxWidth: 500 }}>
-            <TextInput source="name" label="Authority Name" validate={required()} fullWidth />
+            <TextInput source="nameBackend" label="Authority Name Backend" validate={required()} fullWidth />
+            <TextInput source="nameFrontend" label="Authority Name Frontend" fullWidth />
         </SimpleForm>
     </Create>
 );

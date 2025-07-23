@@ -23,7 +23,8 @@ export const AuthorityEdit = () => {
             mutationMode="pessimistic"
             queryOptions={{ onError }}>
             <SimpleForm sx={{ maxWidth: 500 }}>
-                <TextInput source="name" label="Authority Name" validate={required()} fullWidth />
+                <TextInput source="nameBackend" label="Authority Name Backend" validate={required()} fullWidth />
+                <TextInput source="nameFrontend" label="Authority Name Frontend" fullWidth />
             </SimpleForm>
         </Edit>
     );
