@@ -3,7 +3,13 @@ import { DropdownActions } from '../../components/common/DropdownActions';
 import { ListActions } from '../../components/common/ListActions';
 import { NameLinkField } from '../../components/common/NameLinkField';
 
-const listFilters = [<TextInput source="name" label="Project Name" alwaysOn />];
+const listFilters = [
+    <TextInput source="name" label="Project Name" alwaysOn />,
+    <TextInput source="categoryValue" label="Category" alwaysOn />,
+    <TextInput source="companyName" label="Company" alwaysOn />,
+    <TextInput source="assignedEmployee" label="Employee" alwaysOn />,
+    <TextInput source="priorityValue" label="Priority" alwaysOn />,
+];
 
 const ProjectTitle = () => {
     const { defaultTitle } = useListContext();
