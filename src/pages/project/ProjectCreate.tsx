@@ -46,7 +46,7 @@ export const ProjectCreate = () => {
             <SimpleForm sx={{ maxWidth: 500 }}>
                 <TextInput source="name" label="Project Name" validate={required()} fullWidth />
                 <AutocompleteInput
-                    source="categoryId"
+                    source="categoryValueId"
                     label="Category"
                     choices={categories.data ?? []}
                     optionText={(record) => `${record.stringValue}`}
@@ -76,7 +76,7 @@ export const ProjectCreate = () => {
                     isLoading={employees.isLoading}
                 />
                 <AutocompleteInput
-                    source="priorityId"
+                    source="priorityValueId"
                     label="Priority"
                     choices={priorities.data ?? []}
                     optionText={(record) => `${record.numericValue} - ${record.stringValue}`}
