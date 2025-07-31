@@ -44,7 +44,11 @@ export const ProjectStepEdit = () => {
         filter: { categoryName: 'project priority' },
     });
     return (
-        <Edit title={<ProjectStepTitle />} actions={<ShowActions />} mutationMode="pessimistic" queryOptions={{ onError }}>
+        <Edit
+            title={<ProjectStepTitle />}
+            actions={<ShowActions />}
+            mutationMode="pessimistic"
+            queryOptions={{ onError }}>
             <SimpleForm sx={{ maxWidth: 500 }}>
                 <TextInput source="name" label="Project Name" validate={required()} fullWidth />
                 <AutocompleteInput
