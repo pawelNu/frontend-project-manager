@@ -6,6 +6,7 @@ const COMPANIES = '/companies';
 const COMPANY_ADDRESSES = '/company-addresses';
 const EMPLOYEES = '/employees';
 const PROJECTS = '/projects';
+const PROJECT_STEPS = '/project-steps';
 
 export const routes = {
     page: {
@@ -51,5 +52,10 @@ export const routes = {
         name: () => `${PROJECTS}`.replace('/', ''),
         list: () => `${PROJECTS}`,
         show: (id: string | number) => `${PROJECTS}/${id}/show`,
+    },
+    projectStep: {
+        name: () => `${PROJECT_STEPS}`.replace('/', ''),
+        list: () => `${PROJECT_STEPS}`,
+        show: (id: string | number) => `${PROJECT_STEPS}/${id}/show`,
     },
 };
