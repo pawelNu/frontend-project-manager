@@ -37,11 +37,11 @@ export const ProjectStepList = () => (
                     display: { xs: 'none', md: 'table-cell' },
                 },
             }}>
-            <NameLinkField source="name" label="Project Name" resource="project" />
-            <TextField source="categoryValue" label="Category" />
-            <TextField source="companyName" label="Company" />
-            <TextField source="assignedEmployee" label="Employee" />
+            <NameLinkField source="name" label="Project Step Name" resource="projectStep" />
             <TextField source="priorityValue" label="Priority" />
+            <TextField source="projectName" label="Project" />
+            <TextField source="assignedEmployee" label="Employee" />
+            <TextField source="deadline" label="Deadline" />
             <FunctionField label="Actions" render={(record) => <DropdownActions record={record} />} />
         </DatagridConfigurable>
     </List>
