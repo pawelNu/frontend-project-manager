@@ -28,9 +28,13 @@ import { EmployeeAuthorityList } from './pages/company/employee/authority/Employ
 import { EmployeeAuthorityShow } from './pages/company/employee/authority/EmployeeAuthorityShow';
 import { EmployeeAuthorityCreate } from './pages/company/employee/authority/EmployeeAuthorityCreate';
 import { ProjectList } from './pages/project/ProjectList';
+import { ProjectShow } from './pages/project/ProjectShow';
 import { ProjectCreate } from './pages/project/ProjectCreate';
 import { ProjectEdit } from './pages/project/ProjectEdit';
-import { ProjectShow } from './pages/project/ProjectShow';
+import { ProjectStepList } from './pages/project/step/ProjectStepList';
+import { ProjectStepShow } from './pages/project/step/ProjectStepShow';
+import { ProjectStepCreate } from './pages/project/step/ProjectStepCreate';
+import { ProjectStepEdit } from './pages/project/step/ProjectStepEdit';
 
 export const AdminResources = [
     <Resource
@@ -88,10 +92,15 @@ export const AdminResources = [
         create={ProjectCreate}
         edit={ProjectEdit}
     />,
+    <Resource
+        name={routes.projectStep.name()}
+        list={ProjectStepList}
+        show={ProjectStepShow}
+        create={ProjectStepCreate}
+        edit={ProjectStepEdit}
+    />,
 ];
 
-// TODO feat ui for api projects
-// TODO feat ui for api project_steps
 // TODO feat ui for api project_step_comments
 // TODO feat ui for api tickets
 // TODO feat ui for api attachments
