@@ -11,6 +11,7 @@ import {
 } from 'react-admin';
 import { ShowActions } from '../../../components/common/ShowActions';
 import { routes } from '../../../config/routes';
+import { formatISOStringToDate, parseDateToISOString } from '../../../components/shared';
 
 const ProjectStepTitle = () => {
     const appTitle = useDefaultTitle();
@@ -83,15 +84,4 @@ export const ProjectStepCreate = () => {
             </SimpleForm>
         </Create>
     );
-};
-
-const parseDateToISOString = (value: string) => {
-    if (!value) return null;
-    const [year, month, day] = value.split('-').map(Number);
-    return new Date(Date.UTC(year, month - 1, day)).toISOString();
-};
-
-const formatISOStringToDate = (value: string) => {
-    if (!value) return '';
-    return value.split('T')[0];
 };
