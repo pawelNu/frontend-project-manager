@@ -7,12 +7,10 @@ import {
     useDefaultTitle,
     useGetList,
     AutocompleteInput,
-    DateInput,
 } from 'react-admin';
 import { routes } from '../../../../config/routes';
 import { useNotFoundErrorHandler } from '../../../../hook/useStandardErrorHandler';
 import { ShowActions } from '../../../../components/common/ShowActions';
-import { formatISOStringToDate, parseDateToISOString } from '../../../../components/shared';
 
 const ProjectStepCommentTitle = () => {
     const appTitle = useDefaultTitle();
@@ -20,21 +18,16 @@ const ProjectStepCommentTitle = () => {
     return (
         <>
             <title>{`${appTitle} - ${record ? record.name : ''}`}</title>
-            <span>{record ? record.name : 'Edit Project step'}</span>
+            <span>{record ? record.name : 'Edit Project step comment'}</span>
         </>
     );
 };
 
 export const ProjectStepCommentEdit = () => {
     const onError = useNotFoundErrorHandler(routes.projectStepComment.list());
-    const projects = useGetList(routes.project.name(), {
+    const projectStep = useGetList(routes.projectStep.name(), {
         pagination: { page: 1, perPage: 9999 },
         sort: { field: 'name', order: 'ASC' },
-    });
-    const priorities = useGetList(routes.categoryValue.name(), {
-        pagination: { page: 1, perPage: 9999 },
-        sort: { field: 'numericValue', order: 'ASC' },
-        filter: { categoryName: 'project steps priority' },
     });
     const employees = useGetList(routes.employee.name(), {
         pagination: { page: 1, perPage: 9999 },
@@ -47,19 +40,19 @@ export const ProjectStepCommentEdit = () => {
             mutationMode="pessimistic"
             queryOptions={{ onError }}>
             <SimpleForm sx={{ maxWidth: 500 }}>
-                <TextInput source="name" label="Project Step Name" validate={required()} fullWidth />
+                <TextInput source="comment" label="Comment" validate={required()} fullWidth />
                 <AutocompleteInput
-                    source="projectId"
-                    label="Project"
-                    choices={projects.data ?? []}
-                    optionText={(record) => `${record.name}`}
+                    source="stepId"
+                    label="Project Step"
+                    choices={projectStep.data ?? []}
+                    optionText={(record) => `Project: ${record.projectName} - Step: ${record.name}`}
                     optionValue="id"
                     validate={required()}
                     fullWidth
-                    isLoading={projects.isLoading}
+                    isLoading={projectStep.isLoading}
                 />
                 <AutocompleteInput
-                    source="assignedEmployeeId"
+                    source="employeeId"
                     label="Employee"
                     choices={employees.data ?? []}
                     optionText={(record) => `${record.firstName} ${record.lastName}`}
@@ -67,24 +60,6 @@ export const ProjectStepCommentEdit = () => {
                     validate={required()}
                     fullWidth
                     isLoading={employees.isLoading}
-                />
-                <AutocompleteInput
-                    source="priorityValueId"
-                    label="Priority"
-                    choices={priorities.data ?? []}
-                    optionText={(record) => `${record.numericValue} - ${record.stringValue}`}
-                    optionValue="id"
-                    validate={required()}
-                    fullWidth
-                    isLoading={priorities.isLoading}
-                />
-                <DateInput
-                    source="deadline"
-                    label="Deadline"
-                    validate={required()}
-                    fullWidth
-                    parse={parseDateToISOString}
-                    format={formatISOStringToDate}
                 />
             </SimpleForm>
         </Edit>
