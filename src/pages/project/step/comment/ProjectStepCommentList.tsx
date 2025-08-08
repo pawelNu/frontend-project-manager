@@ -12,11 +12,11 @@ import { ListActions } from '../../../../components/common/ListActions';
 import { NameLinkField } from '../../../../components/common/NameLinkField';
 
 const listFilters = [
-    <TextInput source="name" label="Project Step Name" alwaysOn />,
-    <TextInput source="priorityValue" label="Priority" alwaysOn />,
-    <TextInput source="projectName" label="Project Name" alwaysOn />,
-    <TextInput source="assignedEmployee" label="Employee" alwaysOn />,
-    <DateInput source="deadline" label="Deadline to" alwaysOn />,
+    <TextInput source="comment" label="Comment" alwaysOn />,
+    <TextInput source="stepName" label="Step" alwaysOn />,
+    <TextInput source="projectName" label="Project" alwaysOn />,
+    <TextInput source="employeeName" label="Employee" alwaysOn />,
+    <DateInput source="created" label="Created to" alwaysOn />,
 ];
 
 const ProjectStepCommentTitle = () => {
