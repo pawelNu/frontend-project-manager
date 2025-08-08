@@ -5,7 +5,7 @@ import { ShowActions } from '../../../../components/common/ShowActions';
 
 const ProjectStepCommentShowTitle = () => {
     const record = useRecordContext();
-    return <span>Project step: {record?.name}</span>;
+    return <span>Project step comment: {record?.name}</span>;
 };
 
 export const ProjectStepCommentShow = () => {
@@ -13,11 +13,11 @@ export const ProjectStepCommentShow = () => {
     return (
         <Show title={<ProjectStepCommentShowTitle />} actions={<ShowActions />} queryOptions={{ onError }}>
             <SimpleShowLayout>
-                <TextField source="name" label="Project Step Name" />
-                <TextField source="priorityValue" label="Priority" />
+                <TextField source="comment" label="Comment" />
+                <TextField source="created" label="Created" />
                 <TextField source="projectName" label="Project" />
-                <TextField source="assignedEmployee" label="Employee" />
-                <TextField source="deadline" label="Deadline" />
+                <TextField source="stepName" label="Step" />
+                <TextField source="employeeName" label="Employee" />
             </SimpleShowLayout>
         </Show>
     );
