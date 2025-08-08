@@ -1,7 +1,6 @@
 import {
     AutocompleteInput,
     Create,
-    DateInput,
     SimpleForm,
     TextInput,
     required,
@@ -11,7 +10,6 @@ import {
 } from 'react-admin';
 import { ShowActions } from '../../../../components/common/ShowActions';
 import { routes } from '../../../../config/routes';
-import { formatISOStringToDate, parseDateToISOString } from '../../../../components/shared';
 
 const ProjectStepCommentTitle = () => {
     const appTitle = useDefaultTitle();
