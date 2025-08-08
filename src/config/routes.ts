@@ -7,6 +7,7 @@ const COMPANY_ADDRESSES = '/company-addresses';
 const EMPLOYEES = '/employees';
 const PROJECTS = '/projects';
 const PROJECT_STEPS = '/project-steps';
+const PROJECT_STEP_COMMENTS = '/project-step-comments';
 
 export const routes = {
     page: {
@@ -57,5 +58,10 @@ export const routes = {
         name: () => `${PROJECT_STEPS}`.replace('/', ''),
         list: () => `${PROJECT_STEPS}`,
         show: (id: string | number) => `${PROJECT_STEPS}/${id}/show`,
+    },
+    projectStepComment: {
+        name: () => `${PROJECT_STEP_COMMENTS}`.replace('/', ''),
+        list: () => `${PROJECT_STEP_COMMENTS}`,
+        show: (id: string | number) => `${PROJECT_STEP_COMMENTS}/${id}/show`,
     },
 };
