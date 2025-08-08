@@ -32,7 +32,7 @@ export const ProjectStepCommentList = () => (
     <List
         filters={listFilters}
         perPage={25}
-        sort={{ field: 'name', order: 'ASC' }}
+        sort={{ field: 'created', order: 'DESC' }}
         actions={<ListActions />}
         title={<ProjectStepCommentTitle />}>
         <DatagridConfigurable
@@ -49,6 +49,7 @@ export const ProjectStepCommentList = () => (
             <TextField source="stepName" label="Step" />
             <TextField source="projectName" label="Project" />
             <TextField source="employeeName" label="Employee" />
+            <TextField source="created" label="Created" />
             <FunctionField label="Actions" render={(record) => <DropdownActions record={record} />} />
         </DatagridConfigurable>
     </List>
