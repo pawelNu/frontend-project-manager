@@ -121,6 +121,11 @@ const menuConfig: MenuEntry[] = [
                 label: 'Project steps',
                 icon: <AppRegistrationIcon />,
             },
+            {
+                to: routes.projectStepComment.list(),
+                label: 'Project step comments',
+                icon: <AppRegistrationIcon />,
+            },
         ],
     },
 ];
