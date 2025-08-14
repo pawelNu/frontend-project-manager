@@ -8,6 +8,7 @@ const EMPLOYEES = '/employees';
 const PROJECTS = '/projects';
 const PROJECT_STEPS = '/project-steps';
 const PROJECT_STEP_COMMENTS = '/project-step-comments';
+const TICKETS = '/tickets';
 
 export const routes = {
     page: {
@@ -63,5 +64,10 @@ export const routes = {
         name: () => `${PROJECT_STEP_COMMENTS}`.replace('/', ''),
         list: () => `${PROJECT_STEP_COMMENTS}`,
         show: (id: string | number) => `${PROJECT_STEP_COMMENTS}/${id}/show`,
+    },
+    ticket: {
+        name: () => `${TICKETS}`.replace('/', ''),
+        list: () => `${TICKETS}`,
+        show: (id: string | number) => `${TICKETS}/${id}/show`,
     },
 };
