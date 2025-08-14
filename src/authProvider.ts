@@ -58,7 +58,7 @@ export const authProvider: AuthProvider = {
             throw new Error('Session expired');
         }
         if (status === 403) {
-            const err = new Error('Brak uprawnień do wykonania tej operacji.');
+            const err = new Error('You do not have permission to perform this operation.');
             // err.logoutUser = false;
             // err.redirectTo = false;
             throw err;
