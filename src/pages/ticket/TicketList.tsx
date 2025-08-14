@@ -2,7 +2,7 @@ import { List, DatagridConfigurable, useListContext, TextInput, FunctionField, T
 import { DropdownActions } from '../../components/common/DropdownActions';
 import { ListActions } from '../../components/common/ListActions';
 import { NameLinkField } from '../../components/common/NameLinkField';
-
+// TODO fix filters
 const listFilters = [
     <TextInput source="name" label="Project Name" alwaysOn />,
     <TextInput source="categoryValue" label="Category" alwaysOn />,
@@ -24,7 +24,7 @@ export const TicketList = () => (
     <List
         filters={listFilters}
         perPage={25}
-        sort={{ field: 'name', order: 'ASC' }}
+        sort={{ field: 'number', order: 'ASC' }}
         actions={<ListActions />}
         title={<TicketTitle />}>
         <DatagridConfigurable
@@ -37,11 +37,14 @@ export const TicketList = () => (
                     display: { xs: 'none', md: 'table-cell' },
                 },
             }}>
-            <NameLinkField source="name" label="Ticket Name" resource="ticket" />
+            <NameLinkField source="number" label="Ticket Number" resource="ticket" />
+            <TextField source="title" label="Title" />
+            <TextField source="deadline" label="Deadline" />
+            <TextField source="additionalDetails" label="Details" />
             <TextField source="categoryValue" label="Category" />
-            <TextField source="companyName" label="Company" />
-            <TextField source="assignedEmployee" label="Employee" />
             <TextField source="priorityValue" label="Priority" />
+            <TextField source="projectName" label="Project" />
+            <TextField source="projectStepName" label="Step" />
             <FunctionField label="Actions" render={(record) => <DropdownActions record={record} />} />
         </DatagridConfigurable>
     </List>

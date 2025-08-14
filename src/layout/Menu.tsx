@@ -136,7 +136,7 @@ const menuConfig: MenuEntry[] = [
         icon: <ListIcon />,
         children: [
             {
-                to: routes.project.list(),
+                to: routes.ticket.list(),
                 label: 'Tickets',
                 icon: <ListIcon />,
             },
