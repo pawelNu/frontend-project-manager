@@ -1,6 +1,7 @@
 import {
     AutocompleteInput,
     Create,
+    DateInput,
     SimpleForm,
     TextInput,
     required,
@@ -10,6 +11,8 @@ import {
 } from 'react-admin';
 import { ShowActions } from '../../components/common/ShowActions';
 import { routes } from '../../config/routes';
+import { parseDateToISOString, formatISOStringToDate } from '../../components/shared';
+import { useWatch } from 'react-hook-form';
 
 const TicketTitle = () => {
     const appTitle = useDefaultTitle();
@@ -22,70 +25,112 @@ const TicketTitle = () => {
     );
 };
 
-export const TicketCreate = () => {
+const TicketFormContent = () => {
     const categories = useGetList(routes.categoryValue.name(), {
         pagination: { page: 1, perPage: 9999 },
         sort: { field: 'stringValue', order: 'ASC' },
-        filter: { categoryName: 'project category' },
+        filter: { categoryName: 'ticket category' },
     });
-    const companies = useGetList(routes.company.name(), {
+
+    const projects = useGetList(routes.project.name(), {
         pagination: { page: 1, perPage: 9999 },
         sort: { field: 'name', order: 'ASC' },
     });
-    const employees = useGetList(routes.employee.name(), {
-        pagination: { page: 1, perPage: 9999 },
-        sort: { field: 'lastName', order: 'ASC' },
-    });
+
     const priorities = useGetList(routes.categoryValue.name(), {
         pagination: { page: 1, perPage: 9999 },
         sort: { field: 'numericValue', order: 'ASC' },
-        filter: { categoryName: 'project priority' },
+        filter: { categoryName: 'ticket priority' },
     });
+
+    const projectId = useWatch({ name: 'projectId' });
+    console.log('🚀   TicketFormContent   projectId:', projectId);
+
+    const projectSteps = useGetList(
+        routes.projectStep.name(),
+        {
+            pagination: { page: 1, perPage: 9999 },
+            sort: { field: 'lastName', order: 'ASC' },
+            filter: projectId ? { projectId: projectId } : {},
+        },
+        {
+            enabled: Boolean(projectId),
+        },
+    );
+
     return (
-        <Create title={<TicketTitle />} actions={<ShowActions />} mutationMode="pessimistic">
-            <SimpleForm sx={{ maxWidth: 500 }}>
-                <TextInput source="name" label="Project Name" validate={required()} fullWidth />
-                <AutocompleteInput
-                    source="categoryValueId"
-                    label="Category"
-                    choices={categories.data ?? []}
-                    optionText={(record) => `${record.stringValue}`}
-                    optionValue="id"
-                    validate={required()}
-                    fullWidth
-                    isLoading={categories.isLoading}
-                />
-                <AutocompleteInput
-                    source="companyId"
-                    label="Company"
-                    choices={companies.data ?? []}
-                    optionText={(record) => `${record.name}`}
-                    optionValue="id"
-                    validate={required()}
-                    fullWidth
-                    isLoading={companies.isLoading}
-                />
-                <AutocompleteInput
-                    source="assignedEmployeeId"
-                    label="Employee"
-                    choices={employees.data ?? []}
-                    optionText={(record) => `${record.firstName} ${record.lastName}`}
-                    optionValue="id"
-                    validate={required()}
-                    fullWidth
-                    isLoading={employees.isLoading}
-                />
-                <AutocompleteInput
-                    source="priorityValueId"
-                    label="Priority"
-                    choices={priorities.data ?? []}
-                    optionText={(record) => `${record.numericValue} - ${record.stringValue}`}
-                    optionValue="id"
-                    validate={required()}
-                    fullWidth
-                    isLoading={priorities.isLoading}
-                />
-            </SimpleForm>
-        </Create>
+        <>
+            <TextInput source="title" label="Ticket Title" validate={required()} fullWidth />
+
+            <AutocompleteInput
+                source="categoryValueId"
+                label="Category"
+                choices={categories.data ?? []}
+                optionText={(record) => `${record.stringValue}`}
+                optionValue="id"
+                validate={required()}
+                fullWidth
+                isLoading={categories.isLoading}
+            />
+
+            <DateInput
+                source="deadline"
+                label="Deadline"
+                validate={required()}
+                fullWidth
+                parse={parseDateToISOString}
+                format={formatISOStringToDate}
+            />
+
+            <AutocompleteInput
+                source="priorityValueId"
+                label="Priority"
+                choices={priorities.data ?? []}
+                optionText={(record) => `${record.numericValue} - ${record.stringValue}`}
+                optionValue="id"
+                validate={required()}
+                fullWidth
+                isLoading={priorities.isLoading}
+            />
+
+            <AutocompleteInput
+                source="projectId"
+                label="Project"
+                choices={projects.data ?? []}
+                optionText={(record) => `${record.name}`}
+                optionValue="id"
+                validate={required()}
+                fullWidth
+                isLoading={projects.isLoading}
+            />
+
+            <AutocompleteInput
+                source="stepId"
+                label="Project Step"
+                choices={projectSteps.data ?? []}
+                optionText={(record) => `${record.name}`}
+                optionValue="id"
+                validate={required()}
+                fullWidth
+                isLoading={projectSteps.isLoading}
+                disabled={!projectId}
+            />
+
+            <TextInput
+                source="additionalDetails"
+                label="Additional Details"
+                validate={required()}
+                fullWidth
+                multiline
+            />
+        </>
     );
 };
+
+export const TicketCreate = () => (
+    <Create title={<TicketTitle />} actions={<ShowActions />} mutationMode="pessimistic">
+        <SimpleForm sx={{ maxWidth: 500 }}>
+            <TicketFormContent />
+        </SimpleForm>
+    </Create>
+);
