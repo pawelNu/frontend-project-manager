@@ -1,17 +1,25 @@
-import { List, DatagridConfigurable, useListContext, TextInput, FunctionField, TextField, DateInput } from 'react-admin';
+import {
+    List,
+    DatagridConfigurable,
+    useListContext,
+    TextInput,
+    FunctionField,
+    TextField,
+    DateInput,
+} from 'react-admin';
 import { DropdownActions } from '../../components/common/DropdownActions';
 import { ListActions } from '../../components/common/ListActions';
 import { NameLinkField } from '../../components/common/NameLinkField';
 
 const listFilters = [
-    <TextInput source="number" label="Ticket Number" alwaysOn/>,
-    <TextInput source="title" label="Title" alwaysOn/>,
-    <DateInput source="deadline" label="Deadline" alwaysOn/>,
-    <TextInput source="additionalDetails" label="Details" alwaysOn/>,
-    <TextInput source="categoryValue" label="Category" alwaysOn/>,
-    <TextInput source="priorityValue" label="Priority" alwaysOn/>,
-    <TextInput source="projectName" label="Project" alwaysOn/>,
-    <TextInput source="projectStepName" label="Step" alwaysOn/>,
+    <TextInput source="number" label="Ticket Number" alwaysOn />,
+    <TextInput source="title" label="Title" alwaysOn />,
+    <DateInput source="deadline" label="Deadline" alwaysOn />,
+    <TextInput source="additionalDetails" label="Details" alwaysOn />,
+    <TextInput source="categoryValue" label="Category" alwaysOn />,
+    <TextInput source="priorityValue" label="Priority" alwaysOn />,
+    <TextInput source="projectName" label="Project" alwaysOn />,
+    <TextInput source="projectStepName" label="Step" alwaysOn />,
 ];
 
 const TicketTitle = () => {
