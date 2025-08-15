@@ -105,7 +105,7 @@ const TicketFormContent = () => {
             />
 
             <AutocompleteInput
-                source="stepId"
+                source="projectStepId"
                 label="Project Step"
                 choices={projectSteps.data ?? []}
                 optionText={(record) => `${record.name}`}
