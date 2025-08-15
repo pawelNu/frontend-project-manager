@@ -42,12 +42,6 @@ const menuConfig: MenuEntry[] = [
         icon: <DashboardIcon />,
     },
     {
-        type: 'item',
-        to: '/reviews',
-        label: 'resources.reviews.name',
-        icon: <BusinessIcon />,
-    },
-    {
         type: 'submenu',
         name: 'menuAuthority',
         label: 'Authority',

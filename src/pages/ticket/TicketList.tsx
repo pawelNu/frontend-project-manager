@@ -1,14 +1,17 @@
-import { List, DatagridConfigurable, useListContext, TextInput, FunctionField, TextField } from 'react-admin';
+import { List, DatagridConfigurable, useListContext, TextInput, FunctionField, TextField, DateInput } from 'react-admin';
 import { DropdownActions } from '../../components/common/DropdownActions';
 import { ListActions } from '../../components/common/ListActions';
 import { NameLinkField } from '../../components/common/NameLinkField';
-// TODO fix filters
+
 const listFilters = [
-    <TextInput source="name" label="Project Name" alwaysOn />,
-    <TextInput source="categoryValue" label="Category" alwaysOn />,
-    <TextInput source="companyName" label="Company" alwaysOn />,
-    <TextInput source="assignedEmployee" label="Employee" alwaysOn />,
-    <TextInput source="priorityValue" label="Priority" alwaysOn />,
+    <TextInput source="number" label="Ticket Number" alwaysOn/>,
+    <TextInput source="title" label="Title" alwaysOn/>,
+    <DateInput source="deadline" label="Deadline" alwaysOn/>,
+    <TextInput source="additionalDetails" label="Details" alwaysOn/>,
+    <TextInput source="categoryValue" label="Category" alwaysOn/>,
+    <TextInput source="priorityValue" label="Priority" alwaysOn/>,
+    <TextInput source="projectName" label="Project" alwaysOn/>,
+    <TextInput source="projectStepName" label="Step" alwaysOn/>,
 ];
 
 const TicketTitle = () => {
