@@ -11,6 +11,7 @@ import { routes } from '../config/routes';
 import KeyIcon from '@mui/icons-material/Key';
 import CategoryIcon from '@mui/icons-material/Category';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import ListIcon from '@mui/icons-material/List';
 
 type MenuItem = {
     type: 'item';
@@ -39,12 +40,6 @@ const menuConfig: MenuEntry[] = [
         to: '/',
         label: 'ra.page.dashboard',
         icon: <DashboardIcon />,
-    },
-    {
-        type: 'item',
-        to: '/reviews',
-        label: 'resources.reviews.name',
-        icon: <BusinessIcon />,
     },
     {
         type: 'submenu',
@@ -125,6 +120,19 @@ const menuConfig: MenuEntry[] = [
                 to: routes.projectStepComment.list(),
                 label: 'Project step comments',
                 icon: <AppRegistrationIcon />,
+            },
+        ],
+    },
+    {
+        type: 'submenu',
+        name: 'menuTickets',
+        label: 'Tickets',
+        icon: <ListIcon />,
+        children: [
+            {
+                to: routes.ticket.list(),
+                label: 'Tickets',
+                icon: <ListIcon />,
             },
         ],
     },

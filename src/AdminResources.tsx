@@ -39,6 +39,10 @@ import { ProjectStepCommentList } from './pages/project/step/comment/ProjectStep
 import { ProjectStepCommentShow } from './pages/project/step/comment/ProjectStepCommentShow';
 import { ProjectStepCommentCreate } from './pages/project/step/comment/ProjectStepCommentCreate';
 import { ProjectStepCommentEdit } from './pages/project/step/comment/ProjectStepCommentEdit';
+import { TicketList } from './pages/ticket/TicketList';
+import { TicketShow } from './pages/ticket/TicketShow';
+import { TicketCreate } from './pages/ticket/TicketCreate';
+import { TicketEdit } from './pages/ticket/TicketEdit';
 
 export const AdminResources = [
     <Resource
@@ -110,8 +114,14 @@ export const AdminResources = [
         create={ProjectStepCommentCreate}
         edit={ProjectStepCommentEdit}
     />,
+    <Resource
+        name={routes.ticket.name()}
+        list={TicketList}
+        show={TicketShow}
+        create={TicketCreate}
+        edit={TicketEdit}
+    />,
 ];
 
-// TODO feat ui for api tickets
 // TODO feat ui for api attachments
 // TODO feat ui for api ticket_histories
