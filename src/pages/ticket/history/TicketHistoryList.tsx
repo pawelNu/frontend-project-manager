@@ -10,7 +10,7 @@ import {
 import { DropdownActions } from '../../../components/common/DropdownActions';
 import { ListActions } from '../../../components/common/ListActions';
 import { NameLinkField } from '../../../components/common/NameLinkField';
-
+// TODO adjust filters
 const listFilters = [
     <TextInput source="number" label="Ticket History Number" alwaysOn />,
     <TextInput source="title" label="Title" alwaysOn />,
@@ -48,14 +48,14 @@ export const TicketHistoryList = () => (
                     display: { xs: 'none', md: 'table-cell' },
                 },
             }}>
-            <NameLinkField source="number" label="Ticket History Number" resource="ticketHistory" />
-            <TextField source="title" label="Title" />
-            <TextField source="deadline" label="Deadline" />
-            <TextField source="additionalDetails" label="Details" />
-            <TextField source="categoryValue" label="Category" />
-            <TextField source="priorityValue" label="Priority" />
-            <TextField source="projectName" label="Project" />
-            <TextField source="projectStepName" label="Step" />
+            <NameLinkField source="ticketNumber" label="Ticket Number" resource="ticketHistory" />
+            <TextField source="ticketTitle" label="Ticket Title" />
+            <TextField source="fromStatusName" label="From Status" />
+            <TextField source="toStatusName" label="To Status" />
+            <TextField source="fromEmployeeName" label="From Employee" />
+            <TextField source="toEmployeeName" label="To Employee" />
+            <TextField source="comment" label="Comment" />
+            <TextField source="created" label="Created" />
             <FunctionField label="Actions" render={(record) => <DropdownActions record={record} />} />
         </DatagridConfigurable>
     </List>
