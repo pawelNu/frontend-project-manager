@@ -130,7 +130,11 @@ const TicketHistoryFormContent = () => {
 export const TicketHistoryEdit = () => {
     const onError = useNotFoundErrorHandler(routes.ticketHistory.list());
     return (
-        <Edit title={<TicketHistoryTitle />} actions={<ShowActions />} mutationMode="pessimistic" queryOptions={{ onError }}>
+        <Edit
+            title={<TicketHistoryTitle />}
+            actions={<ShowActions />}
+            mutationMode="pessimistic"
+            queryOptions={{ onError }}>
             <SimpleForm sx={{ maxWidth: 500 }}>
                 <TicketHistoryFormContent />
             </SimpleForm>
