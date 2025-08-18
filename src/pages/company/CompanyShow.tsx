@@ -13,9 +13,7 @@ const CompanyShowTitle = () => {
 
 const AddressCard = () => {
     const record = useRecordContext();
-    console.log(' CompanyShow  test  record:', record);
     const addresses = record?.addresses;
-    console.log(' AddressCard test  addresses:', addresses);
     return (
         <Card sx={{ marginTop: 2 }}>
             <CardContent>

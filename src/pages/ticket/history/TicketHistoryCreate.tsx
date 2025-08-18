@@ -1,36 +1,35 @@
 import {
-    Edit,
+    AutocompleteInput,
+    Create,
+    DateInput,
     SimpleForm,
     TextInput,
     required,
-    useEditContext,
+    useCreateContext,
     useDefaultTitle,
     useGetList,
-    AutocompleteInput,
-    DateInput,
 } from 'react-admin';
-import { routes } from '../../config/routes';
-import { useNotFoundErrorHandler } from '../../hook/useStandardErrorHandler';
-import { ShowActions } from '../../components/common/ShowActions';
+import { ShowActions } from '../../../components/common/ShowActions';
+import { routes } from '../../../config/routes';
+import { parseDateToISOString, formatISOStringToDate } from '../../../components/shared';
 import { useWatch } from 'react-hook-form';
-import { parseDateToISOString, formatISOStringToDate } from '../../components/shared';
 
-const TicketTitle = () => {
+const TicketHistoryTitle = () => {
     const appTitle = useDefaultTitle();
-    const { record } = useEditContext();
+    const { defaultTitle } = useCreateContext();
     return (
         <>
-            <title>{`${appTitle} - ${record ? record.name : ''}`}</title>
-            <span>{record ? record.name : 'Edit Ticket'}</span>
+            <title>{`${appTitle} - ${defaultTitle}`}</title>
+            <span>{defaultTitle}</span>
         </>
     );
 };
 
-const TicketFormContent = () => {
+const TicketHistoryFormContent = () => {
     const categories = useGetList(routes.categoryValue.name(), {
         pagination: { page: 1, perPage: 9999 },
         sort: { field: 'stringValue', order: 'ASC' },
-        filter: { categoryName: 'ticket category' },
+        filter: { categoryName: 'ticket status' },
     });
 
     const projects = useGetList(routes.project.name(), {
@@ -41,11 +40,10 @@ const TicketFormContent = () => {
     const priorities = useGetList(routes.categoryValue.name(), {
         pagination: { page: 1, perPage: 9999 },
         sort: { field: 'numericValue', order: 'ASC' },
-        filter: { categoryName: 'ticket priority' },
+        filter: { categoryName: 'ticketHistory priority' },
     });
 
     const projectId = useWatch({ name: 'projectId' });
-
     const projectSteps = useGetList(
         routes.projectStep.name(),
         {
@@ -60,7 +58,7 @@ const TicketFormContent = () => {
 
     return (
         <>
-            <TextInput source="title" label="Ticket Title" validate={required()} fullWidth />
+            <TextInput source="title" label="TicketHistory Title" validate={required()} fullWidth />
 
             <AutocompleteInput
                 source="categoryValueId"
@@ -127,13 +125,10 @@ const TicketFormContent = () => {
     );
 };
 
-export const TicketEdit = () => {
-    const onError = useNotFoundErrorHandler(routes.ticket.list());
-    return (
-        <Edit title={<TicketTitle />} actions={<ShowActions />} mutationMode="pessimistic" queryOptions={{ onError }}>
-            <SimpleForm sx={{ maxWidth: 500 }}>
-                <TicketFormContent />
-            </SimpleForm>
-        </Edit>
-    );
-};
+export const TicketHistoryCreate = () => (
+    <Create title={<TicketHistoryTitle />} actions={<ShowActions />} mutationMode="pessimistic">
+        <SimpleForm sx={{ maxWidth: 500 }}>
+            <TicketHistoryFormContent />
+        </SimpleForm>
+    </Create>
+);

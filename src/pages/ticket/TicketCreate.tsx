@@ -44,8 +44,6 @@ const TicketFormContent = () => {
     });
 
     const projectId = useWatch({ name: 'projectId' });
-    console.log('🚀   TicketFormContent   projectId:', projectId);
-
     const projectSteps = useGetList(
         routes.projectStep.name(),
         {

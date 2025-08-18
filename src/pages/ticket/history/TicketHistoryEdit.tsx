@@ -9,28 +9,28 @@ import {
     AutocompleteInput,
     DateInput,
 } from 'react-admin';
-import { routes } from '../../config/routes';
-import { useNotFoundErrorHandler } from '../../hook/useStandardErrorHandler';
-import { ShowActions } from '../../components/common/ShowActions';
+import { routes } from '../../../config/routes';
+import { useNotFoundErrorHandler } from '../../../hook/useStandardErrorHandler';
+import { ShowActions } from '../../../components/common/ShowActions';
 import { useWatch } from 'react-hook-form';
-import { parseDateToISOString, formatISOStringToDate } from '../../components/shared';
+import { parseDateToISOString, formatISOStringToDate } from '../../../components/shared';
 
-const TicketTitle = () => {
+const TicketHistoryTitle = () => {
     const appTitle = useDefaultTitle();
     const { record } = useEditContext();
     return (
         <>
             <title>{`${appTitle} - ${record ? record.name : ''}`}</title>
-            <span>{record ? record.name : 'Edit Ticket'}</span>
+            <span>{record ? record.name : 'Edit Ticket History'}</span>
         </>
     );
 };
 
-const TicketFormContent = () => {
+const TicketHistoryFormContent = () => {
     const categories = useGetList(routes.categoryValue.name(), {
         pagination: { page: 1, perPage: 9999 },
         sort: { field: 'stringValue', order: 'ASC' },
-        filter: { categoryName: 'ticket category' },
+        filter: { categoryName: 'ticket status' },
     });
 
     const projects = useGetList(routes.project.name(), {
@@ -41,7 +41,7 @@ const TicketFormContent = () => {
     const priorities = useGetList(routes.categoryValue.name(), {
         pagination: { page: 1, perPage: 9999 },
         sort: { field: 'numericValue', order: 'ASC' },
-        filter: { categoryName: 'ticket priority' },
+        filter: { categoryName: 'ticketHistory priority' },
     });
 
     const projectId = useWatch({ name: 'projectId' });
@@ -60,7 +60,7 @@ const TicketFormContent = () => {
 
     return (
         <>
-            <TextInput source="title" label="Ticket Title" validate={required()} fullWidth />
+            <TextInput source="title" label="Ticket History Title" validate={required()} fullWidth />
 
             <AutocompleteInput
                 source="categoryValueId"
@@ -127,12 +127,16 @@ const TicketFormContent = () => {
     );
 };
 
-export const TicketEdit = () => {
-    const onError = useNotFoundErrorHandler(routes.ticket.list());
+export const TicketHistoryEdit = () => {
+    const onError = useNotFoundErrorHandler(routes.ticketHistory.list());
     return (
-        <Edit title={<TicketTitle />} actions={<ShowActions />} mutationMode="pessimistic" queryOptions={{ onError }}>
+        <Edit
+            title={<TicketHistoryTitle />}
+            actions={<ShowActions />}
+            mutationMode="pessimistic"
+            queryOptions={{ onError }}>
             <SimpleForm sx={{ maxWidth: 500 }}>
-                <TicketFormContent />
+                <TicketHistoryFormContent />
             </SimpleForm>
         </Edit>
     );

@@ -43,6 +43,10 @@ import { TicketList } from './pages/ticket/TicketList';
 import { TicketShow } from './pages/ticket/TicketShow';
 import { TicketCreate } from './pages/ticket/TicketCreate';
 import { TicketEdit } from './pages/ticket/TicketEdit';
+import { TicketHistoryList } from './pages/ticket/history/TicketHistoryList';
+import { TicketHistoryShow } from './pages/ticket/history/TicketHistoryShow';
+import { TicketHistoryCreate } from './pages/ticket/history/TicketHistoryCreate';
+import { TicketHistoryEdit } from './pages/ticket/history/TicketHistoryEdit';
 
 export const AdminResources = [
     <Resource
@@ -121,7 +125,13 @@ export const AdminResources = [
         create={TicketCreate}
         edit={TicketEdit}
     />,
+    <Resource
+        name={routes.ticketHistory.name()}
+        list={TicketHistoryList}
+        show={TicketHistoryShow}
+        create={TicketHistoryCreate}
+        edit={TicketHistoryEdit}
+    />,
 ];
 
 // TODO feat ui for api attachments
-// TODO feat ui for api ticket_histories
