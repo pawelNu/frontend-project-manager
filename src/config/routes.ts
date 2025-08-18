@@ -9,6 +9,7 @@ const PROJECTS = '/projects';
 const PROJECT_STEPS = '/project-steps';
 const PROJECT_STEP_COMMENTS = '/project-step-comments';
 const TICKETS = '/tickets';
+const TICKET_HISTORIES = '/ticket-histories';
 
 export const routes = {
     page: {
@@ -69,5 +70,10 @@ export const routes = {
         name: () => `${TICKETS}`.replace('/', ''),
         list: () => `${TICKETS}`,
         show: (id: string | number) => `${TICKETS}/${id}/show`,
+    },
+    ticketHistory: {
+        name: () => `${TICKET_HISTORIES}`.replace('/', ''),
+        list: () => `${TICKET_HISTORIES}`,
+        show: (id: string | number) => `${TICKET_HISTORIES}/${id}/show`,
     },
 };

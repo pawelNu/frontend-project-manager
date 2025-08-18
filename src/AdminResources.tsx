@@ -124,4 +124,3 @@ export const AdminResources = [
 ];
 
 // TODO feat ui for api attachments
-// TODO feat ui for api ticket_histories
