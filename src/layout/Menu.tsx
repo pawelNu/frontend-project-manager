@@ -134,6 +134,11 @@ const menuConfig: MenuEntry[] = [
                 label: 'Tickets',
                 icon: <ListIcon />,
             },
+            {
+                to: routes.ticketHistory.list(),
+                label: 'Ticket History',
+                icon: <ListIcon />,
+            },
         ],
     },
 ];
