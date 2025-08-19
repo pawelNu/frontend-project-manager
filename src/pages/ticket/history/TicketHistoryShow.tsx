@@ -13,14 +13,14 @@ export const TicketHistoryShow = () => {
     return (
         <Show title={<TicketHistoryShowTitle />} actions={<ShowActions />} queryOptions={{ onError }}>
             <SimpleShowLayout>
-                <TextField source="number" label="Ticket History Number" />
-                <TextField source="title" label="Title" />
-                <TextField source="deadline" label="Deadline" />
-                <TextField source="additionalDetails" label="Details" />
-                <TextField source="categoryValue" label="Category" />
-                <TextField source="priorityValue" label="Priority" />
-                <TextField source="projectName" label="Project" />
-                <TextField source="projectStepName" label="Step" />
+                <TextField source="ticketNumber" label="Ticket Number" />
+                <TextField source="ticketTitle" label="Ticket Title" />
+                <TextField source="fromStatusName" label="From Status" />
+                <TextField source="toStatusName" label="To Status" />
+                <TextField source="fromEmployeeName" label="From Employee" />
+                <TextField source="toEmployeeName" label="To Employee" />
+                <TextField source="comment" label="Comment" />
+                <TextField source="created" label="Created" />
             </SimpleShowLayout>
         </Show>
     );
