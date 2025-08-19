@@ -10,16 +10,16 @@ import {
 import { DropdownActions } from '../../../components/common/DropdownActions';
 import { ListActions } from '../../../components/common/ListActions';
 import { NameLinkField } from '../../../components/common/NameLinkField';
-// TODO adjust filters
+
 const listFilters = [
-    <TextInput source="number" label="Ticket History Number" alwaysOn />,
-    <TextInput source="title" label="Title" alwaysOn />,
-    <DateInput source="deadline" label="Deadline" alwaysOn />,
-    <TextInput source="additionalDetails" label="Details" alwaysOn />,
-    <TextInput source="categoryValue" label="Category" alwaysOn />,
-    <TextInput source="priorityValue" label="Priority" alwaysOn />,
-    <TextInput source="projectName" label="Project" alwaysOn />,
-    <TextInput source="projectStepName" label="Step" alwaysOn />,
+    <TextInput source="ticketNumber" label="Ticket Number" alwaysOn />,
+    <TextInput source="ticketTitle" label="Ticket Title" alwaysOn />,
+    <TextInput source="fromStatusName" label="From Status" alwaysOn />,
+    <TextInput source="toStatusName" label="To Status" alwaysOn />,
+    <TextInput source="fromEmployeeName" label="From Employee" alwaysOn />,
+    <TextInput source="toEmployeeName" label="To Employee" alwaysOn />,
+    <TextInput source="comment" label="Comment" alwaysOn />,
+    <DateInput source="created" label="Created" alwaysOn />,
 ];
 
 const TicketHistoryTitle = () => {
@@ -35,7 +35,7 @@ export const TicketHistoryList = () => (
     <List
         filters={listFilters}
         perPage={25}
-        sort={{ field: 'number', order: 'ASC' }}
+        sort={{ field: 'created', order: 'ASC' }}
         actions={<ListActions />}
         title={<TicketHistoryTitle />}>
         <DatagridConfigurable
